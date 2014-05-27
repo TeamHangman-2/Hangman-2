@@ -1,0 +1,5 @@
+C:\Users\Kalimar\Desktop\Hangman-2\bin\Debug\Hangman.exe
+C:\Users\Kalimar\Desktop\Hangman-2\bin\Debug\Hangman.pdb
+C:\Users\Kalimar\Desktop\Hangman-2\obj\x86\Debug\KPK.Proekt1.csprojResolveAssemblyReference.cache
+C:\Users\Kalimar\Desktop\Hangman-2\obj\x86\Debug\Hangman.exe
+C:\Users\Kalimar\Desktop\Hangman-2\obj\x86\Debug\Hangman.pdb
