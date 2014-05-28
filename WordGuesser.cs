@@ -19,7 +19,7 @@ namespace Hangman
             if (supposedCharOrCommand.Length == 1) // the input is a character
             {
                 char supposedChar = supposedCharOrCommand[0];
-                WordInitializator.InitializationAfterTheGuess(Word, supposedChar);
+                GameManager.ProccessGuess(Word, supposedChar);
             }
             else if (supposedCharOrCommand.Equals("help"))
                 CommandExecuter.RevealTheNextLetter(Word);

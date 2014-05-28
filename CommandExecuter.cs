@@ -35,27 +35,24 @@ namespace Hangman
             char firstUnrevealedLetter='$';
             
             for (int i = 0; i < word.Length; i++)
-                if (WordInitializator.allGuessedLettersOrderedByPositionInTheWord[i] .Equals('$'))
+                if (GameManager.GuessedLetters[i] .Equals('$'))
                 {
                     firstUnrevealedLetter = word[i];
                     break;
                 }
             Console.WriteLine("OK, I reveal for you the next letter {0}.", firstUnrevealedLetter );
-            WordInitializator.InitializationAfterTheGuess (word, firstUnrevealedLetter);
-            //flag - not in the chart
-            WordInitializator.flag = true;
-                
-
-
+            GameManager.ProccessGuess (word, firstUnrevealedLetter);
+            // Mark that the player used the 'help' command
+            GameManager.UsedHelp = true; 
         }
         public static void Restart()
         {
             Console.WriteLine();
             string word = WordSelector.SelectRandomWord();
             //Console.WriteLine(word);
-            WordInitializator.BegginingOfTheGameInitialization(word);
+            GameManager.InitializeGame(word);
             WordGuesser wg = new WordGuesser() { Word = word };
-            while (WordInitializator.num1 < word.Length && WordGuesser.IsExited == false)
+            while (GameManager.RevealedCount < word.Length && WordGuesser.IsExited == false)
                 wg.GuessLetter();
 
 

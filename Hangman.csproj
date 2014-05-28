@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="CommandExecuter.cs" />
     <Compile Include="WordGuesser.cs" />
-    <Compile Include="WordInitializator.cs" />
+    <Compile Include="GameManager.cs" />
     <Compile Include="WordSelector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
