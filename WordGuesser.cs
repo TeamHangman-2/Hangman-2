@@ -6,8 +6,7 @@ using System.Text;
 namespace Hangman
 {
     public class WordGuesser
-    {
-       
+    { 
         public string Word { get; set;}
         public static bool IsExited;
        //2 methods from WordInitializator must be moved here!
