@@ -7,7 +7,7 @@ namespace Hangman
 {
     public class CommandExecuter
     {
-        public static PlayerScore [] scoreboard  = new PlayerScore[5];
+        public static PlayerScore [] ScoreBoard  = new PlayerScore[5];
 
         public static void RevealTheNextLetter(string word)
         {
@@ -42,8 +42,8 @@ namespace Hangman
             for (int i = 0; i < 5; i++)
 
 
-                if(scoreboard[i] != null)
-                    Console.WriteLine("{0}. {1} ---> {2}", i+1, scoreboard[i].PlayerName, scoreboard[i].NumberOfMistakes);
+                if(ScoreBoard[i] != null)
+                    Console.WriteLine("{0}. {1} ---> {2}", i+1, ScoreBoard[i].PlayerName, ScoreBoard[i].NumberOfMistakes);
             Console.WriteLine();
         }
         public static void Exit()

@@ -100,31 +100,31 @@ namespace Hangman
             int freeScoreboardPosition = 4;
             for (int i = 0; i < 4; i++)
             {
-                if (CommandExecuter.scoreboard[i] == null)
+                if (CommandExecuter.ScoreBoard[i] == null)
                 {
                     freeScoreboardPosition = i;
                     break;
                 }
             }
 
-            if ((CommandExecuter.scoreboard[freeScoreboardPosition] == null //for free position
-                  || mistakesCount <= CommandExecuter.scoreboard[freeScoreboardPosition].NumberOfMistakes)//when the 4th pos is not free)
+            if ((CommandExecuter.ScoreBoard[freeScoreboardPosition] == null //for free position
+                  || mistakesCount <= CommandExecuter.ScoreBoard[freeScoreboardPosition].NumberOfMistakes)//when the 4th pos is not free)
                   && UsedHelp == false)
             {
                 Console.WriteLine("Please enter your name for the top scoreboard:");
                 string playerName = Console.ReadLine();
                 CommandExecuter.PlayerMistakes newResult = new CommandExecuter.PlayerMistakes(playerName, mistakesCount);
-                CommandExecuter.scoreboard[freeScoreboardPosition] = newResult;
+                CommandExecuter.ScoreBoard[freeScoreboardPosition] = newResult;
 
                 // Re-arrange the scoreboard:
                 for (int i = freeScoreboardPosition; i > 0; i--)
                 {
-                    if (CommandExecuter.scoreboard[i].Compare(CommandExecuter.scoreboard[i - 1]) < 0)
+                    if (CommandExecuter.ScoreBoard[i].Compare(CommandExecuter.ScoreBoard[i - 1]) < 0)
                     {
                         //swap
-                        CommandExecuter.PlayerMistakes betterScore = CommandExecuter.scoreboard[i];
-                        CommandExecuter.scoreboard[i] = CommandExecuter.scoreboard[i - 1];
-                        CommandExecuter.scoreboard[i - 1] = betterScore;
+                        CommandExecuter.PlayerMistakes betterScore = CommandExecuter.ScoreBoard[i];
+                        CommandExecuter.ScoreBoard[i] = CommandExecuter.ScoreBoard[i - 1];
+                        CommandExecuter.ScoreBoard[i - 1] = betterScore;
                     }
                 }
             }
