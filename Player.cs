@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Hangman
 {
-    public class Player
+    public class Player:IComparable
     {
         private string playerName;
         private int numberOfMiskates;
@@ -35,25 +35,35 @@ namespace Hangman
             }
         }
 
-        public int NumberOfMistakes 
+        public int NumberOfMistakes
         {
             get { return this.numberOfMiskates; }
             set
             {
-                if (value<0)
+                if (value < 0)
                 {
                     throw new ArgumentException("Number of mistakes cannot be negative number!");
                 }
 
                 this.numberOfMiskates = value;
-            } 
+            }
         }
-        public int Compare(Player otherPlayer)
+
+        public int CompareTo(object otherPlayer)
         {
-            if (this.NumberOfMistakes <= otherPlayer.NumberOfMistakes)
-                return -1;
+            Player playerToCompareWith = otherPlayer as Player;
+            int result = 0;
+
+            if (this.NumberOfMistakes <= playerToCompareWith.NumberOfMistakes)
+            {
+                result= -1;
+            }
             else
-                return 1;// the newer one replaces the older
+            {
+                result= 1;
+            }
+
+            return result;
         }
     }
 }
