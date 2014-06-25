@@ -113,7 +113,7 @@ namespace Hangman
             {
                 Console.WriteLine("Please enter your name for the top scoreboard:");
                 string playerName = Console.ReadLine();
-                PlayerScore newResult = new PlayerScore(playerName, mistakesCount);
+                Player newResult = new Player(playerName, mistakesCount);
                 CommandExecuter.ScoreBoard[freeScoreboardPosition] = newResult;
 
                 // Re-arrange the scoreboard:
@@ -122,7 +122,7 @@ namespace Hangman
                     if (CommandExecuter.ScoreBoard[i].Compare(CommandExecuter.ScoreBoard[i - 1]) < 0)
                     {
                         //swap
-                        PlayerScore betterScore = CommandExecuter.ScoreBoard[i];
+                        Player betterScore = CommandExecuter.ScoreBoard[i];
                         CommandExecuter.ScoreBoard[i] = CommandExecuter.ScoreBoard[i - 1];
                         CommandExecuter.ScoreBoard[i - 1] = betterScore;
                     }

@@ -7,7 +7,7 @@ namespace Hangman
 {
     public class CommandExecuter
     {
-        public static PlayerScore [] ScoreBoard  = new PlayerScore[5];
+        public static Player [] ScoreBoard  = new Player[5];
 
         public static void RevealTheNextLetter(string word)
         {

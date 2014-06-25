@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandExecuter.cs" />
-    <Compile Include="PlayerScore.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="WordGuesser.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="WordSelector.cs" />
