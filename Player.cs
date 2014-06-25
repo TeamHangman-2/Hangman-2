@@ -7,8 +7,8 @@ namespace Hangman
 {
     public class Player
     {
-        public string PlayerName { get; set; }
-        public int NumberOfMistakes { get; set; }
+        private string playerName;
+        private int numberOfMiskates;
 
         public Player(string playerName, int numberOfMistakes)
         {
@@ -16,6 +16,38 @@ namespace Hangman
             this.NumberOfMistakes = numberOfMistakes;
         }
 
+        public string PlayerName 
+        {
+            get { return this.playerName; }
+            set
+            {
+                if (value==null)
+                {
+                    throw new ArgumentNullException("Player name cannot be null!");
+                }
+
+                if (value==string.Empty)
+                {
+                    throw new ArgumentException("Player name cannot be empty string!");
+                }
+
+                this.playerName = value;
+            }
+        }
+
+        public int NumberOfMistakes 
+        {
+            get { return this.numberOfMiskates; }
+            set
+            {
+                if (value<0)
+                {
+                    throw new ArgumentException("Number of mistakes cannot be negative number!");
+                }
+
+                this.numberOfMiskates = value;
+            } 
+        }
         public int Compare(Player otherPlayer)
         {
             if (this.NumberOfMistakes <= otherPlayer.NumberOfMistakes)
