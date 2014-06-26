@@ -39,12 +39,11 @@ namespace Hangman
             }
             else
             {
-                //TODO:Make class for execute commands
-                CommandExecuter(guessedLetter);
+                ExecuteCommand(guessedLetter);
             }
         } 
         
-        public void CommandExecuter(string command)
+        public void ExecuteCommand(string command)
         {
             switch (command)
             {

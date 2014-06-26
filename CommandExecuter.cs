@@ -28,12 +28,13 @@ namespace Hangman
         {
             string word = WordSelector.SelectRandomWord();
             GameManager.InitializeGame(word);
-            WordGuesser wg = new WordGuesser();
-            wg.Word = word;
+            WordGuesser wg = new WordGuesser(word);
+            
 
             while (GameManager.RevealedCount < word.Length && WordGuesser.IsExited == false)
             {
-                wg.GuessLetter();
+               string newLetter= Console.ReadLine();
+               wg.GuessLetter(newLetter);
             }
         }
         public static void TopResults()
