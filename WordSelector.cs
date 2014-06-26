@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Hangman
 {
     class WordSelector
     {
-        private static readonly string[] words = {"computer", "programmer", "software", "debugger", "compiler",
-            "developer", "algorithm", "array", "method", "variable" };
+        private static readonly string[] words =
+            {"computer", "programmer", "software", "debugger", "compiler",
+             "developer", "algorithm", "array", "method", "variable" };
             
         private static int RandomNumber(int min, int max)
         {
@@ -23,8 +22,6 @@ namespace Hangman
             return randomlySelectedWord;
         
         }
-        
-
         static void Main(string[] args)
         {
             CommandExecuter.Restart();
