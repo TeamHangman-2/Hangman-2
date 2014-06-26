@@ -6,14 +6,14 @@ namespace Hangman
     public class CommandExecuter
     {
         public static Player [] ScoreBoard  = new Player[5];
-
+        private const char UnrevealedLetter = '$';
         public static void RevealTheNextLetter(string word)
         {
-            char firstUnrevealedLetter='$';
+            char firstUnrevealedLetter=UnrevealedLetter;
 
             for (int i = 0; i < word.Length; i++)
             {
-                if (GameManager.GuessedLetters[i].Equals('$'))
+                if (GameManager.GuessedLetters[i].Equals(UnrevealedLetter))
                 {
                     firstUnrevealedLetter = word[i];
                     break;

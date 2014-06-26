@@ -6,6 +6,11 @@ namespace Hangman
     public class WordGuesser
     {
         private string word;
+
+        public WordGuesser(string word)
+        {
+            this.Word = word;
+        }
         public string Word
         {
             get { return this.word; }
