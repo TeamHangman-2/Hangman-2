@@ -30,33 +30,31 @@ namespace Hangman
 
         public static bool IsExited;
        //2 methods from WordInitializator must be moved here!
-        public void GuessLetter()
-        {
-            Console.WriteLine("Enter your guess: ");
-            string supposedCharOrCommand = Console.ReadLine();
-
-            if (supposedCharOrCommand.Length == 1)
+        public void GuessLetter(string guessedLetter)
+        {         
+            if (guessedLetter.Length == 1)
             {
-                char supposedChar = supposedCharOrCommand[0];
+                char supposedChar = guessedLetter[0];
                 GameManager.ProccessGuess(Word, supposedChar);
             }
-            else if (supposedCharOrCommand.Equals("help"))
+            else
             {
-                CommandExecuter.RevealTheNextLetter(Word);
+                //TODO:Make class for execute commands
+                CommandExecuter(guessedLetter);
             }
-            else if (supposedCharOrCommand.Equals("restart"))
+        } 
+        
+        public void CommandExecuter(string command)
+        {
+            switch (command)
             {
-                CommandExecuter.Restart();
+                case "help": CommandExecuter.RevealTheNextLetter(Word); break;
+                case "restart": CommandExecuter.Restart(); break;
+                case "exit": CommandExecuter.Exit(); break;
+                case "top": CommandExecuter.TopResults(); break;
+                default:
+                    throw new InvalidOperationException("Invalid command!");
             }
-            else if (supposedCharOrCommand.Equals("exit"))
-            {
-                CommandExecuter.Exit();
-                return;
-            }
-            else if (supposedCharOrCommand.Equals("top"))
-            {
-                CommandExecuter.TopResults();
-            }
-        }             
+        }
     }
 }
