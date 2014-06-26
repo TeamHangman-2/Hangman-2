@@ -7,8 +7,7 @@ namespace Hangman
 {
     class WordSelector
     {
-        //why public
-        private static string[] words = {"computer", "programmer", "software", "debugger", "compiler",
+        private static readonly string[] words = {"computer", "programmer", "software", "debugger", "compiler",
             "developer", "algorithm", "array", "method", "variable" };
             
         private static int RandomNumber(int min, int max)
@@ -18,8 +17,9 @@ namespace Hangman
         }
         public static string SelectRandomWord()
         {
-            int randomPositionOfTheWordToBeSelected = RandomNumber(0, words.Length);//including 0, exluding word.Length
-            string randomlySelectedWord = words.ElementAt(randomPositionOfTheWordToBeSelected);
+            int randomPosition = RandomNumber(0, words.Length);
+            string randomlySelectedWord = words.ElementAt(randomPosition);
+
             return randomlySelectedWord;
         
         }
