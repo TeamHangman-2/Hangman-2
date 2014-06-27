@@ -43,7 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandExecuter.cs" />
+    <Compile Include="CommandParser.cs" />
+    <Compile Include="GameAnnouncer.cs" />
+    <Compile Include="GameCommands.cs" />
+    <Compile Include="GameEngine.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Word.cs" />
+    <Compile Include="WordGenerator.cs" />
     <Compile Include="WordGuesser.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="WordSelector.cs" />

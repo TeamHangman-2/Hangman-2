@@ -84,7 +84,7 @@ namespace Hangman
                 if (RevealedCount == word.Length)
                 {
                     FinalizeGame(word);
-                    CommandExecuter.Restart();
+                    CommandExecuterOld.Restart();
                 }
 
                 Console.WriteLine("The secret word is:");
@@ -99,29 +99,29 @@ namespace Hangman
 
             for (int i = 0; i < 4; i++)
             {
-                if (CommandExecuter.ScoreBoard[i] == null)
+                if (CommandExecuterOld.ScoreBoard[i] == null)
                 {
                     freeScoreboardPosition = i;
                     break;
                 }
             }
 
-            if ((CommandExecuter.ScoreBoard[freeScoreboardPosition] == null|| 
-                 mistakesCount <= CommandExecuter.ScoreBoard[freeScoreboardPosition].NumberOfMistakes)
+            if ((CommandExecuterOld.ScoreBoard[freeScoreboardPosition] == null|| 
+                 mistakesCount <= CommandExecuterOld.ScoreBoard[freeScoreboardPosition].NumberOfMistakes)
                   && UsedHelp == false)
             {
                 Console.WriteLine("Please enter your name for the top scoreboard:");
                 string playerName = Console.ReadLine();
                 Player newResult = new Player(playerName, mistakesCount);
-                CommandExecuter.ScoreBoard[freeScoreboardPosition] = newResult;
+                CommandExecuterOld.ScoreBoard[freeScoreboardPosition] = newResult;
 
                 for (int i = freeScoreboardPosition; i > 0; i--)
                 {
-                    if (CommandExecuter.ScoreBoard[i].CompareTo(CommandExecuter.ScoreBoard[i - 1]) < 0)
+                    if (CommandExecuterOld.ScoreBoard[i].CompareTo(CommandExecuterOld.ScoreBoard[i - 1]) < 0)
                     {
-                        Player betterScore = CommandExecuter.ScoreBoard[i];
-                        CommandExecuter.ScoreBoard[i] = CommandExecuter.ScoreBoard[i - 1];
-                        CommandExecuter.ScoreBoard[i - 1] = betterScore;
+                        Player betterScore = CommandExecuterOld.ScoreBoard[i];
+                        CommandExecuterOld.ScoreBoard[i] = CommandExecuterOld.ScoreBoard[i - 1];
+                        CommandExecuterOld.ScoreBoard[i - 1] = betterScore;
                     }
                 }
             }

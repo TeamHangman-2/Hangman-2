@@ -3,13 +3,14 @@ using System.Linq;
 
 namespace Hangman
 {
-    public class CommandExecuter
+    public class CommandExecuterOld
     {
-        public static Player [] ScoreBoard  = new Player[5];
+        public static Player[] ScoreBoard = new Player[5];
         private const char UnrevealedLetter = '$';
+
         public static void RevealTheNextLetter(string word)
         {
-            char firstUnrevealedLetter=UnrevealedLetter;
+            char firstUnrevealedLetter = UnrevealedLetter;
 
             for (int i = 0; i < word.Length; i++)
             {
@@ -20,21 +21,21 @@ namespace Hangman
                 }
             }
 
-            Console.WriteLine("OK, I reveal for you the next letter {0}.", firstUnrevealedLetter );
-            GameManager.ProccessGuess (word, firstUnrevealedLetter);
-            GameManager.UsedHelp = true; 
+            Console.WriteLine("OK, I reveal for you the next letter {0}.", firstUnrevealedLetter);
+            GameManager.ProccessGuess(word, firstUnrevealedLetter);
+            GameManager.UsedHelp = true;
         }
         public static void Restart()
         {
             string word = WordSelector.SelectRandomWord();
             GameManager.InitializeGame(word);
             WordGuesser wg = new WordGuesser(word);
-            
+
 
             while (GameManager.RevealedCount < word.Length && WordGuesser.IsExited == false)
             {
-               string newLetter= Console.ReadLine();
-               wg.GuessLetter(newLetter);
+                string newLetter = Console.ReadLine();
+                wg.GuessLetter(newLetter);
             }
         }
         public static void TopResults()
