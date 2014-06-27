@@ -16,6 +16,7 @@
             var indexOfRndWord = rnd.Next(0, allWords.Length);
             var randomWord = new Word();
 
+
             return randomWord;
         }
     }
