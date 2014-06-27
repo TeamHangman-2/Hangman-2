@@ -13,8 +13,37 @@
 
         public GameEngine(Player player)
         {
-            this.player = player;
+            this.Player = player;
             this.letterGuesses = new List<string>();
+            this.WrongGuessesCount = 0;
+        }
+
+        public Player Player
+        {
+            get { return this.player; }
+            private set
+            {
+                if (value==null)
+                {
+                    throw new ArgumentNullException("Player cannot be set to null!");
+                }
+
+                this.player = value;
+            }
+        }
+
+        public int WrongGuessesCount
+        {
+            get { return this.wrongGuessesCount; }
+            private set
+            {
+                if (value<0)
+                {
+                    throw new ArgumentException("Wrong guesses cannot be negative number!");
+                }
+
+                this.wrongGuessesCount = value;
+            }
         }
 
         public void Start()
@@ -25,6 +54,7 @@
 
         private void InitializeGame()
         {
+            this.wordToGuess = WordGenerator.GetRandomWord();
             // TODO: create rnd word
             // TODO: create cmdExecutor
             // TODO: maybe read player scores from file
