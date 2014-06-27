@@ -7,7 +7,7 @@
     {
         private Word wordToGuess;
         private Player player;
-        private CommandExecuterOld cmdExecutor;
+        private CommandExecuter cmdExecutor;
         private int wrongGuessesCount;
         private IList<string> letterGuesses;
 
@@ -55,8 +55,8 @@
         private void InitializeGame()
         {
             this.wordToGuess = WordGenerator.GetRandomWord();
-            // TODO: create rnd word
-            // TODO: create cmdExecutor
+            this.cmdExecutor = new CommandExecuter(this.wordToGuess);
+
             // TODO: maybe read player scores from file
         }
 
@@ -67,6 +67,30 @@
 
         public void ReadInput(string command)
         {
+            if (command==null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (command==string.Empty)
+            {
+                throw new ArgumentException();
+            }
+
+            switch (command)
+            {
+                case "Help":
+                    {
+                       int index= cmdExecutor.RevealLetterAt();
+                       this.wordToGuess.UpdateWordOnScreen(this.wordToGuess.Word[index]);
+                     }; break;
+
+                case "Restart": ExecuteRestartCommand(); break;
+                case "Exit": ExecuteExitCommand(); break;
+                case "ShowResults": ExecuteShowResultsCommand(); break;
+                default:
+                    throw new InvalidOperationException("Invalid command!");
+            }
             // this.cmdExecutor.Executecommand(string command);
             // TODO: check if input is command or guess
             // if input is command - execute command
@@ -90,7 +114,7 @@
             throw new NotImplementedException();
         }
 
-        private void ExecuteTopResultsCommand()
+        private void ExecuteShowResultsCommand()
         {
             throw new NotImplementedException();
         }

@@ -102,6 +102,11 @@
             }
         }
 
+        public void ShowLetterAt(int index)
+        {
+            this.WordOnScreen[index] = this.Word[index];
+        }
+
         private char[] SetDefaultWordOnScreen(int length)
         {
             char[] result = new char[length];

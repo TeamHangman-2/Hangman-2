@@ -4,7 +4,7 @@
 
     public static class CommandParser
     {
-        public void ParseCommand(string command)
+        public static void ParseCommand(string command)
         {
             // determine command
             // return command to engine

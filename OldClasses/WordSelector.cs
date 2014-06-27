@@ -24,7 +24,7 @@ namespace Hangman
         }
         static void Main(string[] args)
         {
-            CommandExecuterOld.Restart();
+            CommandExecuter.Restart();
                      
         }
     }

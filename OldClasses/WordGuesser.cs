@@ -47,10 +47,10 @@ namespace Hangman
         {
             switch (command)
             {
-                case "help": CommandExecuterOld.RevealTheNextLetter(Word); break;
-                case "restart": CommandExecuterOld.Restart(); break;
-                case "exit": CommandExecuterOld.Exit(); break;
-                case "top": CommandExecuterOld.TopResults(); break;
+                case "help": CommandExecuter.RevealLetterAt(Word); break;
+                case "restart": CommandExecuter.Restart(); break;
+                case "exit": CommandExecuter.Exit(); break;
+                case "top": CommandExecuter.TopResults(); break;
                 default:
                     throw new InvalidOperationException("Invalid command!");
             }

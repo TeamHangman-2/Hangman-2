@@ -3,28 +3,33 @@ using System.Linq;
 
 namespace Hangman
 {
-    public class CommandExecuterOld
+    public class CommandExecuter
     {
-        public static Player[] ScoreBoard = new Player[5];
-        private const char UnrevealedLetter = '$';
+        //public static Player[] ScoreBoard = new Player[5];
+        //private const char UnrevealedLetter = '$';
+        private Word Word { get; set; }
 
-        public static void RevealTheNextLetter(string word)
+        public CommandExecuter(Word newWord)
         {
-            char firstUnrevealedLetter = UnrevealedLetter;
+            this.Word = newWord;
+        }
 
-            for (int i = 0; i < word.Length; i++)
+        public int RevealLetterAt()
+        {
+            int result = -1;
+
+            for (int i = 0; i < Word.WordOnScreen.Length; i++)
             {
-                if (GameManager.GuessedLetters[i].Equals(UnrevealedLetter))
+                if (Word.WordOnScreen[i]=='_')
                 {
-                    firstUnrevealedLetter = word[i];
+                    result= i;
                     break;
                 }
             }
 
-            Console.WriteLine("OK, I reveal for you the next letter {0}.", firstUnrevealedLetter);
-            GameManager.ProccessGuess(word, firstUnrevealedLetter);
-            GameManager.UsedHelp = true;
+            return result;
         }
+
         public static void Restart()
         {
             string word = WordSelector.SelectRandomWord();
