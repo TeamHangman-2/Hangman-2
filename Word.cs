@@ -5,9 +5,9 @@
     public class Word
     {
         private const int MaxLengthOfLetter = 1;
-        private const string HiddenWordSymbol = "_";
+        private const char HiddenWordSymbol = '_';
         private string word;
-        private string[] wordOnScreen;
+        private char[] wordOnScreen;
 
         public Word(string word)
         {
@@ -29,10 +29,12 @@
                 {
                     throw new ArgumentException("Word cannot be empty string!");
                 }
+
+                this.word = value;
             }
         }
 
-        public string[] WordOnScreen
+        public char[] WordOnScreen
         {
             get { return this.wordOnScreen; }
             private set
@@ -78,7 +80,7 @@
             return false;
         }
 
-        public void UpdateWordOnScreen(string letter)
+        public void UpdateWordOnScreen(char letter)
         {
             if (letter==string.Empty)
             {
@@ -90,15 +92,19 @@
                 throw new ArgumentNullException("Letter cannot ne null!");
             }
 
-            int indexOfLetter = this.Word.IndexOf(letter);
-
-            this.WordOnScreen[indexOfLetter] = letter;
-
+            for (int i = 0; i < this.WordOnScreen.Length; i++)
+            {
+                if (this.Word[i]==letter)
+                {
+                    this.WordOnScreen[i] = letter;
+                }
+               
+            }
         }
 
-        private string[] SetDefaultWordOnScreen(int length)
+        private char[] SetDefaultWordOnScreen(int length)
         {
-            string[] result = new string[length];
+            char[] result = new char[length];
 
             for (int i = 0; i < length; i++)
             {

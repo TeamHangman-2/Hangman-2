@@ -9,13 +9,12 @@
                                                         "developer", "algorithm", "array", "method", "variable"
                                                     };
 
-        private static Random rnd = new Random();
+        private static Random random = new Random();
 
-        public Word GetRandomWord()
+        public static Word GetRandomWord()
         {
-            var indexOfRndWord = rnd.Next(0, allWords.Length);
-            var randomWord = new Word();
-
+            var indexOfRndWord = random.Next(0, allWords.Length);
+            var randomWord = new Word(allWords[indexOfRndWord]);
 
             return randomWord;
         }
