@@ -34,6 +34,33 @@
             }
         }
 
+        public int Length
+        {
+            get { return this.Word.Length; }
+        }
+
+        public char this[int index]
+        {
+            get 
+            {
+                if (index<0 || index>=this.Word.Length)
+                {
+                    throw new IndexOutOfRangeException("Incorrect index in word!");
+                }
+
+                return this.Word[index]; 
+            }
+            set
+            {
+                if (index < 0 || index >= this.Word.Length)
+                {
+                    throw new IndexOutOfRangeException("Incorrect index in word!");
+                }
+
+                this.Word[index] = value;
+            }
+        }
+
         public char[] WordOnScreen
         {
             get { return this.wordOnScreen; }

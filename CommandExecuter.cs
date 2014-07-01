@@ -13,11 +13,11 @@ namespace Hangman
             this.Word = newWord;
         }
 
-        public int RevealLetterAt()
+        public int RevealLetter()
         {
             int result = -1;
 
-            for (int i = 0; i < Word.WordOnScreen.Length; i++)
+            for (int i = 0; i < this.Word.Length; i++)
             {
                 if (Word.WordOnScreen[i]=='_')
                 {
@@ -29,6 +29,7 @@ namespace Hangman
             return result;
         }
 
+        //Need to refactor
         public static void Restart()
         {
             string word = WordSelector.SelectRandomWord();
@@ -42,6 +43,8 @@ namespace Hangman
                 wg.GuessLetter(newLetter);
             }
         }
+
+        //Need to refactor
         public static void TopResults()
         {
             for (int i = 0; i < 5; i++)
@@ -52,6 +55,8 @@ namespace Hangman
                 }
             }
         }
+
+        //Need to refactor
         public static void Exit()
         {
             Console.WriteLine("Good bye!");

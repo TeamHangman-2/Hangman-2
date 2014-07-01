@@ -47,7 +47,7 @@ namespace Hangman
         {
             switch (command)
             {
-                case "help": CommandExecuter.RevealLetterAt(Word); break;
+               // case "help": CommandExecuter.RevealLetter(Word); break;
                 case "restart": CommandExecuter.Restart(); break;
                 case "exit": CommandExecuter.Exit(); break;
                 case "top": CommandExecuter.TopResults(); break;

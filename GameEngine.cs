@@ -81,9 +81,9 @@
             {
                 case "Help":
                     {
-                       int index= cmdExecutor.RevealLetterAt();
-                       this.wordToGuess.UpdateWordOnScreen(this.wordToGuess.Word[index]);
-                     }; break;
+                       int index= cmdExecutor.RevealLetter();
+                       this.wordToGuess.UpdateWordOnScreen(this.wordToGuess[index]);
+                     } break;
 
                 case "Restart": ExecuteRestartCommand(); break;
                 case "Exit": ExecuteExitCommand(); break;
