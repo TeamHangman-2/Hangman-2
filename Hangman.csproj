@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OldClasses\CommandExecuter.cs" />
+    <Compile Include="CommandExecuter.cs" />
     <Compile Include="CommandParser.cs" />
     <Compile Include="GameAnnouncer.cs" />
     <Compile Include="GameCommands.cs" />

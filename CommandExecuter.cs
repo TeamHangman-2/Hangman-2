@@ -5,8 +5,7 @@ namespace Hangman
 {
     public class CommandExecuter
     {
-        //public static Player[] ScoreBoard = new Player[5];
-        //private const char UnrevealedLetter = '$';
+        public static Player[] ScoreBoard = new Player[5];
         private Word Word { get; set; }
 
         public CommandExecuter(Word newWord)
