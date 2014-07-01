@@ -6,18 +6,18 @@
     {
         private const int MaxLengthOfLetter = 1;
         private const char HiddenWordSymbol = '_';
-        private string word;
+        private string wordToGuess;
         private char[] wordOnScreen;
 
         public Word(string word)
         {
-            this.Word = word;
-            this.WordOnScreen = SetDefaultWordOnScreen(this.Word.Length);
+            this.WordToGuess = word;
+            this.WordOnScreen = SetDefaultWordOnScreen(this.WordToGuess.Length);
         }
 
-        public string Word
+        public string WordToGuess
         {
-            get { return this.word; }
+            get { return this.wordToGuess; }
             private set
             {
                 if (value == null)
@@ -30,34 +30,25 @@
                     throw new ArgumentException("Word cannot be empty string!");
                 }
 
-                this.word = value;
+                this.wordToGuess = value;
             }
         }
 
         public int Length
         {
-            get { return this.Word.Length; }
+            get { return this.WordToGuess.Length; }
         }
 
         public char this[int index]
         {
-            get 
+            get
             {
-                if (index<0 || index>=this.Word.Length)
+                if (index < 0 || index >= this.WordToGuess.Length)
                 {
                     throw new IndexOutOfRangeException("Incorrect index in word!");
                 }
 
-                return this.Word[index]; 
-            }
-            set
-            {
-                if (index < 0 || index >= this.Word.Length)
-                {
-                    throw new IndexOutOfRangeException("Incorrect index in word!");
-                }
-
-                this.Word[index] = value;
+                return this.WordToGuess[index];
             }
         }
 
@@ -92,14 +83,14 @@
                 throw new ArgumentException();//TODO:need to change to more appropriate exception
             }
 
-            bool result = this.Word.Contains(letter);
+            bool result = this.WordToGuess.Contains(letter);
 
             return result;
         }
 
         public bool WordIsGuessed(string wordToCompare)
         {
-            if (wordToCompare == this.Word)
+            if (wordToCompare == this.WordToGuess)
             {
                 return true;
             }
@@ -109,9 +100,9 @@
 
         public void UpdateWordOnScreen(char letter)
         {
-            if (letter==string.Empty)
+            if (Char.IsWhiteSpace(letter))
             {
-                throw new ArgumentException("Letter cannot be empty!");
+                throw new ArgumentException("Letter cannot be white space!");
             }
 
             if (letter==null)
@@ -121,7 +112,7 @@
 
             for (int i = 0; i < this.WordOnScreen.Length; i++)
             {
-                if (this.Word[i]==letter)
+                if (this.WordToGuess[i]==letter)
                 {
                     this.WordOnScreen[i] = letter;
                 }
@@ -131,7 +122,7 @@
 
         public void ShowLetterAt(int index)
         {
-            this.WordOnScreen[index] = this.Word[index];
+            this.WordOnScreen[index] = this.WordToGuess[index];
         }
 
         private char[] SetDefaultWordOnScreen(int length)
