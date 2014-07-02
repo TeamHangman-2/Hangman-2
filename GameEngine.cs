@@ -10,12 +10,14 @@
         private CommandExecuter cmdExecutor;
         private int wrongGuessesCount;
         private IList<string> letterGuesses;
-
+        private bool gameIsRunning;
+        private const int LengthOfLetter = 1;
         public GameEngine(Player player)
         {
             this.Player = player;
             this.letterGuesses = new List<string>();
             this.WrongGuessesCount = 0;
+
         }
 
         public Player Player
@@ -23,7 +25,7 @@
             get { return this.player; }
             private set
             {
-                if (value==null)
+                if (value == null)
                 {
                     throw new ArgumentNullException("Player cannot be set to null!");
                 }
@@ -37,7 +39,7 @@
             get { return this.wrongGuessesCount; }
             private set
             {
-                if (value<0)
+                if (value < 0)
                 {
                     throw new ArgumentException("Wrong guesses cannot be negative number!");
                 }
@@ -56,34 +58,51 @@
         {
             this.wordToGuess = WordGenerator.GetRandomWord();
             this.cmdExecutor = new CommandExecuter(this.wordToGuess);
-
+            this.gameIsRunning = true;
             // TODO: maybe read player scores from file
         }
 
         private void RunGame()
         {
- 	        throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void ReadInput(string command)
         {
-            if (command==null)
+            if (command == null)
             {
                 throw new ArgumentNullException();
             }
 
-            if (command==string.Empty)
+            if (command == string.Empty)
             {
                 throw new ArgumentException();
             }
 
+            if (command.Length > LengthOfLetter)
+            {
+                ExecuteCommand(command);
+            }
+            else
+            {
+                char supposedChar = command[0];
+                GameManager.ProccessGuess(this.wordToGuess, supposedChar);
+            }
+            // this.cmdExecutor.Executecommand(string command);
+            // TODO: check if input is command or guess
+            // if input is command - execute command
+            // else check with word
+        }
+
+        private void ExecuteCommand(string command)
+        {
             switch (command)
             {
                 case "Help":
                     {
-                       int index= cmdExecutor.RevealLetter();
-                       this.wordToGuess.UpdateWordOnScreen(this.wordToGuess[index]);
-                     } break;
+                        int index = cmdExecutor.RevealLetter();
+                        this.wordToGuess.UpdateWordOnScreen(this.wordToGuess[index]);
+                    } break;
 
                 case "Restart": ExecuteRestartCommand(); break;
                 case "Exit": ExecuteExitCommand(); break;
@@ -91,10 +110,6 @@
                 default:
                     throw new InvalidOperationException("Invalid command!");
             }
-            // this.cmdExecutor.Executecommand(string command);
-            // TODO: check if input is command or guess
-            // if input is command - execute command
-            // else check with word
         }
 
         public void EndGame()

@@ -31,7 +31,7 @@ namespace Hangman
             Console.WriteLine(hiddenWord+"\n");
         }
 
-        public static void RevealGuessedLetters(string word)
+        public static void RevealGuessedLetters(Word word)
         {
             StringBuilder revealedWord = new StringBuilder();
 
@@ -50,7 +50,7 @@ namespace Hangman
             Console.WriteLine(revealedWord);
         }
 
-        public static void ProccessGuess(string word, char charSupposed)
+        public static void ProccessGuess(Word word, char charSupposed)
         {
             StringBuilder wordInitailized = new StringBuilder();
             int letterApperance = 0;
@@ -91,7 +91,7 @@ namespace Hangman
                 RevealGuessedLetters(word);
             }
         }
-        public static void FinalizeGame(string word)
+        public static void FinalizeGame(Word word)
         {
             Console.WriteLine("You won with {0} mistakes.", mistakesCount);
             RevealGuessedLetters(word);

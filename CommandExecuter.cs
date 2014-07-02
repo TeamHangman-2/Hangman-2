@@ -19,9 +19,9 @@ namespace Hangman
 
             for (int i = 0; i < this.Word.Length; i++)
             {
-                if (Word.WordOnScreen[i]=='_')
+                if (Word.WordOnScreen[i] == '_')
                 {
-                    result= i;
+                    result = i;
                     break;
                 }
             }
@@ -34,14 +34,14 @@ namespace Hangman
         {
             string word = WordSelector.SelectRandomWord();
             GameManager.InitializeGame(word);
-            WordGuesser wg = new WordGuesser(word);
+           // WordGuesser wg = new WordGuesser(word);
 
 
-            while (GameManager.RevealedCount < word.Length && WordGuesser.IsExited == false)
-            {
-                string newLetter = Console.ReadLine();
-                wg.GuessLetter(newLetter);
-            }
+            //while (GameManager.RevealedCount < word.Length && WordGuesser.IsExited == false)
+            //{
+            //    string newLetter = Console.ReadLine();
+            //    wg.GuessLetter(newLetter);
+            //}
         }
 
         //Need to refactor
@@ -60,7 +60,7 @@ namespace Hangman
         public static void Exit()
         {
             Console.WriteLine("Good bye!");
-            WordGuesser.IsExited = true;
+            //WordGuesser.IsExited = true;
         }
 
     }
