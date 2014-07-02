@@ -12,12 +12,13 @@
         private IList<char> letterGuesses;
         private bool gameIsRunning;
         private const int LengthOfLetter = 1;
+        private const int MaxErrorsAllowed = 10;
+
         public GameEngine(Player player)
         {
             this.Player = player;
             this.letterGuesses = new List<char>();
             this.WrongGuessesCount = 0;
-
         }
 
         public Player Player
@@ -85,7 +86,7 @@
                 //GameManager.ProccessGuess(this.wordToGuess, supposedChar);
             }
             else
-            {   
+            {
                 ExecuteCommand(command);
             }
             // this.cmdExecutor.Executecommand(string command);
@@ -116,6 +117,43 @@
         {
             // end game messages
             // record player score
+
+            Console.WriteLine("You won with {0} mistakes.", mistakesCount);
+            RevealGuessedLetters(word);
+            int freeScoreboardPosition = 4;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (CommandExecuter.ScoreBoard[i] == null)
+                {
+                    freeScoreboardPosition = i;
+                    break;
+                }
+            }
+
+            if ((CommandExecuter.ScoreBoard[freeScoreboardPosition] == null ||
+                 mistakesCount <= CommandExecuter.ScoreBoard[freeScoreboardPosition].NumberOfMistakes)
+                  && UsedHelp == false)
+            {
+                Console.WriteLine("Please enter your name for the top scoreboard:");
+                string playerName = Console.ReadLine();
+                Player newResult = new Player(playerName, mistakesCount);
+                CommandExecuter.ScoreBoard[freeScoreboardPosition] = newResult;
+
+                for (int i = freeScoreboardPosition; i > 0; i--)
+                {
+                    if (CommandExecuter.ScoreBoard[i].CompareTo(CommandExecuter.ScoreBoard[i - 1]) < 0)
+                    {
+                        Player betterScore = CommandExecuter.ScoreBoard[i];
+                        CommandExecuter.ScoreBoard[i] = CommandExecuter.ScoreBoard[i - 1];
+                        CommandExecuter.ScoreBoard[i - 1] = betterScore;
+                    }
+                }
+            }
+
+            RevealedCount = 0;
+            mistakesCount = 0;
+            UsedHelp = false;
         }
 
         // Command methods from CommandExecuter.cs
@@ -139,50 +177,38 @@
             throw new NotImplementedException();
         }
 
-        public static void ProccessGuess(Word word, char charSupposed)
+        public void ProccessGuess(Word word, char currentGuess)
         {
-            bool UsedHelp = false;
-            int RevealedCount = 0;
-            //char[] GuessedLetters;//= new int[this.Word.Length];
-            
-            //StringBuilder wordInitailized = new StringBuilder();
-            int letterApperance = 0;
+            bool wordContainsLetter = false;
 
-            if (true)
+            if (this.letterGuesses.Contains(currentGuess))
             {
-
                 //Console.WriteLine("You have already revelaed the letter {0}", charSupposed);
+                return;
             }
-            else
+
+            for (int i = 0; i < this.wordToGuess.Length; i++)
             {
-                //for (int i = 0; i < word.Length; i++)
-                //{
-                //    if (word[i].Equals(charSupposed))
-                //    {
-                //        GuessedLetters[i] = word[i];
-                //        letterApperance++;
-                //    }
-                //}
+                var currentCharacter = this.wordToGuess[i];
 
-                //if (letterApperance == 0)
-                //{
-                //    Console.WriteLine("Sorry! There are no unrevealed letters {0}", charSupposed);
-                //    mistakesCount++;
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Good job! You revealed {0} letters.", letterApperance);
-                //    RevealedCount += letterApperance;
-                //}
+                if (currentCharacter == currentGuess)
+                {
+                    this.wordToGuess.UpdateWordOnScreen(currentGuess);
+                    wordContainsLetter = true;
+                }
+            }
 
-                //if (RevealedCount == word.Length)
-                //{
-                //    FinalizeGame(word);
-                //    CommandExecuter.Restart();
-                //}
+            this.letterGuesses.Add(currentGuess);
 
-                //Console.WriteLine("The secret word is:");
-                //RevealGuessedLetters(word);
+            if (wordContainsLetter == false)
+            {
+                this.wrongGuessesCount++;
+                // TODO: maybe add more effects
+
+                if (this.wrongGuessesCount >= MaxErrorsAllowed)
+                {
+                    this.EndGame();
+                }
             }
         }
     }

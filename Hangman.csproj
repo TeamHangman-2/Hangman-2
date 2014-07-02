@@ -50,7 +50,6 @@
     <Compile Include="Player.cs" />
     <Compile Include="Word.cs" />
     <Compile Include="WordGenerator.cs" />
-    <Compile Include="GameManager.cs" />
     <Compile Include="OldClasses\WordSelector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

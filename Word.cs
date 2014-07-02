@@ -57,7 +57,7 @@
             get { return this.wordOnScreen; }
             private set
             {
-                if (value==null)
+                if (value == null)
                 {
                     throw new ArgumentNullException("Word on screen cannot be null!");
                 }
@@ -68,17 +68,17 @@
 
         public bool WordContainsletter(string letter)
         {
-            if (letter==string.Empty)
+            if (letter == string.Empty)
             {
                 throw new ArgumentException("Letter cannot be empty string!");
             }
 
-            if (letter==null)
+            if (letter == null)
             {
                 throw new ArgumentNullException("Letter cannot be null!");
             }
 
-            if (letter.Length>MaxLengthOfLetter)
+            if (letter.Length > MaxLengthOfLetter)
             {
                 throw new ArgumentException();//TODO:need to change to more appropriate exception
             }
@@ -98,25 +98,25 @@
             return false;
         }
 
-        public void UpdateWordOnScreen(char letter)
+        public void UpdateWordOnScreen(char currentGuess)
         {
-            if (Char.IsWhiteSpace(letter))
+            if (Char.IsWhiteSpace(currentGuess))
             {
                 throw new ArgumentException("Letter cannot be white space!");
             }
 
-            if (letter==null)
+            if (currentGuess == null)
             {
                 throw new ArgumentNullException("Letter cannot ne null!");
             }
 
             for (int i = 0; i < this.WordOnScreen.Length; i++)
             {
-                if (this.WordToGuess[i]==letter)
+                if (this.WordToGuess[i] == currentGuess)
                 {
-                    this.WordOnScreen[i] = letter;
+                    this.WordOnScreen[i] = currentGuess;
                 }
-               
+
             }
         }
 
