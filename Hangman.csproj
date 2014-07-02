@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandParser.cs" />
+    <Compile Include="ConsoleAnnouncer.cs" />
     <Compile Include="IGameAnnouncer.cs" />
     <Compile Include="GameCommands.cs" />
     <Compile Include="GameEngine.cs" />

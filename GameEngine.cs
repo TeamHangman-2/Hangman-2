@@ -20,7 +20,7 @@
             this.Player = player;
             this.letterGuesses = new List<char>();
             this.WrongGuessesCount = 0;
-            // Initialize announcer
+            this.announcer = new ConsoleAnnouncer();
         }
 
         public Player Player
@@ -232,7 +232,7 @@
 
             if (this.letterGuesses.Contains(currentGuess))
             {
-                //Console.WriteLine("You have already revelaed the letter {0}", charSupposed);
+                this.announcer.OutputRepeatingGuessMessage();
                 return;
             }
 
