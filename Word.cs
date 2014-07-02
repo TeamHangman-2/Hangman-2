@@ -105,11 +105,6 @@
                 throw new ArgumentException("Letter cannot be white space!");
             }
 
-            if (currentGuess == null)
-            {
-                throw new ArgumentNullException("Letter cannot ne null!");
-            }
-
             for (int i = 0; i < this.WordOnScreen.Length; i++)
             {
                 if (this.WordToGuess[i] == currentGuess)

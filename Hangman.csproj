@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandExecuter.cs" />
     <Compile Include="CommandParser.cs" />
     <Compile Include="GameAnnouncer.cs" />
     <Compile Include="GameCommands.cs" />
@@ -50,7 +49,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="Word.cs" />
     <Compile Include="WordGenerator.cs" />
-    <Compile Include="OldClasses\WordSelector.cs" />
+    <Compile Include="Hangman.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

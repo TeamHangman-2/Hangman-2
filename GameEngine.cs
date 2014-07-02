@@ -51,6 +51,7 @@
 
         public void Start()
         {
+            Console.Clear();
             this.InitializeGame();
             this.RunGame();
         }
@@ -65,7 +66,12 @@
 
         private void RunGame()
         {
-            throw new NotImplementedException();
+            while (this.gameIsRunning)
+            {
+                string input = Console.ReadLine();
+                this.ReadInput(input);
+                Console.Clear();
+            }
         }
 
         public void ReadInput(string command)
@@ -77,22 +83,18 @@
 
             if (command == string.Empty)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Command cannot be empty string!");
             }
 
-            if (command.Length < LengthOfLetter)
+            if (command.Length == LengthOfLetter)
             {
                 char supposedChar = command[0];
-                //GameManager.ProccessGuess(this.wordToGuess, supposedChar);
+                this.ProccessGuess(supposedChar);
             }
             else
             {
                 ExecuteCommand(command);
             }
-            // this.cmdExecutor.Executecommand(string command);
-            // TODO: check if input is command or guess
-            // if input is command - execute command
-            // else check with word
         }
 
         private void ExecuteCommand(string command)
@@ -101,7 +103,7 @@
             {
                 case "Help":
                     {
-                        int index = cmdExecutor.RevealLetter();
+                        int index = this.RevealLetter();
                         this.wordToGuess.UpdateWordOnScreen(this.wordToGuess[index]);
                     } break;
 
@@ -115,56 +117,69 @@
 
         public void EndGame()
         {
+            this.gameIsRunning = false;
             // end game messages
             // record player score
 
-            Console.WriteLine("You won with {0} mistakes.", mistakesCount);
-            RevealGuessedLetters(word);
-            int freeScoreboardPosition = 4;
+            //Console.WriteLine("You won with {0} mistakes.", mistakesCount);
+            //RevealGuessedLetters(word);
+        }
 
-            for (int i = 0; i < 4; i++)
+        //private void PrintResults()
+        //{
+        //    int freeScoreboardPosition = 4;
+
+        //    for (int i = 0; i < 4; i++)
+        //    {
+        //        if (CommandExecuter.ScoreBoard[i] == null)
+        //        {
+        //            freeScoreboardPosition = i;
+        //            break;
+        //        }
+        //    }
+
+        //    if ((CommandExecuter.ScoreBoard[freeScoreboardPosition] == null ||
+        //         mistakesCount <= CommandExecuter.ScoreBoard[freeScoreboardPosition].NumberOfMistakes)
+        //          && UsedHelp == false)
+        //    {
+        //        Console.WriteLine("Please enter your name for the top scoreboard:");
+        //        string playerName = Console.ReadLine();
+        //        Player newResult = new Player(playerName, mistakesCount);
+        //        CommandExecuter.ScoreBoard[freeScoreboardPosition] = newResult;
+
+        //        for (int i = freeScoreboardPosition; i > 0; i--)
+        //        {
+        //            if (CommandExecuter.ScoreBoard[i].CompareTo(CommandExecuter.ScoreBoard[i - 1]) < 0)
+        //            {
+        //                Player betterScore = CommandExecuter.ScoreBoard[i];
+        //                CommandExecuter.ScoreBoard[i] = CommandExecuter.ScoreBoard[i - 1];
+        //                CommandExecuter.ScoreBoard[i - 1] = betterScore;
+        //            }
+        //        }
+        //    }
+        //}
+
+        // Command methods from CommandExecuter.cs
+        public int RevealLetter()
+        {
+            int result = -1;
+
+            for (int i = 0; i < this.wordToGuess.Length; i++)
             {
-                if (CommandExecuter.ScoreBoard[i] == null)
+                if (this.wordToGuess.WordOnScreen[i] == '_')
                 {
-                    freeScoreboardPosition = i;
+                    result = i;
                     break;
                 }
             }
 
-            if ((CommandExecuter.ScoreBoard[freeScoreboardPosition] == null ||
-                 mistakesCount <= CommandExecuter.ScoreBoard[freeScoreboardPosition].NumberOfMistakes)
-                  && UsedHelp == false)
-            {
-                Console.WriteLine("Please enter your name for the top scoreboard:");
-                string playerName = Console.ReadLine();
-                Player newResult = new Player(playerName, mistakesCount);
-                CommandExecuter.ScoreBoard[freeScoreboardPosition] = newResult;
-
-                for (int i = freeScoreboardPosition; i > 0; i--)
-                {
-                    if (CommandExecuter.ScoreBoard[i].CompareTo(CommandExecuter.ScoreBoard[i - 1]) < 0)
-                    {
-                        Player betterScore = CommandExecuter.ScoreBoard[i];
-                        CommandExecuter.ScoreBoard[i] = CommandExecuter.ScoreBoard[i - 1];
-                        CommandExecuter.ScoreBoard[i - 1] = betterScore;
-                    }
-                }
-            }
-
-            RevealedCount = 0;
-            mistakesCount = 0;
-            UsedHelp = false;
-        }
-
-        // Command methods from CommandExecuter.cs
-        private void ExecuteRevealNextLetterCommand()
-        {
-            throw new NotImplementedException();
+            return result;
         }
 
         private void ExecuteRestartCommand()
         {
-            throw new NotImplementedException();
+            this.EndGame();
+            this.Start();
         }
 
         private void ExecuteShowResultsCommand()
@@ -177,7 +192,7 @@
             throw new NotImplementedException();
         }
 
-        public void ProccessGuess(Word word, char currentGuess)
+        public void ProccessGuess(char currentGuess)
         {
             bool wordContainsLetter = false;
 
@@ -208,6 +223,7 @@
                 if (this.wrongGuessesCount >= MaxErrorsAllowed)
                 {
                     this.EndGame();
+                    //PrintResults();
                 }
             }
         }
