@@ -2,15 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
 
     public class GameEngine
     {
         private Word wordToGuess;
         private Player player;
-        private CommandExecuter cmdExecutor;
         private int wrongGuessesCount;
         private IList<char> letterGuesses;
         private bool gameIsRunning;
+        private IGameAnnouncer announcer;
         private const int LengthOfLetter = 1;
         private const int MaxErrorsAllowed = 10;
 
@@ -19,6 +20,7 @@
             this.Player = player;
             this.letterGuesses = new List<char>();
             this.WrongGuessesCount = 0;
+            // Initialize announcer
         }
 
         public Player Player
@@ -59,19 +61,31 @@
         private void InitializeGame()
         {
             this.wordToGuess = WordGenerator.GetRandomWord();
-            this.cmdExecutor = new CommandExecuter(this.wordToGuess);
             this.gameIsRunning = true;
             // TODO: maybe read player scores from file
         }
 
         private void RunGame()
         {
+            //this.announcer.OutputIntroMessage();
+
             while (this.gameIsRunning)
             {
+                this.UpdateScreen();
                 string input = Console.ReadLine();
                 this.ReadInput(input);
-                Console.Clear();
             }
+        }
+
+        private void UpdateScreen()
+        {
+            Console.Clear();
+            Console.WriteLine("These are the available commands");
+            Console.WriteLine("These are the guesses made");
+            Console.WriteLine(string.Join(" ", this.wordToGuess.WordOnScreen));
+            //this.announcer.OutputAvailableCommands();
+            //this.announcer.OutputGuessesMade(string.Join(", ", this.letterGuesses));
+            //this.announcer.OutputWordVisualisation(this.wordToGuess.WordOnScreen);
         }
 
         public void ReadInput(string command)
@@ -99,22 +113,42 @@
 
         private void ExecuteCommand(string command)
         {
-            switch (command)
-            {
-                case "Help":
-                    {
-                        int index = this.RevealLetter();
-                        this.wordToGuess.UpdateWordOnScreen(this.wordToGuess[index]);
-                    } break;
+            var currCommand = this.ParseToGameCommandsEnum(command);
 
-                case "Restart": ExecuteRestartCommand(); break;
-                case "Exit": ExecuteExitCommand(); break;
-                case "ShowResults": ExecuteShowResultsCommand(); break;
+            switch (currCommand)
+            {
+                case GameCommands.Help:
+                    int index = this.RevealLetter();
+                    this.wordToGuess.UpdateWordOnScreen(this.wordToGuess[index]);
+                    break;
+                case GameCommands.Restart:
+                    this.ExecuteRestartCommand();
+                    break;
+                case GameCommands.Exit:
+                    this.ExecuteExitCommand();
+                    break;
+                case GameCommands.ShowResult:
+                    this.ExecuteShowResultsCommand();
+                    break;
                 default:
-                    throw new InvalidOperationException("Invalid command!");
+                    throw new ArgumentOutOfRangeException("Unrecognised command!");
             }
         }
 
+        private GameCommands ParseToGameCommandsEnum(string command)
+        {
+            command = command.ToLower();
+
+            switch (command)
+            {
+                case "help": return GameCommands.Help;
+                case "restart": return GameCommands.Restart;
+                case "exit": return GameCommands.Exit;
+                case "showresults": return GameCommands.ShowResult;
+                default:
+                    throw new ArgumentOutOfRangeException("Unrecognised game command");
+            }
+        }
         public void EndGame()
         {
             this.gameIsRunning = false;

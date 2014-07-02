@@ -5,6 +5,6 @@
         Help,
         Restart,
         Exit,
-        ShowHighScores
+        ShowResult,
     }
 }
