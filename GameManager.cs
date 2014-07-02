@@ -6,7 +6,7 @@ namespace Hangman
 {
     public class GameManager
     {
-        private const string IntroductingMessage = "Welcome to “Hangman” game. Please try to guess my secret word.\nUse 'top' to view the top scoreboard, 'restart' to start a new game,'help' to cheat and 'exit' to quit the game.";
+        
         //public string Word{get; set;}
         public static bool UsedHelp = false;
         public static int RevealedCount = 0;
@@ -14,83 +14,43 @@ namespace Hangman
 
         static int mistakesCount = 0;
 
-        public static void InitializeGame(string word)
-        {
-            Console.WriteLine(IntroductingMessage);
+        //public static void InitializeGame(string word)
+        //{
+        //    Console.WriteLine(IntroductingMessage);
            
-            GuessedLetters = new char[word.Length];
-            StringBuilder hiddenWord = new StringBuilder();
+        //    GuessedLetters = new char[word.Length];
+        //    StringBuilder hiddenWord = new StringBuilder();
 
-            for (int i = 0; i < word.Length; i++)
-            {
-                GuessedLetters[i] = '$';
-                hiddenWord.Append("_ ");
-            }
+        //    for (int i = 0; i < word.Length; i++)
+        //    {
+        //        GuessedLetters[i] = '$';
+        //        hiddenWord.Append("_ ");
+        //    }
 
-            Console.WriteLine("The secret word is: ");
-            Console.WriteLine(hiddenWord+"\n");
-        }
+        //    Console.WriteLine("The secret word is: ");
+        //    Console.WriteLine(hiddenWord+"\n");
+        //}
 
-        public static void RevealGuessedLetters(Word word)
-        {
-            StringBuilder revealedWord = new StringBuilder();
+        //public static void RevealGuessedLetters(Word word)
+        //{
+        //    StringBuilder revealedWord = new StringBuilder();
 
-            for (int i = 0; i < word.Length; i++)
-            {
-                if (GuessedLetters[i].Equals('$'))
-                {
-                    revealedWord.Append("_ ");
-                }
-                else
-                {
-                    revealedWord.Append(GuessedLetters[i].ToString() + " ");
-                }
-            }
+        //    for (int i = 0; i < word.Length; i++)
+        //    {
+        //        if (GuessedLetters[i].Equals('$'))
+        //        {
+        //            revealedWord.Append("_ ");
+        //        }
+        //        else
+        //        {
+        //            revealedWord.Append(GuessedLetters[i].ToString() + " ");
+        //        }
+        //    }
 
-            Console.WriteLine(revealedWord);
-        }
+        //    Console.WriteLine(revealedWord);
+        //}
 
-        public static void ProccessGuess(Word word, char charSupposed)
-        {
-            StringBuilder wordInitailized = new StringBuilder();
-            int letterApperance = 0;
-
-            if (GuessedLetters.Contains<char>(charSupposed))
-            {
-                Console.WriteLine("You have already revelaed the letter {0}", charSupposed);
-            }
-            else
-            {
-                for (int i = 0; i < word.Length; i++)
-                {
-                    if (word[i].Equals(charSupposed))
-                    {
-                        GuessedLetters[i] = word[i];
-                        letterApperance++;
-                    }
-                }
-
-                if (letterApperance == 0)
-                {
-                    Console.WriteLine("Sorry! There are no unrevealed letters {0}", charSupposed);
-                    mistakesCount++;
-                }
-                else
-                {
-                    Console.WriteLine("Good job! You revealed {0} letters.", letterApperance);
-                    RevealedCount += letterApperance;
-                }
-               
-                if (RevealedCount == word.Length)
-                {
-                    FinalizeGame(word);
-                    CommandExecuter.Restart();
-                }
-
-                Console.WriteLine("The secret word is:");
-                RevealGuessedLetters(word);
-            }
-        }
+       
         public static void FinalizeGame(Word word)
         {
             Console.WriteLine("You won with {0} mistakes.", mistakesCount);

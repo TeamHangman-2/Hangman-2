@@ -9,13 +9,13 @@
         private Player player;
         private CommandExecuter cmdExecutor;
         private int wrongGuessesCount;
-        private IList<string> letterGuesses;
+        private IList<char> letterGuesses;
         private bool gameIsRunning;
         private const int LengthOfLetter = 1;
         public GameEngine(Player player)
         {
             this.Player = player;
-            this.letterGuesses = new List<string>();
+            this.letterGuesses = new List<char>();
             this.WrongGuessesCount = 0;
 
         }
@@ -79,14 +79,14 @@
                 throw new ArgumentException();
             }
 
-            if (command.Length > LengthOfLetter)
-            {
-                ExecuteCommand(command);
-            }
-            else
+            if (command.Length < LengthOfLetter)
             {
                 char supposedChar = command[0];
-                GameManager.ProccessGuess(this.wordToGuess, supposedChar);
+                //GameManager.ProccessGuess(this.wordToGuess, supposedChar);
+            }
+            else
+            {   
+                ExecuteCommand(command);
             }
             // this.cmdExecutor.Executecommand(string command);
             // TODO: check if input is command or guess
@@ -137,6 +137,53 @@
         private void ExecuteExitCommand()
         {
             throw new NotImplementedException();
+        }
+
+        public static void ProccessGuess(Word word, char charSupposed)
+        {
+            bool UsedHelp = false;
+            int RevealedCount = 0;
+            //char[] GuessedLetters;//= new int[this.Word.Length];
+            
+            //StringBuilder wordInitailized = new StringBuilder();
+            int letterApperance = 0;
+
+            if (true)
+            {
+
+                //Console.WriteLine("You have already revelaed the letter {0}", charSupposed);
+            }
+            else
+            {
+                //for (int i = 0; i < word.Length; i++)
+                //{
+                //    if (word[i].Equals(charSupposed))
+                //    {
+                //        GuessedLetters[i] = word[i];
+                //        letterApperance++;
+                //    }
+                //}
+
+                //if (letterApperance == 0)
+                //{
+                //    Console.WriteLine("Sorry! There are no unrevealed letters {0}", charSupposed);
+                //    mistakesCount++;
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Good job! You revealed {0} letters.", letterApperance);
+                //    RevealedCount += letterApperance;
+                //}
+
+                //if (RevealedCount == word.Length)
+                //{
+                //    FinalizeGame(word);
+                //    CommandExecuter.Restart();
+                //}
+
+                //Console.WriteLine("The secret word is:");
+                //RevealGuessedLetters(word);
+            }
         }
     }
 }
