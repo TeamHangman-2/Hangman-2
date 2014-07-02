@@ -67,7 +67,7 @@
 
         private void RunGame()
         {
-            //this.announcer.OutputIntroMessage();
+            this.announcer.OutputGameStartMessage();
 
             while (this.gameIsRunning)
             {
@@ -80,12 +80,12 @@
         private void UpdateScreen()
         {
             Console.Clear();
-            Console.WriteLine("These are the available commands");
-            Console.WriteLine("These are the guesses made");
-            Console.WriteLine(string.Join(" ", this.wordToGuess.WordOnScreen));
-            //this.announcer.OutputAvailableCommands();
-            //this.announcer.OutputGuessesMade(string.Join(", ", this.letterGuesses));
-            //this.announcer.OutputWordVisualisation(this.wordToGuess.WordOnScreen);
+            //Console.WriteLine("These are the available commands");
+            //Console.WriteLine("These are the guesses made");
+            //Console.WriteLine(string.Join(" ", this.wordToGuess.WordOnScreen));
+            this.announcer.OutputAvailableCommands();
+            this.announcer.OutputGuessesMade(string.Join(", ", this.letterGuesses));
+            this.announcer.OutputWordVisualisation(this.wordToGuess.WordOnScreen);
         }
 
         public void ReadInput(string command)
@@ -152,11 +152,16 @@
         public void EndGame()
         {
             this.gameIsRunning = false;
-            // end game messages
             // record player score
-
-            //Console.WriteLine("You won with {0} mistakes.", mistakesCount);
-            //RevealGuessedLetters(word);
+            if (this.wrongGuessesCount<=MaxErrorsAllowed)
+            {
+                this.announcer.OutputGameWonMessage(this.wrongGuessesCount);
+            }
+            else
+            {
+                this.announcer.OutputGameLostMessage(this.wrongGuessesCount);
+            }
+            
         }
 
         //private void PrintResults()
