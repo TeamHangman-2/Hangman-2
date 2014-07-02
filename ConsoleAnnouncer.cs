@@ -10,7 +10,7 @@ namespace Hangman
         private const string RepeatingGuessMessage = "You have already revelaed the letter";
         private const string WonMessage = "You won! Number of mistakes: ";
         private const string LooseMessage = "You loose!";
-        private const string IntroductingMessage = "Welcome to “Hangman” game. Please try to guess my secret word.\nUse 'top' to view the top scoreboard, 'restart' to start a new game,'help' to cheat and 'exit' to quit the game.";
+        private const string IntroductingMessage = "Welcome to “Hangman” game. Please try to guess my secret word.\n, , and '.";
         public void OutputGameStartMessage()
         {
             Console.WriteLine(IntroductingMessage);
@@ -29,10 +29,10 @@ namespace Hangman
         public void OutputAvailableCommands()
         {
             StringBuilder allCommands = new StringBuilder();
-            allCommands.Append(GameCommands.Exit);
-            allCommands.Append(GameCommands.Help);
-            allCommands.Append(GameCommands.Restart);
-            allCommands.Append(GameCommands.ShowResult);
+            allCommands.Append(GameCommands.Exit + " -  quit the game");
+            allCommands.Append(GameCommands.Help + " - reveal first hidden letter");
+            allCommands.Append(GameCommands.Restart + " - start a new game");
+            allCommands.Append(GameCommands.ShowResult + " - view the top scoreboard");
 
             Console.WriteLine(allCommands.ToString());
         }

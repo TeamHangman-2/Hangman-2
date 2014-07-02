@@ -79,10 +79,7 @@
 
         private void UpdateScreen()
         {
-            Console.Clear();
-            //Console.WriteLine("These are the available commands");
-            //Console.WriteLine("These are the guesses made");
-            //Console.WriteLine(string.Join(" ", this.wordToGuess.WordOnScreen));
+            
             this.announcer.OutputAvailableCommands();
             this.announcer.OutputGuessesMade(string.Join(", ", this.letterGuesses));
             this.announcer.OutputWordVisualisation(this.wordToGuess.WordOnScreen);
