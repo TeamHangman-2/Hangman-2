@@ -5,11 +5,11 @@
 //Memento-Results??
 //Singleton
 
-using System;
-using System.Linq;
-
 namespace Hangman
 {
+    using System;
+    using System.Linq;
+
     public class Hangman
     {
         public static void Main(string[] args)
