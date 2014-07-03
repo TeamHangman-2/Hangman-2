@@ -10,7 +10,7 @@ namespace Hangman
         private const string RepeatingGuessMessage = "You have already revelaed the letter";
         private const string WonMessage = "You won! Number of mistakes: ";
         private const string LooseMessage = "You loose!";
-        private const string IntroductingMessage = "Welcome to “Hangman” game. Please try to guess my secret word.\n, , and '.";
+        private const string IntroductingMessage = "Welcome to “Hangman” game. Please try to guess my secret word.\n";
         private const string LetterAlreadyRevealedMessage = "You have already revelaed the letter {0}";
         private const string EnterPlayerNameMessage= "Please enter your name for the top scoreboard";
         public void OutputGameStartMessage()
@@ -46,7 +46,7 @@ namespace Hangman
 
         public void OutputWordVisualisation(char[] word)
         {
-            Console.WriteLine(string.Join("",word));
+            Console.WriteLine(string.Join(" ",word));
         }
         public void OutputRepeatingGuessMessage()
         {

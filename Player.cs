@@ -60,7 +60,7 @@ namespace Hangman
         public int Points
         {
             get { return this.points; }
-            private set
+            set
             {
                 if (value < 0)
                 {
@@ -72,7 +72,7 @@ namespace Hangman
 
         public void SetRecord(SortedSet<int> record)
         {
-
+            this.personalRecord = record;
         }
 
         public int CompareTo(object otherPlayer)

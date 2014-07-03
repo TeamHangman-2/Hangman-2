@@ -3,6 +3,7 @@
 //Observer pattern?? UpdateWordOnScreen
 //Mediator pattern
 //Memento-Results??
+//Singleton
 
 using System;
 using System.Linq;

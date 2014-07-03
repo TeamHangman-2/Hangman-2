@@ -55,7 +55,6 @@
 
         public void Start()
         {
-            Console.Clear();
             this.InitializeGame();
             this.RunGame();
         }
