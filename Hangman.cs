@@ -13,7 +13,7 @@ namespace Hangman
     {
         public static void Main(string[] args)
         {
-            Player player=new Player("Pasho",30);
+            Player player = new Player("Pasho", 30);
             GameEngine gameEngine = new GameEngine(player);
             gameEngine.Start();
         }

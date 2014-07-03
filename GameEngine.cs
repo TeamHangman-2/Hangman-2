@@ -14,6 +14,7 @@
         private IGameAnnouncer announcer;
         private const int LengthOfLetter = 1;
         private const int MaxErrorsAllowed = 10;
+        private IRecordManager recordManager;
 
         public GameEngine(Player player)
         {
@@ -21,6 +22,7 @@
             this.letterGuesses = new List<char>();
             this.WrongGuessesCount = 0;
             this.announcer = new ConsoleAnnouncer();
+            this.recordManager = new FileRecordManager();
         }
 
         public Player Player
@@ -74,6 +76,7 @@
                 this.UpdateScreen();
                 string input = Console.ReadLine();
                 this.ReadInput(input);
+                this.Player.Points++;
             }
         }
 
@@ -132,6 +135,11 @@
             }
         }
 
+        private void LoadPlayerRecord()
+        {
+
+        }
+
         private GameCommands ParseToGameCommandsEnum(string command)
         {
             command = command.ToLower();
@@ -146,7 +154,7 @@
                     throw new ArgumentOutOfRangeException("Unrecognised game command");
             }
         }
-        public void EndGame()
+        private void EndGame()
         {
             this.gameIsRunning = false;
             // record player score
@@ -174,29 +182,27 @@
         //        }
         //    }
 
-        //    if ((CommandExecuter.ScoreBoard[freeScoreboardPosition] == null ||
-        //         mistakesCount <= CommandExecuter.ScoreBoard[freeScoreboardPosition].NumberOfMistakes)
+        //    if ((.ScoreBoard[freeScoreboardPosition] == null ||
+        //         mistakesCount <= ScoreBoard[freeScoreboardPosition].NumberOfMistakes)
         //          && UsedHelp == false)
         //    {
-        //        Console.WriteLine("Please enter your name for the top scoreboard:");
         //        string playerName = Console.ReadLine();
         //        Player newResult = new Player(playerName, mistakesCount);
-        //        CommandExecuter.ScoreBoard[freeScoreboardPosition] = newResult;
+        //       ScoreBoard[freeScoreboardPosition] = newResult;
 
         //        for (int i = freeScoreboardPosition; i > 0; i--)
         //        {
-        //            if (CommandExecuter.ScoreBoard[i].CompareTo(CommandExecuter.ScoreBoard[i - 1]) < 0)
+        //            if (ScoreBoard[i].CompareTo(ScoreBoard[i - 1]) < 0)
         //            {
-        //                Player betterScore = CommandExecuter.ScoreBoard[i];
-        //                CommandExecuter.ScoreBoard[i] = CommandExecuter.ScoreBoard[i - 1];
-        //                CommandExecuter.ScoreBoard[i - 1] = betterScore;
+        //                Player betterScore = ScoreBoard[i];
+        //                ScoreBoard[i] = ScoreBoard[i - 1];
+        //                ScoreBoard[i - 1] = betterScore;
         //            }
         //        }
         //    }
         //}
 
-        // Command methods from CommandExecuter.cs
-        public int RevealLetter()
+        private int RevealLetter()
         {
             int result = -1;
 
@@ -228,7 +234,7 @@
             throw new NotImplementedException();
         }
 
-        public void ProccessGuess(char currentGuess)
+        private void ProccessGuess(char currentGuess)
         {
             bool wordContainsLetter = false;
 

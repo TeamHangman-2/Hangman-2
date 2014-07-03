@@ -12,6 +12,7 @@ namespace Hangman
         private const string LooseMessage = "You loose!";
         private const string IntroductingMessage = "Welcome to “Hangman” game. Please try to guess my secret word.\n, , and '.";
         private const string LetterAlreadyRevealedMessage = "You have already revelaed the letter {0}";
+        private const string EnterPlayerNameMessage= "Please enter your name for the top scoreboard";
         public void OutputGameStartMessage()
         {
             Console.WriteLine(IntroductingMessage);
