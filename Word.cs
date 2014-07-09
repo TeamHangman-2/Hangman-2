@@ -1,11 +1,13 @@
 ﻿namespace Hangman
 {
     using System;
+    using System.Linq;
 
     public class Word
     {
         private const int MaxLengthOfLetter = 1;
         private const char HiddenWordSymbol = '_';
+
         private string wordToGuess;
         private char[] wordOnScreen;
 
@@ -15,10 +17,10 @@
             this.WordOnScreen = SetDefaultWordOnScreen(this.WordToGuess.Length);
         }
 
-        public string WordToGuess
+        private string WordToGuess
         {
             get { return this.wordToGuess; }
-            private set
+            set
             {
                 if (value == null)
                 {
@@ -30,6 +32,12 @@
                     throw new ArgumentException("Word cannot be empty string!");
                 }
 
+                if (value.All(Char.IsLetter))
+                {
+                    throw new ArgumentException("Invalid word" +
+                        "Word is a string that consists of letters only");
+                }
+
                 this.wordToGuess = value;
             }
         }
@@ -39,19 +47,10 @@
             get { return this.WordToGuess.Length; }
         }
 
-        public char this[int index]
-        {
-            get
-            {
-                if (index < 0 || index >= this.WordToGuess.Length)
-                {
-                    throw new IndexOutOfRangeException("Incorrect index in word!");
-                }
-
-                return this.WordToGuess[index];
-            }
-        }
-
+        /// <summary>
+        /// This is the masked word 
+        /// (some of the letters will be displayed as the hidden symbol)
+        /// </summary>
         public char[] WordOnScreen
         {
             get { return this.wordOnScreen; }
@@ -98,38 +97,70 @@
             return false;
         }
 
-        public void UpdateWordOnScreen(char currentGuess)
+
+        /// <summary>
+        /// If the word contains the letter, it will be revealed on every position.
+        /// <para> Returns true if any letter was guessed </para>
+        /// </summary>
+        /// <param name="currentGuess">the letter to be guessed</param>
+        public bool GuessLetter(char currentGuess)
         {
-            if (Char.IsWhiteSpace(currentGuess))
+            if (!Char.IsLetter(currentGuess))
             {
-                throw new ArgumentException("Letter cannot be white space!");
+                throw new ArgumentException("The word consists of letters, no whitespaces, numbers or symbols");
             }
+
+            bool isGuessed = false;
 
             for (int i = 0; i < this.WordOnScreen.Length; i++)
             {
                 if (this.WordToGuess[i] == currentGuess)
                 {
                     this.WordOnScreen[i] = currentGuess;
+                    isGuessed = true;
                 }
+            }
 
+            return isGuessed;
+        }
+
+        public void RevealOneLetter()
+        {
+            for (int i = 0; i < this.WordOnScreen.Length; i++)
+            {
+                if (this.WordOnScreen[i] == HiddenWordSymbol)
+                {
+                    this.WordOnScreen[i] = this.wordToGuess[i];
+                }
             }
         }
 
+        static private char[] SetDefaultWordOnScreen(int length)
+        {
+            return new string(HiddenWordSymbol, length).ToCharArray();
+        }
+
+
+        #warning obsolete members, check if they are needed:
+        [Obsolete("This is not used at the moment and it might not be needed anymore")]
         public void ShowLetterAt(int index)
         {
             this.WordOnScreen[index] = this.WordToGuess[index];
         }
 
-        private char[] SetDefaultWordOnScreen(int length)
+        [Obsolete("This is not used at the moment and it might not be needed anymore")]
+        public char this[int index]
         {
-            char[] result = new char[length];
-
-            for (int i = 0; i < length; i++)
+            get
             {
-                result[i] = HiddenWordSymbol;
-            }
+                if (index < 0 || index >= this.WordToGuess.Length)
+                {
+                    throw new IndexOutOfRangeException("Incorrect index in word!");
+                }
 
-            return result;
+                return this.WordToGuess[index];
+            }
         }
+
     }
 }

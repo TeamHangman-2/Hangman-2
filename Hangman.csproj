@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleAnnouncer.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="FileRecordManager.cs" />
     <Compile Include="IGameAnnouncer.cs" />
     <Compile Include="GameCommands.cs" />

@@ -3,17 +3,24 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using Extensions;
 
+
+
+    /// <summary>
+    /// Responsible for Running the game cycle, processing commands
+    /// </summary>
     public class GameEngine
     {
+        private const int LengthOfLetter = 1;
+        private const int MaxErrorsAllowed = 10;
+
         private Word wordToGuess;
         private Player player;
         private int wrongGuessesCount;
         private IList<char> letterGuesses;
         private bool gameIsRunning;
         private IGameAnnouncer announcer;
-        private const int LengthOfLetter = 1;
-        private const int MaxErrorsAllowed = 10;
         private IRecordManager recordManager;
 
         public GameEngine(Player player)
@@ -55,6 +62,7 @@
 
         public void Start()
         {
+#warning TODO: reset variables here instead in the constructor to assure that game restart works fine
             this.InitializeGame();
             this.RunGame();
         }
@@ -74,20 +82,19 @@
             {
                 this.UpdateScreen();
                 string input = Console.ReadLine();
-                this.ReadInput(input);
+                this.ProcessInput(input);
                 this.Player.Points++;
             }
         }
 
         private void UpdateScreen()
         {
-            
             this.announcer.OutputAvailableCommands();
             this.announcer.OutputGuessesMade(string.Join(", ", this.letterGuesses));
             this.announcer.OutputWordVisualisation(this.wordToGuess.WordOnScreen);
         }
 
-        public void ReadInput(string command)
+        public void ProcessInput(string command)
         {
             if (command == null)
             {
@@ -110,24 +117,23 @@
             }
         }
 
-        private void ExecuteCommand(string command)
+        private void ExecuteCommand(string commandString)
         {
-            var currCommand = this.ParseToGameCommandsEnum(command);
+            var command = commandString.ToEnum<GameCommands>();
 
-            switch (currCommand)
+            switch (command)
             {
                 case GameCommands.Help:
-                    int index = this.RevealLetter();
-                    this.wordToGuess.UpdateWordOnScreen(this.wordToGuess[index]);
+                    this.wordToGuess.RevealOneLetter();
                     break;
                 case GameCommands.Restart:
-                    this.ExecuteRestartCommand();
+                    this.RestartGame();
                     break;
                 case GameCommands.Exit:
-                    this.ExecuteExitCommand();
+                    this.ExitGame();
                     break;
                 case GameCommands.ShowResult:
-                    this.ExecuteShowResultsCommand();
+                    this.ShowResults();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("Unrecognised command!");
@@ -139,6 +145,7 @@
 
         }
 
+        [Obsolete("This is not used anymore, replaced by Enum extension")]
         private GameCommands ParseToGameCommandsEnum(string command)
         {
             command = command.ToLower();
@@ -153,11 +160,12 @@
                     throw new ArgumentOutOfRangeException("Unrecognised game command");
             }
         }
+
         private void EndGame()
         {
             this.gameIsRunning = false;
             // record player score
-            if (this.wrongGuessesCount<=MaxErrorsAllowed)
+            if (this.wrongGuessesCount <= MaxErrorsAllowed)
             {
                 this.announcer.OutputGameWonMessage(this.wrongGuessesCount);
             }
@@ -165,7 +173,7 @@
             {
                 this.announcer.OutputGameLostMessage(this.wrongGuessesCount);
             }
-            
+
         }
 
         //private void PrintResults()
@@ -201,58 +209,45 @@
         //    }
         //}
 
-        private int RevealLetter()
-        {
-            int result = -1;
 
-            for (int i = 0; i < this.wordToGuess.Length; i++)
-            {
-                if (this.wordToGuess.WordOnScreen[i] == '_')
-                {
-                    result = i;
-                    break;
-                }
-            }
-
-            return result;
-        }
-
-        private void ExecuteRestartCommand()
+        private void RestartGame()
         {
             this.EndGame();
             this.Start();
         }
 
-        private void ExecuteShowResultsCommand()
+        private void ShowResults()
         {
+            var leaderBoard = recordManager.LoadLeaderboard();
             throw new NotImplementedException();
         }
 
-        private void ExecuteExitCommand()
+        private void ExitGame()
         {
             throw new NotImplementedException();
         }
 
         private void ProccessGuess(char currentGuess)
         {
-            bool wordContainsLetter = false;
-
             if (this.letterGuesses.Contains(currentGuess))
             {
                 this.announcer.OutputRepeatingGuessMessage();
                 return;
             }
 
-            for (int i = 0; i < this.wordToGuess.Length; i++)
-            {
-                var currentCharacter = this.wordToGuess[i];
+            // This is responsbility of the word, the GameEngine should mess with Word's properties
+            //for (int i = 0; i < this.wordToGuess.Length; i++)
+            //{
+            //    var currentCharacter = this.wordToGuess[i];
 
-                if (currentCharacter == currentGuess)
-                {
-                    this.wordToGuess.UpdateWordOnScreen(currentGuess);
-                    wordContainsLetter = true;
-                }
-            }
+            //    if (currentCharacter == currentGuess)
+            //    {
+            //        this.wordToGuess.UpdateWordOnScreen(currentGuess);
+            //        wordContainsLetter = true;
+            //    }
+            //}
+
+            bool wordContainsLetter = this.wordToGuess.GuessLetter(currentGuess);
 
             this.letterGuesses.Add(currentGuess);
 
@@ -264,7 +259,6 @@
                 if (this.wrongGuessesCount >= MaxErrorsAllowed)
                 {
                     this.EndGame();
-                    //PrintResults();
                 }
             }
         }
