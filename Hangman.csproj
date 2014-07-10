@@ -61,8 +61,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleAnnouncer.cs" />
+    <Compile Include="IOManger.cs" />
+    <Compile Include="resources\ExceptionMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExceptionMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="FileRecordManager.cs" />
+    <Compile Include="resources\GameStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GameStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="IGameAnnouncer.cs" />
     <Compile Include="GameCommands.cs" />
     <Compile Include="GameEngine.cs" />
@@ -94,6 +105,17 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="resources\ExceptionMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\GameStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GameStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
