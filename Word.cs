@@ -32,7 +32,7 @@
                     throw new ArgumentException("Word cannot be empty string!");
                 }
 
-                if (value.All(Char.IsLetter))
+                if (!value.All(Char.IsLetter))
                 {
                     throw new ArgumentException("Invalid word" +
                         "Word is a string that consists of letters only");
@@ -63,28 +63,6 @@
 
                 this.wordOnScreen = value;
             }
-        }
-
-        public bool WordContainsletter(string letter)
-        {
-            if (letter == string.Empty)
-            {
-                throw new ArgumentException("Letter cannot be empty string!");
-            }
-
-            if (letter == null)
-            {
-                throw new ArgumentNullException("Letter cannot be null!");
-            }
-
-            if (letter.Length > MaxLengthOfLetter)
-            {
-                throw new ArgumentException();//TODO:need to change to more appropriate exception
-            }
-
-            bool result = this.WordToGuess.Contains(letter);
-
-            return result;
         }
 
         public bool WordIsGuessed(string wordToCompare)
@@ -131,6 +109,7 @@
                 if (this.WordOnScreen[i] == HiddenWordSymbol)
                 {
                     this.WordOnScreen[i] = this.wordToGuess[i];
+                    break;
                 }
             }
         }
@@ -142,6 +121,29 @@
 
 
         #warning obsolete members, check if they are needed:
+
+        public bool WordContainsletter(string letter)
+        {
+            if (letter == string.Empty)
+            {
+                throw new ArgumentException("Letter cannot be empty string!");
+            }
+
+            if (letter == null)
+            {
+                throw new ArgumentNullException("Letter cannot be null!");
+            }
+
+            if (letter.Length > MaxLengthOfLetter)
+            {
+                throw new ArgumentException();//TODO:need to change to more appropriate exception
+            }
+
+            bool result = this.WordToGuess.Contains(letter);
+
+            return result;
+        }
+
         [Obsolete("This is not used at the moment and it might not be needed anymore")]
         public void ShowLetterAt(int index)
         {
