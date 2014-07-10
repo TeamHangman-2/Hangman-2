@@ -81,7 +81,6 @@
     <Compile Include="IRecordManager.cs" />
     <Compile Include="Word.cs" />
     <Compile Include="WordGenerator.cs" />
-    <Compile Include="Hangman.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

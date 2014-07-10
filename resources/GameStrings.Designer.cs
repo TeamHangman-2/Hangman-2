@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hangman {
+namespace Hangman.resources {
     using System;
     
     
@@ -61,6 +61,15 @@ namespace Hangman {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to List of available commands:.
+        /// </summary>
+        internal static string AvailableCommands {
+            get {
+                return ResourceManager.GetString("AvailableCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter your name for the top scoreboard.
         /// </summary>
         internal static string EnterPlayerNameMessage {
@@ -70,7 +79,7 @@ namespace Hangman {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to quit the game.
+        ///   Looks up a localized string similar to exit - quit the game.
         /// </summary>
         internal static string Exit {
             get {
@@ -79,7 +88,7 @@ namespace Hangman {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to reveal first hidden letter&quot;.
+        ///   Looks up a localized string similar to help - reveal first hidden letter.
         /// </summary>
         internal static string Help {
             get {
@@ -106,7 +115,7 @@ namespace Hangman {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You loose!.
+        ///   Looks up a localized string similar to You loose! Number of mistakes:.
         /// </summary>
         internal static string LooseMessage {
             get {
@@ -124,7 +133,7 @@ namespace Hangman {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to start a new game.
+        ///   Looks up a localized string similar to restart - start a new game.
         /// </summary>
         internal static string Restart {
             get {
@@ -133,7 +142,7 @@ namespace Hangman {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to view the top scoreboard.
+        ///   Looks up a localized string similar to showresult - view the top scoreboard.
         /// </summary>
         internal static string ShowResult {
             get {

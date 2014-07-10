@@ -10,6 +10,11 @@ namespace HangmanConsole
             Console.WriteLine(message);
         }
 
+        public void Print(string message, params object[] args)
+        {
+            Console.WriteLine(message, args);
+        }
+
         public string ReadInput()
         {
             return Console.ReadLine();

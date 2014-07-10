@@ -7,6 +7,7 @@
 
 namespace Hangman
 {
+    using HangmanConsole;
     using System;
     using System.Linq;
 
@@ -14,8 +15,12 @@ namespace Hangman
     {
         public static void Main(string[] args)
         {
-            Player player = new Player("Pasho", 30);
-            GameEngine gameEngine = new GameEngine(player);
+            var player = new Player("Pasho", 30);
+            var ioManager = new ConsoleIOManager();
+            var recordManager = new FileRecordManager();
+
+
+            GameEngine gameEngine = new GameEngine(player, recordManager, ioManager);
             gameEngine.Start();
         }
     }

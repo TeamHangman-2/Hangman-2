@@ -75,7 +75,6 @@
             return false;
         }
 
-
         /// <summary>
         /// If the word contains the letter, it will be revealed on every position.
         /// <para> Returns true if any letter was guessed </para>

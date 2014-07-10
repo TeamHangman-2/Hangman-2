@@ -4,7 +4,8 @@
     using System.Collections.Generic;
     using System.Globalization;
     using Extensions;
-
+    using IO;
+    using resources;
 
 
     /// <summary>
@@ -20,16 +21,16 @@
         private int wrongGuessesCount;
         private IList<char> letterGuesses;
         private bool gameIsRunning;
-        private IGameAnnouncer announcer;
+        private IOManager ioManager;
         private IRecordManager recordManager;
 
-        public GameEngine(Player player)
+        public GameEngine(Player player, IRecordManager recordManager, IOManager ioManager)
         {
             this.Player = player;
             this.letterGuesses = new List<char>();
             this.WrongGuessesCount = 0;
-            this.announcer = new ConsoleAnnouncer();
-            this.recordManager = new FileRecordManager();
+            this.ioManager = ioManager;
+            this.recordManager = recordManager;
         }
 
         public Player Player
@@ -76,12 +77,12 @@
 
         private void RunGame()
         {
-            this.announcer.OutputGameStartMessage();
+            ioManager.Print(GameStrings.IntroductingMessage);
 
             while (this.gameIsRunning)
             {
                 this.UpdateScreen();
-                string input = Console.ReadLine();
+                string input = ioManager.ReadInput();
                 this.ProcessInput(input);
                 this.Player.Points++;
             }
@@ -89,9 +90,16 @@
 
         private void UpdateScreen()
         {
-            this.announcer.OutputAvailableCommands();
-            this.announcer.OutputGuessesMade(string.Join(", ", this.letterGuesses));
-            this.announcer.OutputWordVisualisation(this.wordToGuess.WordOnScreen);
+            ioManager.Print(GameStrings.AvailableCommands);
+            ioManager.Print(GameStrings.Help);
+            ioManager.Print(GameStrings.Restart);
+            ioManager.Print(GameStrings.ShowResult);
+            ioManager.Print(GameStrings.Exit);
+
+            string guessesList = string.Join(", ", this.letterGuesses);
+
+            ioManager.Print(GameStrings.LetterAlreadyRevealedMessage, guessesList);
+            ioManager.Print(string.Join(" ", this.wordToGuess.WordOnScreen));
         }
 
         public void ProcessInput(string command)
@@ -167,48 +175,14 @@
             // record player score
             if (this.wrongGuessesCount <= MaxErrorsAllowed)
             {
-                this.announcer.OutputGameWonMessage(this.wrongGuessesCount);
+                ioManager.Print(GameStrings.WonMessage + " " + this.wrongGuessesCount);
             }
             else
             {
-                this.announcer.OutputGameLostMessage(this.wrongGuessesCount);
+                ioManager.Print(GameStrings.LooseMessage + " " + this.wrongGuessesCount);
             }
 
         }
-
-        //private void PrintResults()
-        //{
-        //    int freeScoreboardPosition = 4;
-
-        //    for (int i = 0; i < 4; i++)
-        //    {
-        //        if (CommandExecuter.ScoreBoard[i] == null)
-        //        {
-        //            freeScoreboardPosition = i;
-        //            break;
-        //        }
-        //    }
-
-        //    if ((.ScoreBoard[freeScoreboardPosition] == null ||
-        //         mistakesCount <= ScoreBoard[freeScoreboardPosition].NumberOfMistakes)
-        //          && UsedHelp == false)
-        //    {
-        //        string playerName = Console.ReadLine();
-        //        Player newResult = new Player(playerName, mistakesCount);
-        //       ScoreBoard[freeScoreboardPosition] = newResult;
-
-        //        for (int i = freeScoreboardPosition; i > 0; i--)
-        //        {
-        //            if (ScoreBoard[i].CompareTo(ScoreBoard[i - 1]) < 0)
-        //            {
-        //                Player betterScore = ScoreBoard[i];
-        //                ScoreBoard[i] = ScoreBoard[i - 1];
-        //                ScoreBoard[i - 1] = betterScore;
-        //            }
-        //        }
-        //    }
-        //}
-
 
         private void RestartGame()
         {
@@ -231,22 +205,10 @@
         {
             if (this.letterGuesses.Contains(currentGuess))
             {
-                this.announcer.OutputRepeatingGuessMessage();
+                ioManager.Print(GameStrings.RepeatingGuessMessage);
                 return;
             }
-
-            // This is responsbility of the word, the GameEngine should mess with Word's properties
-            //for (int i = 0; i < this.wordToGuess.Length; i++)
-            //{
-            //    var currentCharacter = this.wordToGuess[i];
-
-            //    if (currentCharacter == currentGuess)
-            //    {
-            //        this.wordToGuess.UpdateWordOnScreen(currentGuess);
-            //        wordContainsLetter = true;
-            //    }
-            //}
-
+      
             bool wordContainsLetter = this.wordToGuess.GuessLetter(currentGuess);
 
             this.letterGuesses.Add(currentGuess);
