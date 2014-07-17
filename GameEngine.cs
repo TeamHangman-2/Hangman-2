@@ -17,14 +17,14 @@
         private const int MaxErrorsAllowed = 10;
 
         private Word wordToGuess;
-        private Player player;
+        private PlayerScore player;
         private int wrongGuessesCount;
         private IList<char> letterGuesses;
         private bool gameIsRunning;
         private IOManager ioManager;
         private IRecordManager recordManager;
 
-        public GameEngine(Player player, IRecordManager recordManager, IOManager ioManager)
+        public GameEngine(PlayerScore player, IRecordManager recordManager, IOManager ioManager)
         {
             this.Player = player;
             this.letterGuesses = new List<char>();
@@ -33,7 +33,7 @@
             this.recordManager = recordManager;
         }
 
-        public Player Player
+        public PlayerScore Player
         {
             get { return this.player; }
             private set

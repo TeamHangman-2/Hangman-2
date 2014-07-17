@@ -34,7 +34,7 @@
             return result;
         }
 
-        public SortedSet<Player> LoadLeaderboard()
+        public SortedSet<PlayerScore> LoadLeaderboard()
         {
             throw new System.NotImplementedException();
         }

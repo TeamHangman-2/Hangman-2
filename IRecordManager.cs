@@ -8,6 +8,6 @@
 
         SortedSet<int> LoadPlayerResults(string playerName, string loadPath);
 
-        SortedSet<Player> LoadLeaderboard();
+        SortedSet<PlayerScore> LoadLeaderboard();
     }
 }

@@ -76,7 +76,7 @@
     <Compile Include="IGameAnnouncer.cs" />
     <Compile Include="GameCommands.cs" />
     <Compile Include="GameEngine.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="PlayerScore.cs" />
     <Compile Include="IRecordManager.cs" />
     <Compile Include="Word.cs" />
     <Compile Include="WordGenerator.cs" />

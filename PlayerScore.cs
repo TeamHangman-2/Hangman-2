@@ -4,14 +4,14 @@ using System.Linq;
 
 namespace Hangman
 {
-    public class Player : IComparable
+    public class PlayerScore : IComparable
     {
         private string playerName;
         private int numberOfMiskates;
         private int points;
         private SortedSet<int> personalRecord;
 
-        public Player(string playerName, int numberOfMistakes)
+        public PlayerScore(string playerName, int numberOfMistakes)
         {
             this.Points = 0;
             this.PlayerName = playerName;
@@ -77,7 +77,7 @@ namespace Hangman
 
         public int CompareTo(object otherPlayer)
         {
-            Player playerToCompareWith = otherPlayer as Player;
+            PlayerScore playerToCompareWith = otherPlayer as PlayerScore;
             int result = 0;
 
             if (this.NumberOfMistakes <= playerToCompareWith.NumberOfMistakes)

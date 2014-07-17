@@ -15,7 +15,7 @@ namespace Hangman
     {
         public static void Main(string[] args)
         {
-            var player = new Player("Pasho", 30);
+            var player = new PlayerScore("Pasho", 30);
             var ioManager = new ConsoleIOManager();
             var recordManager = new FileRecordManager();
 
