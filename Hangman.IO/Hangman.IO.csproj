@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{117BE386-8540-429D-A8D3-4054F773BD88}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{CB9F78F2-91B2-4333-8E48-AF1D66B8D615}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HangmanConsole</RootNamespace>
-    <AssemblyName>HangmanConsole</AssemblyName>
+    <RootNamespace>Hangman.IO</RootNamespace>
+    <AssemblyName>Hangman.IO</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,22 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleIOManager.cs" />
-    <Compile Include="Hangman.cs" />
+    <Compile Include="FileStorage.cs" />
+    <Compile Include="IOManager.cs" />
+    <Compile Include="IStorageProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hangman.csproj">
-      <Project>{e99daba4-8a41-4b06-9ab7-d9d94a5067df}</Project>
-      <Name>Hangman</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hangman.IO\Hangman.IO.csproj">
-      <Project>{cb9f78f2-91b2-4333-8e48-af1d66b8d615}</Project>
-      <Name>Hangman.IO</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

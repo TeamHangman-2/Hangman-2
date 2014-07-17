@@ -114,8 +114,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\Kalin\Documents\Visual Studio 2013\Projects\CPP\Hangman.IO\Hangman.IO.csproj">
-      <Project>{2108b46c-3385-4ae6-b263-8c7ce639fcbc}</Project>
+    <ProjectReference Include="Hangman.IO\Hangman.IO.csproj">
+      <Project>{cb9f78f2-91b2-4333-8e48-af1d66b8d615}</Project>
       <Name>Hangman.IO</Name>
     </ProjectReference>
   </ItemGroup>
