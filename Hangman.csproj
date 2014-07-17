@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleAnnouncer.cs" />
-    <Compile Include="IOManger.cs" />
     <Compile Include="resources\ExceptionMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,7 +113,12 @@
       <LastGenOutput>GameStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\Kalin\Documents\Visual Studio 2013\Projects\CPP\Hangman.IO\Hangman.IO.csproj">
+      <Project>{2108b46c-3385-4ae6-b263-8c7ce639fcbc}</Project>
+      <Name>Hangman.IO</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

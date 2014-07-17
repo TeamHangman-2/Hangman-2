@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Globalization;
     using Extensions;
-    using IO;
     using resources;
+    using Hangman.IO;
 
 
     /// <summary>
