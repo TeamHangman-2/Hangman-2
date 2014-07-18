@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hangman.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,6 +11,7 @@ namespace Hangman
         private int numberOfMiskates;
         private int points;
         private SortedSet<int> personalRecord;
+        private IStorageProvider<string> storage;
 
         public PlayerScore(string playerName, int numberOfMistakes)
         {
@@ -17,6 +19,39 @@ namespace Hangman
             this.PlayerName = playerName;
             this.NumberOfMistakes = numberOfMistakes;
             this.personalRecord = new SortedSet<int>();
+        }
+
+        public static PlayerScore ReadPlayerData(IOManager manager)
+        {
+            manager.Print("Please enter your name: ");
+            string name = manager.ReadInput();
+
+            try
+            {
+                var playerScore = new PlayerScore(name, 0);
+                return playerScore;
+            }
+            catch (Exception ex)
+            {
+                manager.Print("An error occured: {0}", ex.Message);
+                return ReadPlayerData(manager);
+            }
+        }
+
+
+        /// <summary>
+        /// Loads the data from the score file for the current player
+        /// </summary>
+        public void LoadData()
+        {
+           
+            
+        }
+
+        public void SaveData()
+        {
+            
+
         }
 
         public string PlayerName

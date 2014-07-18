@@ -17,10 +17,10 @@ namespace Hangman
         {
             var player = new PlayerScore("Pasho", 30);
             var ioManager = new ConsoleIOManager();
-            var recordManager = new FileRecordManager();
+            //var recordManager = new FileRecordManager();
 
 
-            GameEngine gameEngine = new GameEngine(player, recordManager, ioManager);
+            GameEngine gameEngine = new GameEngine(ioManager);
             gameEngine.Start();
         }
     }

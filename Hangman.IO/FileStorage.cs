@@ -24,7 +24,6 @@ namespace Hangman.IO
             {
                 realPath = filePath.LocalPath;
             }
-
         }
 
         public string LoadEntry(string key)

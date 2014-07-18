@@ -60,20 +60,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleAnnouncer.cs" />
+    <Content Include="ConsoleAnnouncer.cs" />
     <Compile Include="resources\ExceptionMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ExceptionMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="FileRecordManager.cs" />
+    <Content Include="FileRecordManager.cs" />
     <Compile Include="resources\GameStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GameStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="IGameAnnouncer.cs" />
     <Compile Include="GameCommands.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="PlayerScore.cs" />

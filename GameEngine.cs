@@ -24,13 +24,11 @@
         private IOManager ioManager;
         private IRecordManager recordManager;
 
-        public GameEngine(PlayerScore player, IRecordManager recordManager, IOManager ioManager)
+        public GameEngine(IOManager ioManager)
         {
-            this.Player = player;
             this.letterGuesses = new List<char>();
             this.WrongGuessesCount = 0;
-            this.ioManager = ioManager;
-            this.recordManager = recordManager;
+            this.ioManager = ioManager;         
         }
 
         public PlayerScore Player
@@ -83,7 +81,16 @@
             {
                 this.UpdateScreen();
                 string input = ioManager.ReadInput();
-                this.ProcessInput(input);
+
+                try
+                {
+                    this.ProcessInput(input);
+                }
+                catch (ArgumentException ex)
+                {
+                    ioManager.Print("An error occured while processing your input, Error: {0}", ex.Message);
+                }
+
                 this.Player.Points++;
             }
         }
@@ -148,31 +155,11 @@
             }
         }
 
-        private void LoadPlayerRecord()
-        {
-
-        }
-
-        [Obsolete("This is not used anymore, replaced by Enum extension")]
-        private GameCommands ParseToGameCommandsEnum(string command)
-        {
-            command = command.ToLower();
-
-            switch (command)
-            {
-                case "help": return GameCommands.Help;
-                case "restart": return GameCommands.Restart;
-                case "exit": return GameCommands.Exit;
-                case "showresults": return GameCommands.ShowResult;
-                default:
-                    throw new ArgumentOutOfRangeException("Unrecognised game command");
-            }
-        }
-
         private void EndGame()
         {
             this.gameIsRunning = false;
-            // record player score
+
+
             if (this.wrongGuessesCount <= MaxErrorsAllowed)
             {
                 ioManager.Print(GameStrings.WonMessage + " " + this.wrongGuessesCount);
