@@ -70,7 +70,11 @@
         {
             this.wordToGuess = WordGenerator.GetRandomWord();
             this.gameIsRunning = true;
-            // TODO: maybe read player scores from file
+
+            // read player name:
+            ioManager.Print("Enter your name: ");
+            string playerName = ioManager.ReadInput();
+            // create a storage and player instance
         }
 
         private void RunGame()

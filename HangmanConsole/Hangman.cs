@@ -15,13 +15,13 @@ namespace Hangman
     {
         public static void Main(string[] args)
         {
-            var player = new PlayerScore("Pasho", 30);
-            var ioManager = new ConsoleIOManager();
+            //var player = new PlayerScore("Pasho", 30);
+            //var ioManager = new ConsoleIOManager();
             //var recordManager = new FileRecordManager();
 
 
-            GameEngine gameEngine = new GameEngine(ioManager);
-            gameEngine.Start();
+            //GameEngine gameEngine = new GameEngine(ioManager);
+            //gameEngine.Start();
         }
     }
 }

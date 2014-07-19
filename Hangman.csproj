@@ -67,7 +67,7 @@
       <DependentUpon>ExceptionMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Extensions\EnumExtensions.cs" />
-    <Content Include="FileRecordManager.cs" />
+    <Compile Include="FileRecordManager.cs" />
     <Compile Include="resources\GameStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

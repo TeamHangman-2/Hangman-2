@@ -3,14 +3,18 @@ using System.Collections.Generic;
 
 namespace Hangman.IO
 {
-    public interface IStorageProvider<T>
+    public interface IStorageProvider<TKey, TData>
     {
-        T LoadEntry(string key);
+        TData LoadEntry(TKey key);
 
-        void UpdateKey(string key, T newValue);
+        void UpdateEntry(TKey key, TData newValue);
 
-        void RemoveKey(string key);
+        void AddEntry(TKey key, TData newValue);
 
-        IEnumerable<T> GetTop(int count);
+        bool ContainsKey(TKey key);
+
+        void RemoveEntry(TKey key);
+
+        IEnumerable<TData> GetTop(int count);
     }
 }

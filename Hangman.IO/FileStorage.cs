@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Hangman.IO
 {
-    public class FileStorage : IStorageProvider<string>
+    public class FileStorage : IStorageProvider<string, string>
     {
         public Uri FilePath { get; private set; }
 
@@ -32,17 +32,17 @@ namespace Hangman.IO
             return lines.Where(x => x.StartsWith(key)).Single();        
         }
 
-        public void UpdateKey(string key, string newValue)
+        public void UpdateEntry(string key, string newValue)
         {
             var lines = File.ReadAllLines(realPath).ToList();
             var lineToUpdate = lines.Where(x => x.StartsWith(key)).Single();
             int index = lines.IndexOf(lineToUpdate);
 
-            lines[index] = newValue;
+            lines[index] = string.Format("{0},{1}", key, newValue);
             File.WriteAllLines(realPath, lines);
         }
 
-        public void RemoveKey(string key)
+        public void RemoveEntry(string key)
         {
             var lines = File.ReadAllLines(realPath).ToList();
             var lineToUpdate = lines.RemoveAll(x => x.StartsWith(key));
@@ -53,6 +53,20 @@ namespace Hangman.IO
         {
             var lines = File.ReadAllLines(realPath).ToList();
             return lines.Take(count);
+        }
+
+
+        public void AddEntry(string key, string newValue)
+        {
+            var lines = File.ReadAllLines(realPath).ToList();
+            lines.Add(newValue);
+            File.WriteAllLines(realPath, lines);
+        }
+
+        public bool ContainsKey(string key)
+        {
+            var lines = File.ReadAllLines(realPath);
+            return lines.Any(x => x.StartsWith(key));
         }
     }
 }

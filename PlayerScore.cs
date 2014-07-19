@@ -1,7 +1,7 @@
-﻿using Hangman.IO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Hangman.IO;
 
 namespace Hangman
 {
@@ -10,54 +10,18 @@ namespace Hangman
         private string playerName;
         private int numberOfMiskates;
         private int points;
-        private SortedSet<int> personalRecord;
-        private IStorageProvider<string> storage;
+        private FileStorage storage;
 
-        public PlayerScore(string playerName, int numberOfMistakes)
+        public PlayerScore(string playerName, FileStorage storage)
         {
-            this.Points = 0;
             this.PlayerName = playerName;
-            this.NumberOfMistakes = numberOfMistakes;
-            this.personalRecord = new SortedSet<int>();
-        }
-
-        public static PlayerScore ReadPlayerData(IOManager manager)
-        {
-            manager.Print("Please enter your name: ");
-            string name = manager.ReadInput();
-
-            try
-            {
-                var playerScore = new PlayerScore(name, 0);
-                return playerScore;
-            }
-            catch (Exception ex)
-            {
-                manager.Print("An error occured: {0}", ex.Message);
-                return ReadPlayerData(manager);
-            }
-        }
-
-
-        /// <summary>
-        /// Loads the data from the score file for the current player
-        /// </summary>
-        public void LoadData()
-        {
-           
-            
-        }
-
-        public void SaveData()
-        {
-            
-
+            this.storage = storage;
         }
 
         public string PlayerName
         {
             get { return this.playerName; }
-            set
+            private set
             {
                 if (value == null)
                 {
@@ -73,9 +37,78 @@ namespace Hangman
             }
         }
 
-        public SortedSet<int> Record
+        private int? recordPoints;
+
+        public int RecordPoints
         {
-            get { return this.personalRecord; }
+            get
+            {
+                if (!recordPoints.HasValue)
+                {
+                    LoadRecordData();
+                }
+
+                return recordPoints.Value; 
+            }
+        }
+
+        private int? recordMistakes;
+
+        public int RecordMistakes
+        {
+            get 
+            {
+                if (!recordMistakes.HasValue)
+                {
+                    LoadRecordData();
+                }
+
+                return recordMistakes.Value; 
+            }
+        }
+
+        /// <summary>
+        /// Loads the record for this player from a file
+        /// </summary>
+        public void LoadRecordData()
+        {
+            var data = storage.LoadEntry(PlayerName).Split(',');
+            this.recordPoints = int.Parse(data[0]);
+            this.recordMistakes = int.Parse(data[1]);
+        }
+
+        /// <summary>
+        /// Saves the record to the file
+        /// </summary>
+        public void SaveRecordData()
+        {
+            if (storage.ContainsKey(PlayerName))
+            {
+                storage.UpdateEntry(PlayerName, "some value");
+            }
+            else
+            {
+                storage.AddEntry(PlayerName, "some value");
+            }
+        }        
+
+
+        /// <summary>
+        /// Updates the current statistics and the record if needed
+        /// </summary>
+        public void UpdateCurrentStats(int points, int mistakesCount)
+        {
+            this.points = points;
+            this.numberOfMiskates = mistakesCount;
+
+            if (points > recordPoints)
+            {
+                recordPoints = points;
+            }
+            if (mistakesCount < recordMistakes)
+            {
+                recordMistakes = mistakesCount;
+            }
         }
 
         public int NumberOfMistakes
@@ -103,11 +136,6 @@ namespace Hangman
                 }
                 this.points = value;
             }
-        }
-
-        public void SetRecord(SortedSet<int> record)
-        {
-            this.personalRecord = record;
         }
 
         public int CompareTo(object otherPlayer)
