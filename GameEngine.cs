@@ -18,15 +18,17 @@
 
         private Word wordToGuess;
         private PlayerScore player;
-        private int wrongGuessesCount;
-        private IList<char> letterGuesses;
+        private IList<char> guessLog;
         private bool gameIsRunning;
         private IOManager ioManager;
-        private IRecordManager recordManager;
+        private IStorageProvider<string, string> dataStorage;
+
+        private int wrongGuessesCount;
+        private int points;
 
         public GameEngine(IOManager ioManager)
         {
-            this.letterGuesses = new List<char>();
+            this.guessLog = new List<char>();
             this.WrongGuessesCount = 0;
             this.ioManager = ioManager;         
         }
@@ -75,6 +77,7 @@
             ioManager.Print("Enter your name: ");
             string playerName = ioManager.ReadInput();
             // create a storage and player instance
+            this.Player = new PlayerScore(playerName, dataStorage);
         }
 
         private void RunGame()
@@ -107,7 +110,7 @@
             ioManager.Print(GameStrings.ShowResult);
             ioManager.Print(GameStrings.Exit);
 
-            string guessesList = string.Join(", ", this.letterGuesses);
+            string guessesList = string.Join(", ", this.guessLog);
 
             ioManager.Print(GameStrings.LetterAlreadyRevealedMessage, guessesList);
             ioManager.Print(string.Join(" ", this.wordToGuess.WordOnScreen));
@@ -173,6 +176,8 @@
                 ioManager.Print(GameStrings.LooseMessage + " " + this.wrongGuessesCount);
             }
 
+            this.Player.UpdateCurrentStats(points, wrongGuessesCount);
+            this.Player.SaveRecordData();
         }
 
         private void RestartGame()
@@ -183,7 +188,6 @@
 
         private void ShowResults()
         {
-            var leaderBoard = recordManager.LoadLeaderboard();
             throw new NotImplementedException();
         }
 
@@ -194,7 +198,7 @@
 
         private void ProccessGuess(char currentGuess)
         {
-            if (this.letterGuesses.Contains(currentGuess))
+            if (this.guessLog.Contains(currentGuess))
             {
                 ioManager.Print(GameStrings.RepeatingGuessMessage);
                 return;
@@ -202,7 +206,7 @@
       
             bool wordContainsLetter = this.wordToGuess.GuessLetter(currentGuess);
 
-            this.letterGuesses.Add(currentGuess);
+            this.guessLog.Add(currentGuess);
 
             if (wordContainsLetter == false)
             {

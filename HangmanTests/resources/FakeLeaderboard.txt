@@ -1,0 +1,5 @@
+﻿Player1 10 50
+Player2 20 40
+Player3 30 30
+Player4 40 20
+Player5 50 10

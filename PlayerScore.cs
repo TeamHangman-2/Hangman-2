@@ -5,14 +5,17 @@ using Hangman.IO;
 
 namespace Hangman
 {
+    /// <summary>
+    /// A class responsible for storing player statistics and saving them into file
+    /// </summary>
     public class PlayerScore : IComparable
     {
         private string playerName;
         private int numberOfMiskates;
         private int points;
-        private FileStorage storage;
+        private IStorageProvider<string, string> storage;
 
-        public PlayerScore(string playerName, FileStorage storage)
+        public PlayerScore(string playerName, IStorageProvider<string, string> storage)
         {
             this.PlayerName = playerName;
             this.storage = storage;
@@ -82,13 +85,15 @@ namespace Hangman
         /// </summary>
         public void SaveRecordData()
         {
+            string data = string.Join("," , RecordPoints, RecordMistakes);
+
             if (storage.ContainsKey(PlayerName))
             {
-                storage.UpdateEntry(PlayerName, "some value");
+                storage.UpdateEntry(PlayerName, data);
             }
             else
             {
-                storage.AddEntry(PlayerName, "some value");
+                storage.AddEntry(PlayerName, data);
             }
         }        
 

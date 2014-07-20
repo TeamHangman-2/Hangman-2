@@ -7,66 +7,64 @@ namespace Hangman.IO
 {
     public class FileStorage : IStorageProvider<string, string>
     {
-        public Uri FilePath { get; private set; }
+        public Uri LeaderBoardPath { get; private set; }
 
-        private string realPath;
+        public string BaseDirectory { get; private set; }
 
-        public FileStorage(Uri filePath)
+        private string boardPathString;
+
+        public FileStorage(Uri leaderboardPath, string baseDirectory)
         {
-            this.FilePath = filePath;
+            this.LeaderBoardPath = leaderboardPath;
+            this.BaseDirectory = baseDirectory;
 
-            if (!filePath.IsAbsoluteUri)
+            if (!leaderboardPath.IsAbsoluteUri)
             {
-                realPath = string.Format(@"{0}\{1}",
-                    Directory.GetCurrentDirectory(), filePath.OriginalString);
+                boardPathString = string.Format(@"{0}\{1}",
+                    Directory.GetCurrentDirectory(), leaderboardPath.OriginalString);
             }
             else
             {
-                realPath = filePath.LocalPath;
+                boardPathString = leaderboardPath.LocalPath;
             }
         }
 
-        public string LoadEntry(string key)
+        public string LoadEntry(string fileName)
         {
-            var lines = File.ReadAllLines(realPath);
-            return lines.Where(x => x.StartsWith(key)).Single();        
+            string filePath = string.Format(@"{0}\{1}", BaseDirectory, fileName);
+            var lines = File.ReadAllText(filePath);
+            return lines;     
         }
 
-        public void UpdateEntry(string key, string newValue)
+        public void UpdateEntry(string fileName, string newValue)
         {
-            var lines = File.ReadAllLines(realPath).ToList();
-            var lineToUpdate = lines.Where(x => x.StartsWith(key)).Single();
-            int index = lines.IndexOf(lineToUpdate);
-
-            lines[index] = string.Format("{0},{1}", key, newValue);
-            File.WriteAllLines(realPath, lines);
+            string filePath = string.Format(@"{0}\{1}", BaseDirectory, fileName);
+            File.WriteAllText(filePath, newValue);
         }
 
-        public void RemoveEntry(string key)
+        public void RemoveEntry(string fileName)
         {
-            var lines = File.ReadAllLines(realPath).ToList();
-            var lineToUpdate = lines.RemoveAll(x => x.StartsWith(key));
-            File.WriteAllLines(realPath, lines);
+            string filePath = string.Format(@"{0}\{1}", BaseDirectory, fileName);
+            File.Delete(filePath);
         }
 
         public IEnumerable<string> GetTop(int count)
         {
-            var lines = File.ReadAllLines(realPath).ToList();
+            var lines = File.ReadAllLines(boardPathString).ToList();
             return lines.Take(count);
         }
 
 
-        public void AddEntry(string key, string newValue)
+        public void AddEntry(string fileName, string newValue)
         {
-            var lines = File.ReadAllLines(realPath).ToList();
-            lines.Add(newValue);
-            File.WriteAllLines(realPath, lines);
+            string filePath = string.Format(@"{0}\{1}", BaseDirectory, fileName);
+            File.WriteAllText(filePath, newValue);
         }
 
-        public bool ContainsKey(string key)
+        public bool ContainsKey(string fileName)
         {
-            var lines = File.ReadAllLines(realPath);
-            return lines.Any(x => x.StartsWith(key));
+            string filePath = string.Format(@"{0}\{1}", BaseDirectory, fileName);
+            return File.Exists(filePath);
         }
     }
 }
