@@ -26,7 +26,6 @@
         private IStorageProvider<string, string> dataStorage;
 
         private int wrongGuessesCount;
-        private int points;
 
         public GameEngine(IOManager ioManager)
         {
