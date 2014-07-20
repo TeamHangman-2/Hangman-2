@@ -20,12 +20,12 @@ namespace Hangman.IO
 
             if (!leaderboardPath.IsAbsoluteUri)
             {
-                boardPathString = string.Format(@"{0}\{1}",
+                this.boardPathString = string.Format(@"{0}\{1}",
                     Directory.GetCurrentDirectory(), leaderboardPath.OriginalString);
             }
             else
             {
-                boardPathString = leaderboardPath.LocalPath;
+                this.boardPathString = leaderboardPath.LocalPath;
             }
         }
 
@@ -53,7 +53,6 @@ namespace Hangman.IO
             var lines = File.ReadAllLines(boardPathString).ToList();
             return lines.Take(count);
         }
-
 
         public void AddEntry(string fileName, string newValue)
         {

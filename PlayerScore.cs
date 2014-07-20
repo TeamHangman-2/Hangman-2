@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Hangman.IO;
-
-namespace Hangman
+﻿namespace Hangman
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Hangman.IO;
+
     /// <summary>
     /// A class responsible for storing player statistics and saving them into file
     /// </summary>
@@ -14,6 +14,8 @@ namespace Hangman
         private int numberOfMiskates;
         private int points;
         private IStorageProvider<string, string> storage;
+        private int? recordPoints;
+        private int? recordMistakes;
 
         public PlayerScore(string playerName, IStorageProvider<string, string> storage)
         {
@@ -21,9 +23,49 @@ namespace Hangman
             this.storage = storage;
         }
 
+        public int Points
+        {
+            get
+            {
+                return this.points;
+            }
+
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException();
+                }
+
+                this.points = value;
+            }
+        }
+
+        public int NumberOfMistakes
+        {
+            get
+            {
+                return this.numberOfMiskates;
+            }
+
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Number of mistakes cannot be negative number!");
+                }
+
+                this.numberOfMiskates = value;
+            }
+        }
+
         public string PlayerName
         {
-            get { return this.playerName; }
+            get
+            {
+                return this.playerName;
+            }
+
             private set
             {
                 if (value == null)
@@ -40,33 +82,29 @@ namespace Hangman
             }
         }
 
-        private int? recordPoints;
-
         public int RecordPoints
         {
             get
             {
-                if (!recordPoints.HasValue)
+                if (!this.recordPoints.HasValue)
                 {
-                    LoadRecordData();
+                    this.LoadRecordData();
                 }
 
-                return recordPoints.Value; 
+                return this.recordPoints.Value;
             }
         }
 
-        private int? recordMistakes;
-
         public int RecordMistakes
         {
-            get 
+            get
             {
-                if (!recordMistakes.HasValue)
+                if (!this.recordMistakes.HasValue)
                 {
-                    LoadRecordData();
+                    this.LoadRecordData();
                 }
 
-                return recordMistakes.Value; 
+                return this.recordMistakes.Value;
             }
         }
 
@@ -75,7 +113,7 @@ namespace Hangman
         /// </summary>
         public void LoadRecordData()
         {
-            var data = storage.LoadEntry(PlayerName).Split(',');
+            var data = this.storage.LoadEntry(this.PlayerName).Split(',');
             this.recordPoints = int.Parse(data[0]);
             this.recordMistakes = int.Parse(data[1]);
         }
@@ -85,18 +123,17 @@ namespace Hangman
         /// </summary>
         public void SaveRecordData()
         {
-            string data = string.Join("," , RecordPoints, RecordMistakes);
+            string data = string.Join(",", this.RecordPoints, this.RecordMistakes);
 
-            if (storage.ContainsKey(PlayerName))
+            if (this.storage.ContainsKey(this.PlayerName))
             {
-                storage.UpdateEntry(PlayerName, data);
+                this.storage.UpdateEntry(this.PlayerName, data);
             }
             else
             {
-                storage.AddEntry(PlayerName, data);
+                this.storage.AddEntry(this.PlayerName, data);
             }
-        }        
-
+        }
 
         /// <summary>
         /// Updates the current statistics and the record if needed
@@ -106,40 +143,14 @@ namespace Hangman
             this.points = points;
             this.numberOfMiskates = mistakesCount;
 
-            if (points > recordPoints)
+            if (points > this.recordPoints)
             {
-                recordPoints = points;
+                this.recordPoints = points;
             }
-            if (mistakesCount < recordMistakes)
-            {
-                recordMistakes = mistakesCount;
-            }
-        }
 
-        public int NumberOfMistakes
-        {
-            get { return this.numberOfMiskates; }
-            set
+            if (mistakesCount < this.recordMistakes)
             {
-                if (value < 0)
-                {
-                    throw new ArgumentException("Number of mistakes cannot be negative number!");
-                }
-
-                this.numberOfMiskates = value;
-            }
-        }
-
-        public int Points
-        {
-            get { return this.points; }
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentException();
-                }
-                this.points = value;
+                this.recordMistakes = mistakesCount;
             }
         }
 

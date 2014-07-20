@@ -1,0 +1,5 @@
+C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\Hangman.IO\bin\Debug\Hangman.IO.dll
+C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\Hangman.IO\bin\Debug\Hangman.IO.pdb
+C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\Hangman.IO\obj\Debug\Hangman.IO.csprojResolveAssemblyReference.cache
+C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\Hangman.IO\obj\Debug\Hangman.IO.dll
+C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\Hangman.IO\obj\Debug\Hangman.IO.pdb

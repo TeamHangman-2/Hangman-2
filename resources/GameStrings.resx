@@ -120,7 +120,10 @@
   <data name="AvailableCommands" xml:space="preserve">
     <value>List of available commands:</value>
   </data>
-  <data name="EnterPlayerNameMessage" xml:space="preserve">
+  <data name="EnterName" xml:space="preserve">
+    <value>Enter your name:</value>
+  </data>
+  <data name="EnterPlayerNameForLeaderboardMessage" xml:space="preserve">
     <value>Please enter your name for the top scoreboard</value>
   </data>
   <data name="Exit" xml:space="preserve">
@@ -130,13 +133,13 @@
     <value>help - reveal first hidden letter</value>
   </data>
   <data name="IntroductingMessage" xml:space="preserve">
-    <value>Welcome to “Hangman” game. Please try to guess my secret word.\n</value>
+    <value>Welcome to “Hangman” game. Please try to guess my secret word.</value>
   </data>
   <data name="LetterAlreadyRevealedMessage" xml:space="preserve">
-    <value>You have already revelaed the letter {0}</value>
+    <value>You have already revelaed the following letters {0}</value>
   </data>
-  <data name="LooseMessage" xml:space="preserve">
-    <value>You loose! Number of mistakes:</value>
+  <data name="LossMessage" xml:space="preserve">
+    <value>You lose! Number of mistakes:</value>
   </data>
   <data name="RepeatingGuessMessage" xml:space="preserve">
     <value>You have already revelaed the letter</value>
@@ -147,7 +150,7 @@
   <data name="ShowResult" xml:space="preserve">
     <value>showresult - view the top scoreboard</value>
   </data>
-  <data name="WonMessage" xml:space="preserve">
+  <data name="WinMessage" xml:space="preserve">
     <value>You won! Number of mistakes:</value>
   </data>
 </root>

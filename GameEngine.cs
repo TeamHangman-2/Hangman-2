@@ -7,7 +7,6 @@
     using resources;
     using Hangman.IO;
 
-
     /// <summary>
     /// Responsible for Running the game cycle, processing commands
     /// </summary>
@@ -15,6 +14,8 @@
     {
         private const int LengthOfLetter = 1;
         private const int MaxErrorsAllowed = 10;
+        private const string DefaultLeaderboardPath = "";
+
 
         private Word wordToGuess;
         private PlayerScore player;
@@ -30,7 +31,7 @@
         {
             this.guessLog = new List<char>();
             this.WrongGuessesCount = 0;
-            this.ioManager = ioManager;         
+            this.ioManager = ioManager;
         }
 
         public PlayerScore Player
@@ -74,20 +75,22 @@
             this.gameIsRunning = true;
 
             // read player name:
-            ioManager.Print("Enter your name: ");
-            string playerName = ioManager.ReadInput();
+            this.ioManager.Print(GameStrings.EnterName);
+            string playerName = this.ioManager.ReadInput();
             // create a storage and player instance
-            this.Player = new PlayerScore(playerName, dataStorage);
+            //this.dataStorage = 
+            this.Player = new PlayerScore(playerName, this.dataStorage);
         }
 
         private void RunGame()
         {
-            ioManager.Print(GameStrings.IntroductingMessage);
+            this.ioManager.Print("");
+            this.ioManager.Print(GameStrings.IntroductingMessage);
 
             while (this.gameIsRunning)
             {
                 this.UpdateScreen();
-                string input = ioManager.ReadInput();
+                string input = this.ioManager.ReadInput();
 
                 try
                 {
@@ -95,25 +98,30 @@
                 }
                 catch (ArgumentException ex)
                 {
-                    ioManager.Print("An error occured while processing your input, Error: {0}", ex.Message);
+                    this.ioManager.Print("An error occured while processing your input, Error: {0}", ex.Message);
                 }
-
-                this.Player.Points++;
             }
         }
 
         private void UpdateScreen()
         {
-            ioManager.Print(GameStrings.AvailableCommands);
-            ioManager.Print(GameStrings.Help);
-            ioManager.Print(GameStrings.Restart);
-            ioManager.Print(GameStrings.ShowResult);
-            ioManager.Print(GameStrings.Exit);
+            this.ioManager.Print("");
+            this.ioManager.Print(GameStrings.AvailableCommands);
+            this.ioManager.Print("  -" + GameStrings.Help);
+            this.ioManager.Print("  -" + GameStrings.Restart);
+            this.ioManager.Print("  -" + GameStrings.ShowResult);
+            this.ioManager.Print("  -" + GameStrings.Exit);
+            this.ioManager.Print("");
 
             string guessesList = string.Join(", ", this.guessLog);
 
-            ioManager.Print(GameStrings.LetterAlreadyRevealedMessage, guessesList);
-            ioManager.Print(string.Join(" ", this.wordToGuess.WordOnScreen));
+            if (guessesList.Length > 0)
+            {
+                this.ioManager.Print(GameStrings.LetterAlreadyRevealedMessage, guessesList);
+            }
+
+            this.ioManager.Print("The word to guess is:");
+            this.ioManager.Print(string.Join(" ", this.wordToGuess.WordOnScreen));
         }
 
         public void ProcessInput(string command)
@@ -166,17 +174,16 @@
         {
             this.gameIsRunning = false;
 
-
             if (this.wrongGuessesCount <= MaxErrorsAllowed)
             {
-                ioManager.Print(GameStrings.WonMessage + " " + this.wrongGuessesCount);
+                this.ioManager.Print(GameStrings.WinMessage + " " + this.wrongGuessesCount);
             }
             else
             {
-                ioManager.Print(GameStrings.LooseMessage + " " + this.wrongGuessesCount);
+                this.ioManager.Print(GameStrings.LossMessage + " " + this.wrongGuessesCount);
             }
 
-            this.Player.UpdateCurrentStats(points, wrongGuessesCount);
+            this.Player.UpdateCurrentStats(this.points, this.wrongGuessesCount);
             this.Player.SaveRecordData();
         }
 
@@ -200,10 +207,10 @@
         {
             if (this.guessLog.Contains(currentGuess))
             {
-                ioManager.Print(GameStrings.RepeatingGuessMessage);
+                this.ioManager.Print(GameStrings.RepeatingGuessMessage);
                 return;
             }
-      
+
             bool wordContainsLetter = this.wordToGuess.GuessLetter(currentGuess);
 
             this.guessLog.Add(currentGuess);
@@ -217,6 +224,10 @@
                 {
                     this.EndGame();
                 }
+            }
+            else
+            {
+                this.Player.Points++;
             }
         }
     }
