@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hangman.resources {
+namespace Hangman.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Hangman.resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Hangman.resources.GameStrings", typeof(GameStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Hangman.Resources.GameStrings", typeof(GameStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

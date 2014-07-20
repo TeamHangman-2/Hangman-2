@@ -6,8 +6,8 @@
     using System.Linq;
 
     using Extensions;
-    using resources;
     using Hangman.IO;
+    using Resources;
 
     /// <summary>
     /// Responsible for Running the game cycle, processing commands
@@ -77,59 +77,6 @@
             this.RunGame();
         }
 
-        private void InitializeGame()
-        {
-            this.wordToGuess = WordGenerator.GetRandomWord();
-            this.gameIsRunning = true;
-
-            // read player name:
-            this.ioManager.Print(GameStrings.EnterName);
-            string playerName = this.ioManager.ReadInput();
-            // create a storage and player instance
-            this.Player = new PlayerScore(playerName, this.dataStorage);
-        }
-
-        private void RunGame()
-        {
-            this.ioManager.ClearOutputWindow();
-            this.ioManager.Print(GameStrings.IntroductingMessage);
-            this.ioManager.Print(GameStrings.MaxWrongGuessesWarningMessage, MaxErrorsAllowed);
-            this.PrintCommands();
-
-            while (this.gameIsRunning)
-            {
-                this.UpdateScreen();
-
-                string input = this.ioManager.ReadInput();
-
-                try
-                {
-                    this.ProcessInput(input);
-                }
-                catch (ArgumentException ex)
-                {
-                    this.ioManager.Print("An error occured while processing your input, Error: {0}", ex.Message);
-                }
-            }
-
-        }
-
-        private void UpdateScreen()
-        {
-            this.ioManager.Print("");
-
-            string guessesList = string.Join(", ", this.guessLog);
-            this.ioManager.Print(GameStrings.NumOfWrongGuessesMade, this.WrongGuessesCount);
-
-            if (guessesList.Length > 0)
-            {
-                this.ioManager.Print(GameStrings.LetterAlreadyRevealedMessage, guessesList);
-            }
-
-            this.ioManager.Print("The word to guess is:");
-            this.ioManager.Print(string.Join(" ", this.wordToGuess.WordOnScreen));
-        }
-
         public void ProcessInput(string input)
         {
             if (input == null)
@@ -158,6 +105,58 @@
             {
                 this.AttemptToGuessEntireWord(input);
             }
+        }
+
+        private void InitializeGame()
+        {
+            this.wordToGuess = WordGenerator.GetRandomWord();
+            this.gameIsRunning = true;
+
+            //// read player name:
+            this.ioManager.Print(GameStrings.EnterName);
+            string playerName = this.ioManager.ReadInput();
+            //// create a storage and player instance
+            this.Player = new PlayerScore(playerName, this.dataStorage);
+        }
+
+        private void RunGame()
+        {
+            this.ioManager.ClearOutputWindow();
+            this.ioManager.Print(GameStrings.IntroductingMessage);
+            this.ioManager.Print(GameStrings.MaxWrongGuessesWarningMessage, MaxErrorsAllowed);
+            this.PrintCommands();
+
+            while (this.gameIsRunning)
+            {
+                this.UpdateScreen();
+
+                string input = this.ioManager.ReadInput();
+
+                try
+                {
+                    this.ProcessInput(input);
+                }
+                catch (ArgumentException ex)
+                {
+                    this.ioManager.Print("An error occured while processing your input, Error: {0}", ex.Message);
+                }
+            }
+        }
+
+        private void UpdateScreen()
+        {
+            this.ioManager.Print(string.Empty);
+
+            string guessesList = string.Join(", ", this.guessLog);
+            this.ioManager.Print(GameStrings.NumOfWrongGuessesMade, this.WrongGuessesCount);
+
+            if (guessesList.Length > 0)
+            {
+                this.ioManager.Print(GameStrings.LetterAlreadyRevealedMessage, guessesList);
+            }
+
+            this.ioManager.Print("The word to guess is:");
+            this.ioManager.Print(string.Join(" ", this.wordToGuess.WordOnScreen));
         }
 
         private void AttemptToGuessEntireWord(string wordGuess)
@@ -189,14 +188,14 @@
 
         private void PrintCommands()
         {
-            this.ioManager.Print("");
+            this.ioManager.Print(string.Empty);
             this.ioManager.Print(GameStrings.AvailableCommands);
             this.ioManager.Print("  -" + GameStrings.Help);
             this.ioManager.Print("  -" + GameStrings.Restart);
             this.ioManager.Print("  -" + GameStrings.ShowResult);
             this.ioManager.Print("  -" + GameStrings.Exit);
             this.ioManager.Print("  -" + GameStrings.ShowCommands);
-            this.ioManager.Print("");
+            this.ioManager.Print(string.Empty);
         }
 
         private void ExecuteCommand(string commandString)
@@ -228,7 +227,7 @@
         private void EndGame()
         {
             this.gameIsRunning = false;
-            this.ioManager.Print("");
+            this.ioManager.Print(string.Empty);
 
             if (this.wrongGuessesCount <= MaxErrorsAllowed)
             {
