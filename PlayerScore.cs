@@ -142,9 +142,9 @@
         {
             this.numberOfMiskates = mistakesCount;
 
-            if (points > this.recordPoints)
+            if (this.points > this.recordPoints)
             {
-                this.recordPoints = points;
+                this.recordPoints = this.points;
             }
 
             if (mistakesCount < this.recordMistakes)

@@ -4,7 +4,8 @@
 
     public static class WordGenerator
     {
-        private static readonly string[] allWords = {
+        private static readonly string[] AllWords = 
+                                                    {
                                                         "computer", "programmer", "software", "debugger", "compiler",
                                                         "developer", "algorithm", "array", "method", "variable"
                                                     };
@@ -13,8 +14,8 @@
 
         public static Word GetRandomWord()
         {
-            var indexOfRndWord = random.Next(0, allWords.Length);
-            var randomWord = new Word(allWords[indexOfRndWord]);
+            var indexOfRndWord = random.Next(0, AllWords.Length);
+            var randomWord = new Word(AllWords[indexOfRndWord]);
 
             return randomWord;
         }

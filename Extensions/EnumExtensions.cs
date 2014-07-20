@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Hangman.Extensions
+﻿namespace Hangman.Extensions
 {
+    using System;
+
     public static class EnumExtensions
     {
         public static T ToEnum<T>(this string str, bool ignoreCase = true) where T : struct, IConvertible

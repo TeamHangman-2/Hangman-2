@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Hangman.IO
+﻿namespace Hangman.IO
 {
+    using System;
+    using System.Collections.Generic;
+
     public interface IStorageProvider<TKey, TData>
     {
         TData LoadEntry(TKey key);

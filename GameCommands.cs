@@ -1,6 +1,6 @@
 ﻿namespace Hangman
 {
-    enum GameCommands
+    public enum GameCommands
     {
         Help,
         Restart,

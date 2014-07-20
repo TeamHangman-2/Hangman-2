@@ -17,35 +17,6 @@
             this.WordOnScreen = SetDefaultWordOnScreen(this.WordToGuess.Length);
         }
 
-        private string WordToGuess
-        {
-            get
-            { 
-                return this.wordToGuess;
-            }
-
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("Word cannot be null!");
-                }
-
-                if (value == string.Empty)
-                {
-                    throw new ArgumentException("Word cannot be empty string!");
-                }
-
-                if (!value.All(Char.IsLetter))
-                {
-                    throw new ArgumentException("Invalid word" +
-                        "Word is a string that consists of letters only");
-                }
-
-                this.wordToGuess = value;
-            }
-        }
-
         public int NumberOfHiddenLetters
         {
             get
@@ -79,7 +50,7 @@
             {
                 return this.wordOnScreen;
             }
-            
+
             private set
             {
                 if (value == null)
@@ -88,6 +59,35 @@
                 }
 
                 this.wordOnScreen = value;
+            }
+        }
+
+        private string WordToGuess
+        {
+            get
+            {
+                return this.wordToGuess;
+            }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Word cannot be null!");
+                }
+
+                if (value == string.Empty)
+                {
+                    throw new ArgumentException("Word cannot be empty string!");
+                }
+
+                if (!value.All(char.IsLetter))
+                {
+                    throw new ArgumentException("Invalid word" +
+                        "Word is a string that consists of letters only");
+                }
+
+                this.wordToGuess = value;
             }
         }
 
@@ -104,7 +104,7 @@
         /// <param name="currentGuess">the letter to be guessed</param>
         public void UpdateWordOnScreen(char currentGuess)
         {
-            if (!Char.IsLetter(currentGuess))
+            if (!char.IsLetter(currentGuess))
             {
                 throw new ArgumentException("The word consists of letters, no whitespaces, numbers or symbols");
             }
@@ -130,14 +130,9 @@
             }
         }
 
-        static private char[] SetDefaultWordOnScreen(int length)
-        {
-            return new string(HiddenWordSymbol, length).ToCharArray();
-        }
-
         public bool Containsletter(char letter)
         {
-            if (!Char.IsLetter(letter))
+            if (!char.IsLetter(letter))
             {
                 throw new ArgumentException("The word consists of letters, no whitespaces, numbers or symbols");
             }
@@ -147,27 +142,9 @@
             return result;
         }
 
-        #warning obsolete members, check if they are needed:
-
-        [Obsolete("This is not used at the moment and it might not be needed anymore")]
-        public void ShowLetterAt(int index)
+        private static char[] SetDefaultWordOnScreen(int length)
         {
-            this.WordOnScreen[index] = this.WordToGuess[index];
+            return new string(HiddenWordSymbol, length).ToCharArray();
         }
-
-        [Obsolete("This is not used at the moment and it might not be needed anymore")]
-        public char this[int index]
-        {
-            get
-            {
-                if (index < 0 || index >= this.WordToGuess.Length)
-                {
-                    throw new IndexOutOfRangeException("Incorrect index in word!");
-                }
-
-                return this.WordToGuess[index];
-            }
-        }
-
     }
 }

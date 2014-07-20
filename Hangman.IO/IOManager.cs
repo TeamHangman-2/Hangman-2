@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Hangman.IO
+﻿namespace Hangman.IO
 {
+    using System;
+
     public interface IOManager
     {
         void Print(string message);
@@ -13,4 +13,3 @@ namespace Hangman.IO
         void ClearOutputWindow();
     }
 }
- 

@@ -4,7 +4,7 @@
 
     public interface IRecordManager
     {
-        void SavePlayerResults(string playerName, int playerScore, string savePath) ;
+        void SavePlayerResults(string playerName, int playerScore, string savePath);
 
         SortedSet<int> LoadPlayerResults(string playerName, string loadPath);
 

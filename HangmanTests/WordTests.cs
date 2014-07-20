@@ -1,9 +1,10 @@
-﻿using Hangman;
-using System;
-using NUnit.Framework;
-
-namespace HangmanTests
+﻿namespace HangmanTests
 {
+    using System;
+
+    using Hangman;
+    using NUnit.Framework;
+
     public class WordTests
     {
         [TestCase("1234")]
@@ -75,6 +76,5 @@ namespace HangmanTests
             string expectedMask = "somet____";
             Assert.AreEqual(expectedMask, wordObject.WordOnScreen);
         }
-
     }
 }

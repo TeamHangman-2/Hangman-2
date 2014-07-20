@@ -1,7 +1,8 @@
 ﻿namespace HangmanConsole
 {
-    using Hangman.IO;
     using System;
+
+    using Hangman.IO;
 
     internal class ConsoleIOManager : IOManager
     {

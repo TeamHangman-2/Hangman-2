@@ -2,13 +2,14 @@
 {
     using System.Collections.Generic;
     using System.IO;
+
     public class FileRecordManager : IRecordManager
     {
         public void SavePlayerResults(string playerName, int playerScore, string savePath = "./data/")
         {
             savePath += playerName + "_results";
-
             var writer = new StreamWriter(savePath, true);
+
             using (writer)
             {
                 writer.WriteLine(playerScore);

@@ -7,10 +7,6 @@
 
     public class FileStorage : IStorageProvider<string, string>
     {
-        public Uri LeaderBoardPath { get; private set; }
-
-        public string BaseDirectory { get; private set; }
-
         private string boardPathString;
 
         public FileStorage(Uri leaderboardPath, string baseDirectory)
@@ -20,8 +16,7 @@
 
             if (!leaderboardPath.IsAbsoluteUri)
             {
-                this.boardPathString = string.Format(@"{0}\{1}",
-                    Directory.GetCurrentDirectory(), leaderboardPath.OriginalString);
+                this.boardPathString = string.Format(@"{0}\{1}", Directory.GetCurrentDirectory(), leaderboardPath.OriginalString);
             }
             else
             {
@@ -29,40 +24,44 @@
             }
         }
 
+        public Uri LeaderBoardPath { get; private set; }
+
+        public string BaseDirectory { get; private set; }
+
         public string LoadEntry(string fileName)
         {
-            string filePath = string.Format(@"{0}\{1}", BaseDirectory, fileName);
+            string filePath = string.Format(@"{0}\{1}", this.BaseDirectory, fileName);
             var lines = File.ReadAllText(filePath);
             return lines;
         }
 
         public void UpdateEntry(string fileName, string newValue)
         {
-            string filePath = string.Format(@"{0}\{1}", BaseDirectory, fileName);
+            string filePath = string.Format(@"{0}\{1}", this.BaseDirectory, fileName);
             File.WriteAllText(filePath, newValue);
         }
 
         public void RemoveEntry(string fileName)
         {
-            string filePath = string.Format(@"{0}\{1}", BaseDirectory, fileName);
+            string filePath = string.Format(@"{0}\{1}", this.BaseDirectory, fileName);
             File.Delete(filePath);
         }
 
         public IEnumerable<string> GetTop(int count)
         {
-            var lines = File.ReadAllLines(boardPathString).ToList();
+            var lines = File.ReadAllLines(this.boardPathString).ToList();
             return lines.Take(count);
         }
 
         public void AddEntry(string fileName, string newValue)
         {
-            string filePath = string.Format(@"{0}\{1}", BaseDirectory, fileName);
+            string filePath = string.Format(@"{0}\{1}", this.BaseDirectory, fileName);
             File.WriteAllText(filePath, newValue);
         }
 
         public bool ContainsKey(string fileName)
         {
-            string filePath = string.Format(@"{0}\{1}", BaseDirectory, fileName);
+            string filePath = string.Format(@"{0}\{1}", this.BaseDirectory, fileName);
             return File.Exists(filePath);
         }
     }
