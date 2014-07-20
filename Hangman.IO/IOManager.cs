@@ -9,6 +9,8 @@ namespace Hangman.IO
         void Print(string message, params object[] args);
 
         string ReadInput();
+
+        void ClearOutputWindow();
     }
 }
  

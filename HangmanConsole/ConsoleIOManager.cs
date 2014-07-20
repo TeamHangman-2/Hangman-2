@@ -19,5 +19,10 @@
         {
             return Console.ReadLine();
         }
+
+        public void ClearOutputWindow()
+        {
+            Console.Clear();
+        }
     }
 }

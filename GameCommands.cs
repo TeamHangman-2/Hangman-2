@@ -6,5 +6,6 @@
         Restart,
         Exit,
         ShowResult,
+        ShowCommands,
     }
 }

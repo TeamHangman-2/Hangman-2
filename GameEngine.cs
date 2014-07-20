@@ -16,6 +16,7 @@
     {
         private const int LengthOfLetter = 1;
         private const int MaxErrorsAllowed = 10;
+        private const int EntireWordGuessedBonus = 2;
 
         private Word wordToGuess;
         private PlayerScore player;
@@ -37,8 +38,8 @@
         public PlayerScore Player
         {
             get
-            { 
-                return this.player; 
+            {
+                return this.player;
             }
 
             private set
@@ -56,7 +57,7 @@
         {
             get
             {
-                return this.wrongGuessesCount; 
+                return this.wrongGuessesCount;
             }
 
             private set
@@ -91,14 +92,15 @@
 
         private void RunGame()
         {
-            this.ioManager.Print("");
+            this.ioManager.ClearOutputWindow();
             this.ioManager.Print(GameStrings.IntroductingMessage);
+            this.ioManager.Print(GameStrings.MaxWrongGuessesWarningMessage, MaxErrorsAllowed);
             this.PrintCommands();
 
             while (this.gameIsRunning)
             {
                 this.UpdateScreen();
-                
+
                 string input = this.ioManager.ReadInput();
 
                 try
@@ -110,12 +112,14 @@
                     this.ioManager.Print("An error occured while processing your input, Error: {0}", ex.Message);
                 }
             }
+
         }
 
         private void UpdateScreen()
         {
-            string guessesList = string.Join(", ", this.guessLog);
             this.ioManager.Print("");
+
+            string guessesList = string.Join(", ", this.guessLog);
             this.ioManager.Print(GameStrings.NumOfWrongGuessesMade, this.WrongGuessesCount);
 
             if (guessesList.Length > 0)
@@ -127,26 +131,60 @@
             this.ioManager.Print(string.Join(" ", this.wordToGuess.WordOnScreen));
         }
 
-        public void ProcessInput(string command)
+        public void ProcessInput(string input)
         {
-            if (command == null)
+            if (input == null)
             {
                 throw new ArgumentNullException();
             }
 
-            if (command == string.Empty)
+            if (input == string.Empty)
             {
                 throw new ArgumentException("Command cannot be empty string!");
             }
 
-            if (command.Length == LengthOfLetter)
+            input = input.ToLower();
+
+            if (input.Length == LengthOfLetter)
             {
-                char supposedChar = command[0];
+                char supposedChar = input[0];
                 this.ProccessGuess(supposedChar);
+            }
+            else if (input[0] == '-')
+            {
+                input = input.Substring(1);
+                this.ExecuteCommand(input);
             }
             else
             {
-                this.ExecuteCommand(command);
+                this.AttemptToGuessEntireWord(input);
+            }
+        }
+
+        private void AttemptToGuessEntireWord(string wordGuess)
+        {
+            if (wordGuess.Length != this.wordToGuess.Length)
+            {
+                throw new ArgumentException("Guess and word are of different lengths.");
+            }
+
+            var wordIsGuessed = this.wordToGuess.GuessWholeWord(wordGuess);
+
+            if (wordIsGuessed)
+            {
+                var hiddenLettersCount = this.wordToGuess.NumberOfHiddenLetters;
+
+                if (hiddenLettersCount >= this.wordToGuess.Length / 2)
+                {
+                    this.player.Points += hiddenLettersCount * EntireWordGuessedBonus;
+                }
+
+                this.EndGame();
+            }
+            else
+            {
+                this.wrongGuessesCount = MaxErrorsAllowed + 1;
+                this.EndGame();
             }
         }
 
@@ -158,6 +196,7 @@
             this.ioManager.Print("  -" + GameStrings.Restart);
             this.ioManager.Print("  -" + GameStrings.ShowResult);
             this.ioManager.Print("  -" + GameStrings.Exit);
+            this.ioManager.Print("  -" + GameStrings.ShowCommands);
             this.ioManager.Print("");
         }
 
@@ -179,6 +218,9 @@
                 case GameCommands.ShowResult:
                     this.ShowResults();
                     break;
+                case GameCommands.ShowCommands:
+                    this.PrintCommands();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("Unrecognised command!");
             }
@@ -187,6 +229,7 @@
         private void EndGame()
         {
             this.gameIsRunning = false;
+            this.ioManager.Print("");
 
             if (this.wrongGuessesCount <= MaxErrorsAllowed)
             {
@@ -196,6 +239,8 @@
             {
                 this.ioManager.Print(GameStrings.LossMessage + " " + this.wrongGuessesCount);
             }
+
+            this.ioManager.Print(GameStrings.YouScoredPtsMsg, this.player.Points);
 
             this.Player.UpdateCurrentStats(this.wrongGuessesCount);
             this.Player.SaveRecordData();

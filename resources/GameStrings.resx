@@ -141,6 +141,12 @@
   <data name="LossMessage" xml:space="preserve">
     <value>You lose! Number of mistakes:</value>
   </data>
+  <data name="MaxWrongGuessesWarningMessage" xml:space="preserve">
+    <value>You can make a total of {0} wrong guesses before you are hanged!</value>
+  </data>
+  <data name="NextGuess" xml:space="preserve">
+    <value>Your next guess: </value>
+  </data>
   <data name="NumOfWrongGuessesMade" xml:space="preserve">
     <value>Number of wrong guesses made: {0}</value>
   </data>
@@ -150,10 +156,16 @@
   <data name="Restart" xml:space="preserve">
     <value>restart - start a new game</value>
   </data>
+  <data name="ShowCommands" xml:space="preserve">
+    <value>showcommands - show available commands</value>
+  </data>
   <data name="ShowResult" xml:space="preserve">
     <value>showresult - view the top scoreboard</value>
   </data>
   <data name="WinMessage" xml:space="preserve">
     <value>You won! Number of mistakes:</value>
+  </data>
+  <data name="YouScoredPtsMsg" xml:space="preserve">
+    <value>You scored {0} points!</value>
   </data>
 </root>

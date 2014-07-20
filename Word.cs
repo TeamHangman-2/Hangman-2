@@ -46,6 +46,15 @@
             }
         }
 
+        public int NumberOfHiddenLetters
+        {
+            get
+            {
+                var numOfHiddenLetters = this.wordOnScreen.Count(s => s == HiddenWordSymbol);
+                return numOfHiddenLetters;
+            }
+        }
+
         public bool EntireWordIsRevealed
         {
             get
@@ -66,7 +75,11 @@
         /// </summary>
         public char[] WordOnScreen
         {
-            get { return this.wordOnScreen; }
+            get
+            {
+                return this.wordOnScreen;
+            }
+            
             private set
             {
                 if (value == null)
@@ -80,12 +93,8 @@
 
         public bool GuessWholeWord(string wordToCompare)
         {
-            if (wordToCompare == this.WordToGuess)
-            {
-                return true;
-            }
-
-            return false;
+            var result = wordToCompare == this.WordToGuess;
+            return result;
         }
 
         /// <summary>

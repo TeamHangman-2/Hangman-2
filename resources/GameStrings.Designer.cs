@@ -133,6 +133,24 @@ namespace Hangman.resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can make a total of {0} wrong guesses before you are hanged!.
+        /// </summary>
+        internal static string MaxWrongGuessesWarningMessage {
+            get {
+                return ResourceManager.GetString("MaxWrongGuessesWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your next guess: .
+        /// </summary>
+        internal static string NextGuess {
+            get {
+                return ResourceManager.GetString("NextGuess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of wrong guesses made: {0}.
         /// </summary>
         internal static string NumOfWrongGuessesMade {
@@ -160,6 +178,15 @@ namespace Hangman.resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to showcommands - show available commands.
+        /// </summary>
+        internal static string ShowCommands {
+            get {
+                return ResourceManager.GetString("ShowCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to showresult - view the top scoreboard.
         /// </summary>
         internal static string ShowResult {
@@ -174,6 +201,15 @@ namespace Hangman.resources {
         internal static string WinMessage {
             get {
                 return ResourceManager.GetString("WinMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You scored {0} points!.
+        /// </summary>
+        internal static string YouScoredPtsMsg {
+            get {
+                return ResourceManager.GetString("YouScoredPtsMsg", resourceCulture);
             }
         }
     }
