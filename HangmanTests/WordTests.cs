@@ -41,7 +41,7 @@ namespace HangmanTests
             string wordString = "computer";
             var wordObject = new Word(wordString);
 
-            wordObject.GuessLetter('u');
+            wordObject.UpdateWordOnScreen('u');
 
             string expectedMask = "____u___";
 
@@ -54,7 +54,7 @@ namespace HangmanTests
             string wordString = "banana";
             var wordObject = new Word(wordString);
 
-            wordObject.GuessLetter('a');
+            wordObject.UpdateWordOnScreen('a');
 
             string expectedMask = "_a_a_a";
 

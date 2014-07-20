@@ -19,7 +19,11 @@
 
         private string WordToGuess
         {
-            get { return this.wordToGuess; }
+            get
+            { 
+                return this.wordToGuess;
+            }
+
             set
             {
                 if (value == null)
@@ -39,6 +43,15 @@
                 }
 
                 this.wordToGuess = value;
+            }
+        }
+
+        public bool EntireWordIsRevealed
+        {
+            get
+            {
+                var entireWordIsRevealed = !this.wordOnScreen.Contains(HiddenWordSymbol);
+                return entireWordIsRevealed;
             }
         }
 
@@ -65,7 +78,7 @@
             }
         }
 
-        public bool WordIsGuessed(string wordToCompare)
+        public bool GuessWholeWord(string wordToCompare)
         {
             if (wordToCompare == this.WordToGuess)
             {
@@ -80,25 +93,20 @@
         /// <para> Returns true if any letter was guessed </para>
         /// </summary>
         /// <param name="currentGuess">the letter to be guessed</param>
-        public bool GuessLetter(char currentGuess)
+        public void UpdateWordOnScreen(char currentGuess)
         {
             if (!Char.IsLetter(currentGuess))
             {
                 throw new ArgumentException("The word consists of letters, no whitespaces, numbers or symbols");
             }
 
-            bool isGuessed = false;
-
             for (int i = 0; i < this.WordOnScreen.Length; i++)
             {
                 if (this.WordToGuess[i] == currentGuess)
                 {
                     this.WordOnScreen[i] = currentGuess;
-                    isGuessed = true;
                 }
             }
-
-            return isGuessed;
         }
 
         public void RevealOneLetter()
@@ -118,30 +126,19 @@
             return new string(HiddenWordSymbol, length).ToCharArray();
         }
 
-
-        #warning obsolete members, check if they are needed:
-
-        public bool WordContainsletter(string letter)
+        public bool Containsletter(char letter)
         {
-            if (letter == string.Empty)
+            if (!Char.IsLetter(letter))
             {
-                throw new ArgumentException("Letter cannot be empty string!");
-            }
-
-            if (letter == null)
-            {
-                throw new ArgumentNullException("Letter cannot be null!");
-            }
-
-            if (letter.Length > MaxLengthOfLetter)
-            {
-                throw new ArgumentException();//TODO:need to change to more appropriate exception
+                throw new ArgumentException("The word consists of letters, no whitespaces, numbers or symbols");
             }
 
             bool result = this.WordToGuess.Contains(letter);
 
             return result;
         }
+
+        #warning obsolete members, check if they are needed:
 
         [Obsolete("This is not used at the moment and it might not be needed anymore")]
         public void ShowLetterAt(int index)

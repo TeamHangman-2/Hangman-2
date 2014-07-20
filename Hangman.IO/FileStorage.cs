@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace Hangman.IO
+﻿namespace Hangman.IO
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+
     public class FileStorage : IStorageProvider<string, string>
     {
         public Uri LeaderBoardPath { get; private set; }
@@ -33,7 +33,7 @@ namespace Hangman.IO
         {
             string filePath = string.Format(@"{0}\{1}", BaseDirectory, fileName);
             var lines = File.ReadAllText(filePath);
-            return lines;     
+            return lines;
         }
 
         public void UpdateEntry(string fileName, string newValue)

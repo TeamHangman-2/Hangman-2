@@ -136,13 +136,16 @@
     <value>Welcome to “Hangman” game. Please try to guess my secret word.</value>
   </data>
   <data name="LetterAlreadyRevealedMessage" xml:space="preserve">
-    <value>You have already revelaed the following letters {0}</value>
+    <value>So far you have made the following guesses: {0}</value>
   </data>
   <data name="LossMessage" xml:space="preserve">
     <value>You lose! Number of mistakes:</value>
   </data>
+  <data name="NumOfWrongGuessesMade" xml:space="preserve">
+    <value>Number of wrong guesses made: {0}</value>
+  </data>
   <data name="RepeatingGuessMessage" xml:space="preserve">
-    <value>You have already revelaed the letter</value>
+    <value>You have already revealed the letter "{0}".</value>
   </data>
   <data name="Restart" xml:space="preserve">
     <value>restart - start a new game</value>

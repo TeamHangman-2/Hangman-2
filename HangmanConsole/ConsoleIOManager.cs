@@ -1,9 +1,9 @@
-﻿using Hangman.IO;
-using System;
-
-namespace HangmanConsole
+﻿namespace HangmanConsole
 {
-    class ConsoleIOManager : IOManager
+    using Hangman.IO;
+    using System;
+
+    internal class ConsoleIOManager : IOManager
     {
         public void Print(string message)
         {

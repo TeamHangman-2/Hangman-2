@@ -138,9 +138,8 @@
         /// <summary>
         /// Updates the current statistics and the record if needed
         /// </summary>
-        public void UpdateCurrentStats(int points, int mistakesCount)
+        public void UpdateCurrentStats(int mistakesCount)
         {
-            this.points = points;
             this.numberOfMiskates = mistakesCount;
 
             if (points > this.recordPoints)

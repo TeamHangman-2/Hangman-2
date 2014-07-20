@@ -115,7 +115,7 @@ namespace Hangman.resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have already revelaed the following letters {0}.
+        ///   Looks up a localized string similar to So far you have made the following guesses: {0}.
         /// </summary>
         internal static string LetterAlreadyRevealedMessage {
             get {
@@ -133,7 +133,16 @@ namespace Hangman.resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have already revelaed the letter.
+        ///   Looks up a localized string similar to Number of wrong guesses made: {0}.
+        /// </summary>
+        internal static string NumOfWrongGuessesMade {
+            get {
+                return ResourceManager.GetString("NumOfWrongGuessesMade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have already revealed the letter &quot;{0}&quot;..
         /// </summary>
         internal static string RepeatingGuessMessage {
             get {
