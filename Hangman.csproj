@@ -60,7 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ConsoleAnnouncer.cs" />
+    <Content Include="OLD\ConsoleAnnouncer.cs" />
     <Compile Include="Resources\ExceptionMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -78,7 +78,7 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="PlayerScore.cs" />
-    <Compile Include="IRecordManager.cs" />
+    <Compile Include="OLD\IRecordManager.cs" />
     <Compile Include="Word.cs" />
     <Compile Include="WordGenerator.cs" />
   </ItemGroup>
