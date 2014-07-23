@@ -28,6 +28,14 @@
         }
 
         [Test]
+        public void CantAddDuplicates()
+        {
+            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
+
+            Assert.Throws<InvalidOperationException>(() => storage.AddEntry("FakePlayer2.txt", "10, 20"));
+        }
+
+        [Test]
         public void CanRemoveEntry()
         {
             TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
@@ -35,6 +43,16 @@
 
             string outputFile = Directory.GetCurrentDirectory() + @"\resources\FakePlayer1.txt";
             Assert.False(File.Exists(outputFile));
+        }
+
+
+        [Test]
+        public void CantRemoveNonExistingEntry()
+        {
+            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
+
+
+            Assert.Throws<InvalidOperationException>(() => storage.RemoveEntry("NonExistingFile.file"));
         }
 
         [Test]
