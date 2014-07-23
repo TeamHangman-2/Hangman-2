@@ -5,11 +5,11 @@
     using System.IO;
     using System.Linq;
 
-    public class FileStorage : IStorageProvider<string, string>
+    public class TextFileStorage : IStorageProvider<string, string>
     {
         private string boardPathString;
 
-        public FileStorage(Uri leaderboardPath, string baseDirectory)
+        public TextFileStorage(Uri leaderboardPath, string baseDirectory)
         {
             this.LeaderBoardPath = leaderboardPath;
             this.BaseDirectory = baseDirectory;
@@ -43,6 +43,12 @@
 
         public void RemoveEntry(string fileName)
         {
+            if (!this.ContainsKey(fileName))
+            {
+                throw new InvalidOperationException(String.Format(
+                    "An entry with filename {0} does not exist", fileName));
+            }
+
             string filePath = string.Format(@"{0}\{1}", this.BaseDirectory, fileName);
             File.Delete(filePath);
         }
@@ -53,8 +59,25 @@
             return lines.Take(count);
         }
 
+        public void SetTop(int count, ICollection<string> values)
+        {
+            if (values.Count != count)
+            {
+                throw new ArgumentException("The length of the values collection " +
+                    "must be equal to the count parameter");
+            }
+
+             File.WriteAllLines(this.boardPathString, values.ToArray());
+        }
+
         public void AddEntry(string fileName, string newValue)
         {
+            if (this.ContainsKey(fileName))
+            {
+                throw new InvalidOperationException(String.Format(
+                    "An entry with filename {0} already exists", fileName));
+            }
+
             string filePath = string.Format(@"{0}\{1}", this.BaseDirectory, fileName);
             File.WriteAllText(filePath, newValue);
         }

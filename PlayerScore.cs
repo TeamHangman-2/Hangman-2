@@ -140,7 +140,7 @@
         /// </summary>
         public void UpdateCurrentStats(int mistakesCount)
         {
-            this.numberOfMiskates = mistakesCount;
+            this.NumberOfMistakes = mistakesCount;
 
             if (this.points > this.recordPoints)
             {

@@ -16,18 +16,21 @@
         [Test]
         public void CanAddEntry()
         {
-            FileStorage storage = new FileStorage(this.leaderBoard, this.baseFolder);
-            storage.AddEntry("FakePlayer2.csv", "10, 20");
+            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
+            storage.AddEntry("AddedPlayer.csv", "10, 20");
 
-            string outputFile = Directory.GetCurrentDirectory() + @"\resources\FakePlayer2.csv";
+            string outputFile = Directory.GetCurrentDirectory() + @"\resources\AddedPlayer.csv";
             Assert.True(File.Exists(outputFile));
             Assert.False(string.IsNullOrEmpty(File.ReadAllText(outputFile)));
+
+            // Clean Up:
+            File.Delete(outputFile);
         }
 
         [Test]
         public void CanRemoveEntry()
         {
-            FileStorage storage = new FileStorage(this.leaderBoard, this.baseFolder);
+            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
             storage.RemoveEntry("FakePlayer1.txt");
 
             string outputFile = Directory.GetCurrentDirectory() + @"\resources\FakePlayer1.txt";
@@ -37,7 +40,7 @@
         [Test]
         public void CanUpdateEntry()
         {
-            FileStorage storage = new FileStorage(this.leaderBoard, this.baseFolder);
+            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
             storage.UpdateEntry("FakePlayer1.txt", "UpdatedValue1, UpdatedValue2");
 
             string editedFile = Directory.GetCurrentDirectory() + @"\resources\FakePlayer1.txt";
@@ -50,7 +53,7 @@
         [Test]
         public void CanLoadEntry()
         {
-            FileStorage storage = new FileStorage(this.leaderBoard, this.baseFolder);
+            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
             string value = storage.LoadEntry("FakePlayer1.txt");
 
             Assert.False(string.IsNullOrEmpty(value));
@@ -59,7 +62,7 @@
         [Test]
         public void CanCheckIfKeyExists()
         {
-            FileStorage storage = new FileStorage(this.leaderBoard, this.baseFolder);
+            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
             bool realFileExists = storage.ContainsKey("FakePlayer1.txt");
             bool fakeFileExists = storage.ContainsKey("randomFile.txt");
 
@@ -70,7 +73,7 @@
         [Test]
         public void CanLoadTop5()
         {
-            FileStorage storage = new FileStorage(this.leaderBoard, this.baseFolder);
+            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
             var top5 = storage.GetTop(5);
 
             Assert.IsNotEmpty(top5);
