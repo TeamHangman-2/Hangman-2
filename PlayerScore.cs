@@ -113,9 +113,18 @@
         /// </summary>
         public void LoadRecordData()
         {
-            var data = this.storage.LoadEntry(this.PlayerName).Split(',');
-            this.recordPoints = int.Parse(data[0]);
-            this.recordMistakes = int.Parse(data[1]);
+            if (storage.ContainsKey(this.PlayerName))
+            {
+                var data = this.storage.LoadEntry(this.PlayerName).Split(',');
+                this.recordPoints = int.Parse(data[0]);
+                this.recordMistakes = int.Parse(data[1]);
+            }
+            else
+            {
+                this.recordPoints = 0;
+                this.recordMistakes = 0;
+            }
+
         }
 
         /// <summary>
