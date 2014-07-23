@@ -53,8 +53,22 @@ namespace HangmanTests
             PlayerScore score = new PlayerScore("somePlayer", fakeStorage);
             score.SaveRecordData();
 
-            // Assert that LoadEntry method was called
+            // Assert that AddEntry method was called
             fakeStorage.Received().AddEntry(Arg.Any<string>(), Arg.Any<string>());
+        }
+
+        [Test]
+        public void CanUpdateRecordFile()
+        {
+            string fakeName = "somePlayer";
+            var fakeStorage = CreateFakeStorageProvider();
+            fakeStorage.ContainsKey(fakeName).Returns(true);
+
+            PlayerScore score = new PlayerScore("somePlayer", fakeStorage);
+            score.SaveRecordData();
+
+            // Assert that UpdateEntry method was called, because the key already exists
+            fakeStorage.Received().UpdateEntry(Arg.Any<string>(), Arg.Any<string>());
         }
 
         [Test]

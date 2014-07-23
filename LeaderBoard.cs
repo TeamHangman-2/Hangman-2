@@ -41,6 +41,7 @@ namespace Hangman
             {
                 TopPlayers.Add(score);
                 TopPlayers.Remove(TopPlayers.Max);
+                SaveScoreBoard();
             }
         }
 
