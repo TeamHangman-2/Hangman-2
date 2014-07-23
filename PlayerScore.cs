@@ -169,5 +169,15 @@
 
             return result;
         }
+
+        public static bool operator >=(PlayerScore first, PlayerScore second)
+        {
+            return first.CompareTo(second) >= 0;
+        }
+
+        public static bool operator <=(PlayerScore first, PlayerScore second)
+        {
+            return first.CompareTo(second) <= 0;
+        }
     }
 }

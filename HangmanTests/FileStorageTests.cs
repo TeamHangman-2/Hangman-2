@@ -16,7 +16,7 @@
         [Test]
         public void CanAddEntry()
         {
-            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
+            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
             storage.AddEntry("AddedPlayer.csv", "10, 20");
 
             string outputFile = Directory.GetCurrentDirectory() + @"\resources\AddedPlayer.csv";
@@ -30,7 +30,7 @@
         [Test]
         public void CantAddDuplicates()
         {
-            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
+            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
 
             Assert.Throws<InvalidOperationException>(() => storage.AddEntry("FakePlayer2.txt", "10, 20"));
         }
@@ -38,7 +38,7 @@
         [Test]
         public void CanRemoveEntry()
         {
-            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
+            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
             storage.RemoveEntry("FakePlayer1.txt");
 
             string outputFile = Directory.GetCurrentDirectory() + @"\resources\FakePlayer1.txt";
@@ -49,7 +49,7 @@
         [Test]
         public void CantRemoveNonExistingEntry()
         {
-            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
+            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
 
 
             Assert.Throws<InvalidOperationException>(() => storage.RemoveEntry("NonExistingFile.file"));
@@ -58,7 +58,7 @@
         [Test]
         public void CanUpdateEntry()
         {
-            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
+            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
             storage.UpdateEntry("FakePlayer1.txt", "UpdatedValue1, UpdatedValue2");
 
             string editedFile = Directory.GetCurrentDirectory() + @"\resources\FakePlayer1.txt";
@@ -71,7 +71,7 @@
         [Test]
         public void CanLoadEntry()
         {
-            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
+            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
             string value = storage.LoadEntry("FakePlayer1.txt");
 
             Assert.False(string.IsNullOrEmpty(value));
@@ -80,7 +80,7 @@
         [Test]
         public void CanCheckIfKeyExists()
         {
-            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
+            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
             bool realFileExists = storage.ContainsKey("FakePlayer1.txt");
             bool fakeFileExists = storage.ContainsKey("randomFile.txt");
 
@@ -91,7 +91,7 @@
         [Test]
         public void CanLoadTop5()
         {
-            TextFileStorage storage = new TextFileStorage(this.leaderBoard, this.baseFolder);
+            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
             var top5 = storage.GetTop(5);
 
             Assert.IsNotEmpty(top5);

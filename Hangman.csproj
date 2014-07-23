@@ -61,13 +61,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OLD\ConsoleAnnouncer.cs" />
+    <Compile Include="LeaderBoard.cs" />
     <Compile Include="Resources\ExceptionMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ExceptionMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="FileRecordManager.cs" />
+    <Compile Include="OLD\FileRecordManager.cs" />
     <Compile Include="Resources\GameStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -79,6 +80,7 @@
     </Compile>
     <Compile Include="PlayerScore.cs" />
     <Compile Include="OLD\IRecordManager.cs" />
+    <Compile Include="SortedSet.cs" />
     <Compile Include="Word.cs" />
     <Compile Include="WordGenerator.cs" />
   </ItemGroup>

@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileStorage.cs" />
+    <Compile Include="HangmanStorage.cs" />
     <Compile Include="IOManager.cs" />
     <Compile Include="IStorageProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

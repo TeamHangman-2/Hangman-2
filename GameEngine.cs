@@ -24,6 +24,19 @@
         private bool gameIsRunning;
         private IOManager ioManager;
         private IStorageProvider<string, string> dataStorage;
+        private LeaderBoard leaderBoard;
+
+        private LeaderBoard LeaderBoard
+        {
+            get
+            {
+                if (leaderBoard == null)
+                {
+                    leaderBoard = new LeaderBoard(dataStorage);
+                }
+                return leaderBoard;
+            }
+        }
 
         private int wrongGuessesCount;
 
@@ -124,7 +137,7 @@
             this.ioManager.ClearOutputWindow();
             this.ioManager.Print(GameStrings.IntroductingMessage);
             this.ioManager.Print(GameStrings.MaxWrongGuessesWarningMessage, MaxErrorsAllowed);
-            this.PrintCommands();
+            this.PrintCommandsList();
 
             while (this.gameIsRunning)
             {
@@ -186,7 +199,7 @@
             }
         }
 
-        private void PrintCommands()
+        private void PrintCommandsList()
         {
             this.ioManager.Print(string.Empty);
             this.ioManager.Print(GameStrings.AvailableCommands);
@@ -214,10 +227,10 @@
                     this.ExitGame();
                     break;
                 case GameCommands.ShowResult:
-                    this.ShowResults();
+                    this.DisplayLeaderBoard();
                     break;
                 case GameCommands.ShowCommands:
-                    this.PrintCommands();
+                    this.PrintCommandsList();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("Unrecognised command!");
@@ -250,9 +263,15 @@
             this.Start();
         }
 
-        private void ShowResults()
-        {
-            throw new NotImplementedException();
+        private void DisplayLeaderBoard()
+        {        
+            ioManager.Print("Leader board:");
+            ioManager.Print("Name MistakesCount Points");
+            foreach (var item in leaderBoard.TopPlayers)
+            {
+                ioManager.Print("{0} {1} {2}", item.PlayerName, 
+                    item.NumberOfMistakes, item.Points);
+            }
         }
 
         private void ExitGame()

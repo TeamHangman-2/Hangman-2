@@ -5,22 +5,26 @@
     using System.IO;
     using System.Linq;
 
-    public class TextFileStorage : IStorageProvider<string, string>
+    /// <summary>
+    /// Writes the entries into multiple files and the top few entries are stored in different file
+    /// <para>The key is a string: the name of the file </para>
+    /// </summary>
+    public class HangmanStorage : IStorageProvider<string, string>
     {
         private string boardPathString;
 
-        public TextFileStorage(Uri leaderboardPath, string baseDirectory)
+        public HangmanStorage(Uri topEntriesFile, string baseDirectory)
         {
-            this.LeaderBoardPath = leaderboardPath;
+            this.LeaderBoardPath = topEntriesFile;
             this.BaseDirectory = baseDirectory;
 
-            if (!leaderboardPath.IsAbsoluteUri)
+            if (!topEntriesFile.IsAbsoluteUri)
             {
-                this.boardPathString = string.Format(@"{0}\{1}", Directory.GetCurrentDirectory(), leaderboardPath.OriginalString);
+                this.boardPathString = string.Format(@"{0}\{1}", Directory.GetCurrentDirectory(), topEntriesFile.OriginalString);
             }
             else
             {
-                this.boardPathString = leaderboardPath.LocalPath;
+                this.boardPathString = topEntriesFile.LocalPath;
             }
         }
 

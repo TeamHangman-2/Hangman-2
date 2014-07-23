@@ -42,7 +42,7 @@
 
         /// <summary>
         /// This is the masked word 
-        /// (some of the letters will be displayed as the hidden symbol)
+        /// (some of the letters will be displayed as the "hidden symbol")
         /// </summary>
         public char[] WordOnScreen
         {
