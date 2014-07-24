@@ -8,6 +8,7 @@
     using Extensions;
     using Hangman.IO;
     using Resources;
+    using Hangman.WordGeneration;
 
     /// <summary>
     /// Responsible for Running the game cycle, processing commands
@@ -25,6 +26,7 @@
         private IOManager ioManager;
         private IStorageProvider<string, string> dataStorage;
         private LeaderBoard leaderBoard;
+        private IWordGenerator wordGenerator;
 
         private LeaderBoard LeaderBoard
         {
@@ -122,7 +124,7 @@
 
         private void InitializeGame()
         {
-            this.wordToGuess = WordGenerator.GetRandomWord();
+            this.wordToGuess = wordGenerator.GetWord();
             this.gameIsRunning = true;
 
             //// read player name:

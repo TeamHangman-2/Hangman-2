@@ -82,7 +82,8 @@
     <Compile Include="OLD\IRecordManager.cs" />
     <Compile Include="SortedSet.cs" />
     <Compile Include="Word.cs" />
-    <Compile Include="WordGenerator.cs" />
+    <Compile Include="WordGeneration\IWordGenerator.cs" />
+    <Compile Include="WordGeneration\WordGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
