@@ -49,6 +49,7 @@ namespace HangmanTests
         public void CanAddRecordFile()
         {
             var fakeStorage = CreateFakeStorageProvider();
+            fakeStorage.ContainsKey(Arg.Any<string>()).Returns(false);
 
             PlayerScore score = new PlayerScore("somePlayer", fakeStorage);
             score.SaveRecordData();
@@ -104,6 +105,8 @@ namespace HangmanTests
         private static IStorageProvider<string, string> CreateFakeStorageProvider()
         {
             var fakeStorage = Substitute.For<IStorageProvider<string, string>>();
+
+            fakeStorage.ContainsKey(Arg.Any<string>()).Returns(true);
 
             fakeStorage.LoadEntry(Arg.Any<string>()).
                 ReturnsForAnyArgs(x => "10,20");
