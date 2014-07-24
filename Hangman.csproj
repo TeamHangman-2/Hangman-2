@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OLD\ConsoleAnnouncer.cs" />
-    <Compile Include="LeaderBoard.cs" />
+    <Compile Include="OLD\LeaderBoard.cs" />
     <Compile Include="Resources\ExceptionMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -78,9 +78,11 @@
     <Compile Include="GameEngine.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="PlayerScore.cs" />
+    <Compile Include="OLD\PlayerScore.cs" />
     <Compile Include="OLD\IRecordManager.cs" />
-    <Compile Include="SortedSet.cs" />
+    <Compile Include="ScoreManagement\IScoreManager.cs" />
+    <Compile Include="ScoreManagement\PlayerScore.cs" />
+    <Compile Include="ScoreManagement\ScoreManager.cs" />
     <Compile Include="Word.cs" />
     <Compile Include="WordGeneration\IWordGenerator.cs" />
     <Compile Include="WordGeneration\WordGenerator.cs" />
@@ -123,6 +125,7 @@
       <Name>Hangman.IO</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

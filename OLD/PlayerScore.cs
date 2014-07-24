@@ -8,6 +8,7 @@
     /// <summary>
     /// A class responsible for storing player statistics and saving them into file
     /// </summary>
+    [Obsolete("The deprecated version of PlayerScore")]
     public class PlayerScore : IComparable
     {
         private string playerName;
