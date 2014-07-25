@@ -56,6 +56,7 @@
     <None Include="LeaderBoardTests.cs" />
     <Compile Include="PlayerScoreTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomWordGeneratorTests.cs" />
     <Compile Include="ScoreManagerTests.cs" />
     <Compile Include="WordTests.cs" />
   </ItemGroup>
@@ -75,9 +76,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="OLD\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="resources\ExistingFakePlayer.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

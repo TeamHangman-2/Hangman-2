@@ -9,7 +9,6 @@
         private const char HiddenWordSymbol = '_';
 
         private string wordToGuess;
-        private char[] wordOnScreen;
 
         public Word(string word)
         {
@@ -21,7 +20,7 @@
         {
             get
             {
-                var numOfHiddenLetters = this.wordOnScreen.Count(s => s == HiddenWordSymbol);
+                var numOfHiddenLetters = this.WordOnScreen.Count(s => s == HiddenWordSymbol);
                 return numOfHiddenLetters;
             }
         }
@@ -30,7 +29,7 @@
         {
             get
             {
-                var entireWordIsRevealed = !this.wordOnScreen.Contains(HiddenWordSymbol);
+                var entireWordIsRevealed = !this.WordOnScreen.Contains(HiddenWordSymbol);
                 return entireWordIsRevealed;
             }
         }
@@ -44,23 +43,7 @@
         /// This is the masked word 
         /// (some of the letters will be displayed as the "hidden symbol")
         /// </summary>
-        public char[] WordOnScreen
-        {
-            get
-            {
-                return this.wordOnScreen;
-            }
-
-            private set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("Word on screen cannot be null!");
-                }
-
-                this.wordOnScreen = value;
-            }
-        }
+        public char[] WordOnScreen { get; private set; }
 
         private string WordToGuess
         {

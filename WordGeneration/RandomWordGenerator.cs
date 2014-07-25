@@ -21,6 +21,16 @@
 
         public RandomWordGenerator(IList<string> availableWords)
         {
+            if (availableWords == null)
+            {
+                throw new ArgumentNullException("The available words collection cannot be null");
+            }
+
+            if (availableWords.Count == 0)
+            {
+                throw new ArgumentException("The available words collection cannot be empty");
+            }
+
             this.AllWords = availableWords;
         }
 

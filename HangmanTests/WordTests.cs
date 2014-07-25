@@ -50,7 +50,7 @@
         }
 
         [Test]
-        public void ProcessMultipleGuessedLetters()
+        public void CanProcessMultipleGuessedLetters()
         {
             string wordString = "banana";
             var wordObject = new Word(wordString);
@@ -63,7 +63,7 @@
         }
 
         [Test]
-        public void RevealFiveLetters()
+        public void CanRevealLetters()
         {
             string wordString = "something";
             var wordObject = new Word(wordString);
@@ -75,6 +75,45 @@
 
             string expectedMask = "somet____";
             Assert.AreEqual(expectedMask, wordObject.WordOnScreen);
+        }
+
+        [Test]
+        public void CanGuessWholeWord()
+        {
+            string wordString = "something";
+            var wordObject = new Word(wordString);
+
+            Assert.True(wordObject.GuessWholeWord("something"));
+        }
+
+        [Test]
+        public void CanCheckIfContainsLetter()
+        {
+            string wordString = "something";
+            var wordObject = new Word(wordString);
+
+            Assert.True(wordObject.Containsletter('s'));
+            Assert.True(wordObject.Containsletter('o'));
+            Assert.True(wordObject.Containsletter('m'));
+            Assert.True(wordObject.Containsletter('e'));
+            Assert.True(wordObject.Containsletter('t'));
+            Assert.True(wordObject.Containsletter('h'));
+            Assert.True(wordObject.Containsletter('i'));
+            Assert.True(wordObject.Containsletter('n'));
+            Assert.True(wordObject.Containsletter('g'));
+        }
+
+        [Test]
+        public void CanGetLength()
+        {
+            string wordString = "something";
+            string anotherWordString = "aWord";
+
+            var wordObject = new Word(wordString);
+            var justAnotherWord = new Word(anotherWordString);
+
+            Assert.AreEqual(9, wordObject.Length);
+            Assert.AreEqual(5, justAnotherWord.Length);
         }
     }
 }

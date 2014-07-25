@@ -83,7 +83,7 @@
     <Compile Include="ScoreManagement\ScoreManager.cs" />
     <Compile Include="Word.cs" />
     <Compile Include="WordGeneration\IWordGenerator.cs" />
-    <Compile Include="WordGeneration\WordGenerator.cs" />
+    <Compile Include="WordGeneration\RandomWordGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
