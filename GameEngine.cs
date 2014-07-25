@@ -8,8 +8,8 @@
     using Extensions;
     using Hangman.IO;
     using Resources;
-    using Hangman.WordGeneration;
     using Hangman.ScoreManagement;
+    using Hangman.WordGeneration;
 
     /// <summary>
     /// Responsible for Running the game cycle, processing commands
@@ -30,49 +30,15 @@
         private string playerName;
         private int playerScore;
 
-        //private IStorageProvider<string, string> dataStorage;
-        //private LeaderBoard leaderBoard;
-        //private PlayerScore player;
-
-        //private LeaderBoard LeaderBoard
-        //{
-        //    get
-        //    {
-        //        if (leaderBoard == null)
-        //        {
-        //            leaderBoard = new LeaderBoard(dataStorage);
-        //        }
-        //        return leaderBoard;
-        //    }
-        //}
-
-
-        public GameEngine(IOManager ioManager, IScoreManager scoreManager)
+        public GameEngine(IOManager ioManager, IScoreManager scoreManager, RandomWordGenerator wordGenerator)
         {
             this.guessLog = new SortedSet<char>();
             this.WrongGuessesCount = 0;
             this.playerScore = 0;
             this.ioManager = ioManager;
             this.scoreManager = scoreManager;
+            this.wordGenerator = wordGenerator;
         }
-
-        //public PlayerScore Player
-        //{
-        //    get
-        //    {
-        //        return this.player;
-        //    }
-
-        //    private set
-        //    {
-        //        if (value == null)
-        //        {
-        //            throw new ArgumentNullException("Player cannot be set to null!");
-        //        }
-
-        //        this.player = value;
-        //    }
-        //}
 
         public int WrongGuessesCount
         {
@@ -258,9 +224,6 @@
 
             this.ioManager.Print(GameStrings.YouScoredPtsMsg, this.playerScore);
 
-            //this.Player.UpdateCurrentStats(this.wrongGuessesCount);
-            //this.Player.SaveRecordData();
-
             this.scoreManager.SavePlayerScore(this.playerName, this.playerScore, this.wrongGuessesCount);
         }
 
@@ -272,7 +235,7 @@
 
         private void DisplayLeaderBoard()
         {
-            // TODO: add strings to the resx file
+#warning TODO: add strings to the resx file
 
             ioManager.Print("Leaderboard:");
             ioManager.Print("Name\tMistakesCount\tPoints");
@@ -293,7 +256,7 @@
 
         private void ExitGame()
         {
-            throw new NotImplementedException();
+            Environment.Exit(0);
         }
 
         private void ProccessGuess(char currentGuess)
