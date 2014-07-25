@@ -19,7 +19,6 @@
             this.PlayerName = playerName;
             this.NumberOfMistakes = numberOfMiskates;
             this.points = points;
-          
         }
 
         public int Points
@@ -85,9 +84,16 @@
         public int CompareTo(object otherPlayer)
         {
             PlayerScore playerToCompareWith = otherPlayer as PlayerScore;
+
+            if (playerToCompareWith == null)
+            {
+                throw new ArgumentOutOfRangeException(
+                    "Passed parameter is not a PlayerScore instance.");
+            }
+
             int result = 0;
 
-            if (this.NumberOfMistakes <= playerToCompareWith.NumberOfMistakes)
+            if (this.Points < playerToCompareWith.Points)
             {
                 result = -1;
             }
