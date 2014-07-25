@@ -30,7 +30,7 @@
         private string playerName;
         private int playerScore;
 
-        public GameEngine(IOManager ioManager, IScoreManager scoreManager, RandomWordGenerator wordGenerator)
+        public GameEngine(IOManager ioManager, IScoreManager scoreManager, IWordGenerator wordGenerator)
         {
             this.guessLog = new SortedSet<char>();
             this.WrongGuessesCount = 0;

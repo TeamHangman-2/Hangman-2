@@ -3,7 +3,7 @@
 
 namespace Hangman.WordGeneration
 {
-    interface IWordGenerator
+    public interface IWordGenerator
     {
         Word GetWord();
 
