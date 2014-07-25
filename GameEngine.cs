@@ -9,6 +9,7 @@
     using Hangman.IO;
     using Resources;
     using Hangman.WordGeneration;
+    using Hangman.ScoreManagement;
 
     /// <summary>
     /// Responsible for Running the game cycle, processing commands
@@ -19,53 +20,59 @@
         private const int MaxErrorsAllowed = 10;
         private const int EntireWordGuessedBonus = 2;
 
-        private Word wordToGuess;
-        private PlayerScore player;
-        private ISet<char> guessLog;
         private bool gameIsRunning;
+        private Word wordToGuess;
+        private ISet<char> guessLog;
         private IOManager ioManager;
-        private IStorageProvider<string, string> dataStorage;
-        private LeaderBoard leaderBoard;
         private IWordGenerator wordGenerator;
-
-        private LeaderBoard LeaderBoard
-        {
-            get
-            {
-                if (leaderBoard == null)
-                {
-                    leaderBoard = new LeaderBoard(dataStorage);
-                }
-                return leaderBoard;
-            }
-        }
-
+        private IScoreManager scoreManager;
         private int wrongGuessesCount;
+        private string playerName;
+        private int playerScore;
 
-        public GameEngine(IOManager ioManager)
+        //private IStorageProvider<string, string> dataStorage;
+        //private LeaderBoard leaderBoard;
+        //private PlayerScore player;
+
+        //private LeaderBoard LeaderBoard
+        //{
+        //    get
+        //    {
+        //        if (leaderBoard == null)
+        //        {
+        //            leaderBoard = new LeaderBoard(dataStorage);
+        //        }
+        //        return leaderBoard;
+        //    }
+        //}
+
+
+        public GameEngine(IOManager ioManager, IScoreManager scoreManager)
         {
             this.guessLog = new SortedSet<char>();
             this.WrongGuessesCount = 0;
+            this.playerScore = 0;
             this.ioManager = ioManager;
+            this.scoreManager = scoreManager;
         }
 
-        public PlayerScore Player
-        {
-            get
-            {
-                return this.player;
-            }
+        //public PlayerScore Player
+        //{
+        //    get
+        //    {
+        //        return this.player;
+        //    }
 
-            private set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("Player cannot be set to null!");
-                }
+        //    private set
+        //    {
+        //        if (value == null)
+        //        {
+        //            throw new ArgumentNullException("Player cannot be set to null!");
+        //        }
 
-                this.player = value;
-            }
-        }
+        //        this.player = value;
+        //    }
+        //}
 
         public int WrongGuessesCount
         {
@@ -126,12 +133,8 @@
         {
             this.wordToGuess = wordGenerator.GetWord();
             this.gameIsRunning = true;
-
-            //// read player name:
             this.ioManager.Print(GameStrings.EnterName);
-            string playerName = this.ioManager.ReadInput();
-            //// create a storage and player instance
-            this.Player = new PlayerScore(playerName, this.dataStorage);
+            this.playerName = this.ioManager.ReadInput();
         }
 
         private void RunGame()
@@ -189,7 +192,7 @@
 
                 if (hiddenLettersCount >= this.wordToGuess.Length / 2)
                 {
-                    this.player.Points += hiddenLettersCount * EntireWordGuessedBonus;
+                    this.playerScore += hiddenLettersCount * EntireWordGuessedBonus;
                 }
 
                 this.EndGame();
@@ -253,10 +256,12 @@
                 this.ioManager.Print(GameStrings.LossMessage + " " + this.wrongGuessesCount);
             }
 
-            this.ioManager.Print(GameStrings.YouScoredPtsMsg, this.player.Points);
+            this.ioManager.Print(GameStrings.YouScoredPtsMsg, this.playerScore);
 
-            this.Player.UpdateCurrentStats(this.wrongGuessesCount);
-            this.Player.SaveRecordData();
+            //this.Player.UpdateCurrentStats(this.wrongGuessesCount);
+            //this.Player.SaveRecordData();
+
+            this.scoreManager.SavePlayerScore(this.playerName, this.playerScore, this.wrongGuessesCount);
         }
 
         private void RestartGame()
@@ -266,13 +271,23 @@
         }
 
         private void DisplayLeaderBoard()
-        {        
-            ioManager.Print("Leader board:");
-            ioManager.Print("Name MistakesCount Points");
-            foreach (var item in leaderBoard.TopPlayers)
+        {
+            // TODO: add strings to the resx file
+
+            ioManager.Print("Leaderboard:");
+            ioManager.Print("Name\tMistakesCount\tPoints");
+
+            var leaderBoard = this.scoreManager.GetLeaderBoard();
+
+            foreach (var item in leaderBoard)
             {
-                ioManager.Print("{0} {1} {2}", item.PlayerName, 
-                    item.NumberOfMistakes, item.Points);
+                var currentPlayerScore = item.Value;
+
+                ioManager.Print(
+                    "{0}\t{1}\t{2}",
+                    currentPlayerScore.PlayerName,
+                    currentPlayerScore.NumberOfMistakes,
+                    currentPlayerScore.Points);
             }
         }
 
@@ -295,7 +310,7 @@
             if (wordContainsLetter)
             {
                 this.wordToGuess.UpdateWordOnScreen(currentGuess);
-                this.Player.Points++;
+                this.playerScore++;
             }
             else
             {

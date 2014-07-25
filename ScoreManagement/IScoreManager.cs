@@ -5,15 +5,14 @@ using System.Text;
 
 namespace Hangman.ScoreManagement
 {
-    interface IScoreManager
+    public interface IScoreManager
     {
-        IList<PlayerScore> GetLeaderBoard();
-
+        SortedList<int, PlayerScore> GetLeaderBoard();
 
         /// <summary>
         /// Saves the playerScore by updating personal record and leaderboard if needed
         /// </summary>
-        void SavePlayerScore(PlayerScore score);
+        void SavePlayerScore(string playerName, int playerScore, int numberOfMistakes);
 
         PlayerScore LoadPlayerRecord(string playerName);
     }
