@@ -1,125 +1,171 @@
 ﻿using Hangman.IO;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hangman.ScoreManagement
 {
     public class ScoreManager : IScoreManager
     {
-        //        private const char SeparatorSymbol = ',';
-
-        //        public IStorageProvider<string, string> Storage { get; private set; }
-
-        //        private IList<PlayerScore> LeaderBoard { get; set; }
-
-        //        public IList<PlayerScore> GetLeaderBoard()
-        //        {
-        //            return this.LeaderBoard;
-        //        }
-
-        //        public void SavePlayerScore(PlayerScore score)
-        //        {
-        //#warning: TODO: check if player should be added to leader board
-
-        //            string data = string.Join(SeparatorSymbol.ToString(), 
-        //                score.Points, score.NumberOfMistakes);
-
-        //            if (this.Storage.ContainsKey(score.PlayerName))
-        //            {
-        //                var recordScore = LoadPlayerRecord(score.PlayerName);
-        //                if (score.Points > recordScore.Points)
-        //                {
-        //                    this.Storage.UpdateEntry(score.PlayerName, data);
-        //                }
-        //            }
-        //            else
-        //            {
-        //                // If there is no existing record add the current score
-        //                this.Storage.AddEntry(score.PlayerName, data);
-        //            }
-        //        }
-
-        //        public PlayerScore LoadPlayerRecord(string playerName)
-        //        {
-        //            if (Storage.ContainsKey(playerName))
-        //            {
-        //                var data = this.Storage.LoadEntry(playerName).Split(SeparatorSymbol);
-        //                int recordPoints = int.Parse(data[0]);
-        //                int recordMistakes = int.Parse(data[1]);
-        //                return new PlayerScore(playerName, recordPoints, recordMistakes);
-        //            }
-        //            else
-        //            {
-        //                int recordPoints = 0;
-        //                int recordMistakes = 0;
-        //                return new PlayerScore(playerName, recordPoints, recordMistakes);
-        //            }
-        //        }
-
-        private const int LeaderBoardLength = 5;
         private const char SeparatorCharacter = ',';
+
+        public const int LeaderBoardLength = 5;
+        public const string LeaderBoardKey = "_LeaderBoard";
+
 
         private IStorageProvider<string, string> storage;
         private SortedList<int, PlayerScore> leaderboard;
 
+        private SortedList<int, PlayerScore> LeaderBoard
+        {
+            get
+            {
+                if (leaderboard == null)
+                {
+                    this.leaderboard = new SortedList<int, PlayerScore>();
+                    LoadLeaderBoard();
+                }
+                return leaderboard;
+            }
+        }
+
+
         public ScoreManager(IStorageProvider<string, string> storage)
         {
             this.storage = storage;
-            this.leaderboard = new SortedList<int, PlayerScore>();
         }
 
-        public SortedList<int, PlayerScore> GetLeaderBoard()
+        public IEnumerable<PlayerScore> GetLeaderBoard()
         {
-            SortedList<int, PlayerScore> result = new SortedList<int, PlayerScore>();
-
-            if (this.leaderboard.Count == 0)
-            {
-                var rawData = this.storage.GetTop(ScoreManager.LeaderBoardLength);
-
-                foreach (var playerName in rawData)
-                {
-                    var currentPlayerScore = this.LoadPlayerRecord(playerName);
-                    this.leaderboard.Add(currentPlayerScore.Points, currentPlayerScore);
-                }
-            }
-
-            foreach (var playerScore in this.leaderboard)
-            {
-                result.Add(playerScore.Key, playerScore.Value);
-            }
-
-            return result;
+            // casting the collection to IEnumerable so that it cannot be changed
+            return (IEnumerable<PlayerScore>)this.LeaderBoard.Values;
         }
 
-        public void SavePlayerScore(string playerName, int playerScoredPoints, int playerMistakes)
+        public void SavePlayerScore(PlayerScore score)
         {
-            if (this.storage.ContainsKey(playerName))
-            {
-                var playerScore = this.LoadPlayerRecord(playerName);
+            // Check if the player should be added to leader board
+            VerifyAndAddToBoard(score);
 
-                if (playerScore.Points < playerScoredPoints)
+            var newPlayerData = string.Join(SeparatorCharacter.ToString(),
+                 score.Points, score.NumberOfMistakes);
+
+            if (this.storage.ContainsKey(score.PlayerName))
+            {
+                var playerScore = this.LoadPlayerRecord(score.PlayerName);
+
+                if (playerScore.Points < score.Points)
                 {
-                    var newPlayerData = playerScoredPoints.ToString() + playerMistakes;
-                    this.storage.UpdateEntry(playerName, newPlayerData);
+                    this.storage.UpdateEntry(score.PlayerName, newPlayerData);
                 }
             }
             else
             {
-                var playerData = playerScoredPoints.ToString() + playerMistakes;
-                this.storage.AddEntry(playerName, playerData);
+                this.storage.AddEntry(score.PlayerName, newPlayerData);
             }
         }
 
         public PlayerScore LoadPlayerRecord(string playerName)
         {
-            var rawPlayerRecord = this.storage.LoadEntry(playerName)
-                                              .Split(ScoreManager.SeparatorCharacter);
+            if (this.storage.ContainsKey(playerName))
+            {
+                var rawPlayerRecord = this.storage.LoadEntry(playerName)
+                                                  .Split(SeparatorCharacter);
 
-            var playerPoints = int.Parse(rawPlayerRecord[0]);
-            var playerMistakes = int.Parse(rawPlayerRecord[1]);
+                var playerPoints = int.Parse(rawPlayerRecord[0]);
+                var playerMistakes = int.Parse(rawPlayerRecord[1]);
 
-            var result = new PlayerScore(playerName, playerPoints, playerMistakes);
-            return result;
+                var result = new PlayerScore(playerName, playerPoints, playerMistakes);
+                return result;
+            }
+            else
+            {
+                int defaultRecordPoints = default(int);
+                int defaultRecordMistakes = default(int);
+                return new PlayerScore(playerName, defaultRecordPoints, defaultRecordMistakes);
+            }
+        }
+
+        /// <summary>
+        /// Saves the leader board in the storage
+        /// </summary>
+        private void SaveLeaderBoard()
+        {
+            StringBuilder leaderBoardString = new StringBuilder();
+
+            foreach (var score in this.LeaderBoard)
+            {
+                var value = score.Value;
+                string scoreData = string.Join(SeparatorCharacter.ToString(), value.PlayerName,
+                    value.Points, value.NumberOfMistakes);
+
+                leaderBoardString.AppendLine(scoreData);
+            }
+
+            if (storage.ContainsKey(LeaderBoardKey))
+            {
+                storage.UpdateEntry(LeaderBoardKey, leaderBoardString.ToString());
+            }
+            else
+            {
+                storage.AddEntry(LeaderBoardKey, leaderBoardString.ToString());
+            }
+
+        }
+
+        /// <summary>
+        /// adds the score to the leaderboard if the score is appropriate
+        /// </summary>
+        private void VerifyAndAddToBoard(PlayerScore score)
+        {
+            if (score.PlayerName == LeaderBoardKey)
+            {
+                throw new ArgumentException(string.Format("The player name may not be equal to {0}," +
+                    "because the leader board data is saved to that key", LeaderBoardKey));
+            }
+
+            if (LeaderBoard.Count < LeaderBoardLength)
+            {
+                LeaderBoard.Add(score.Points, score);
+                Task.Run((Action)SaveLeaderBoard);
+            }
+            else
+            {
+                int lastInBoard = LeaderBoard.Keys.Min();
+                if (lastInBoard <= score.Points)
+                {
+                    LeaderBoard.Add(score.Points, score);
+                    LeaderBoard.Remove(lastInBoard);
+                    Task.Run((Action)SaveLeaderBoard);
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Loads the leader board from the storage
+        /// </summary>
+        private void LoadLeaderBoard()
+        {
+            if (this.storage.ContainsKey(LeaderBoardKey))
+            {
+                var separator = new string[] { Environment.NewLine };
+
+                var rawData = this.storage.LoadEntry(LeaderBoardKey).Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var entry in rawData)
+                {
+                    var segments = entry.Split(SeparatorCharacter);
+                    var playerName = segments[0];
+                    var points = int.Parse(segments[1]);
+                    var mistakesCount = int.Parse(segments[2]);
+
+                    var scoreObject = new PlayerScore(playerName, points, mistakesCount);
+
+                    this.leaderboard.Add(points, scoreObject);
+                } 
+            }
         }
     }
 }

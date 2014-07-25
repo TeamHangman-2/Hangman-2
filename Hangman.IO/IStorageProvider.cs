@@ -1,8 +1,5 @@
 ﻿namespace Hangman.IO
 {
-    using System;
-    using System.Collections.Generic;
-
     public interface IStorageProvider<TKey, TData>
     {
         TData LoadEntry(TKey key);
@@ -15,6 +12,5 @@
 
         void RemoveEntry(TKey key);
 
-        IEnumerable<TData> GetTop(int count);
     }
 }

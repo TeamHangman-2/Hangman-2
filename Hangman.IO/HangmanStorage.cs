@@ -13,35 +13,26 @@
     {
         private string boardPathString;
 
-        public HangmanStorage(Uri topEntriesFile, string baseDirectory)
+        public HangmanStorage(string baseDirectory, string fileExtension = ".csv")
         {
-            this.LeaderBoardPath = topEntriesFile;
             this.BaseDirectory = baseDirectory;
-
-            if (!topEntriesFile.IsAbsoluteUri)
-            {
-                this.boardPathString = string.Format(@"{0}\{1}", Directory.GetCurrentDirectory(), topEntriesFile.OriginalString);
-            }
-            else
-            {
-                this.boardPathString = topEntriesFile.LocalPath;
-            }
+            this.FileExtension = fileExtension;
         }
 
-        public Uri LeaderBoardPath { get; private set; }
+        public string FileExtension { get; private set; }
 
         public string BaseDirectory { get; private set; }
 
         public string LoadEntry(string fileName)
         {
-            string filePath = string.Format(@"{0}\{1}", this.BaseDirectory, fileName);
+            string filePath = GenerateFilePath(fileName);
             var lines = File.ReadAllText(filePath);
             return lines;
         }
 
         public void UpdateEntry(string fileName, string newValue)
         {
-            string filePath = string.Format(@"{0}\{1}", this.BaseDirectory, fileName);
+            string filePath = GenerateFilePath(fileName);
             File.WriteAllText(filePath, newValue);
         }
 
@@ -53,25 +44,8 @@
                     "An entry with filename {0} does not exist", fileName));
             }
 
-            string filePath = string.Format(@"{0}\{1}", this.BaseDirectory, fileName);
+            string filePath = GenerateFilePath(fileName);
             File.Delete(filePath);
-        }
-
-        public IEnumerable<string> GetTop(int count)
-        {
-            var lines = File.ReadAllLines(this.boardPathString).ToList();
-            return lines.Take(count);
-        }
-
-        public void SetTop(int count, ICollection<string> values)
-        {
-            if (values.Count != count)
-            {
-                throw new ArgumentException("The length of the values collection " +
-                    "must be equal to the count parameter");
-            }
-
-             File.WriteAllLines(this.boardPathString, values.ToArray());
         }
 
         public void AddEntry(string fileName, string newValue)
@@ -82,14 +56,21 @@
                     "An entry with filename {0} already exists", fileName));
             }
 
-            string filePath = string.Format(@"{0}\{1}", this.BaseDirectory, fileName);
+            string filePath = GenerateFilePath(fileName);
             File.WriteAllText(filePath, newValue);
         }
 
         public bool ContainsKey(string fileName)
         {
-            string filePath = string.Format(@"{0}\{1}", this.BaseDirectory, fileName);
+            string filePath = GenerateFilePath(fileName);
             return File.Exists(filePath);
         }
+
+        private string GenerateFilePath(string fileName)
+        {
+            string filePath = string.Format(@"{0}\{1}{2}", this.BaseDirectory, fileName, this.FileExtension);
+            return filePath;
+        }
+
     }
 }

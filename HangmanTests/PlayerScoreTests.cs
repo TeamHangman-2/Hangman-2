@@ -1,5 +1,6 @@
 ﻿using Hangman;
 using Hangman.IO;
+using Hangman.ScoreManagement;
 using NSubstitute;
 using NUnit.Framework;
 using System;
@@ -10,92 +11,39 @@ namespace HangmanTests
     public class PlayerScoreTests
     {
         [Test]
-        public void ShouldUseStorageToLoadData()
+        public void RejectsInvalidPoints()
         {
             var fakeStorage = CreateFakeStorageProvider();
 
-            PlayerScore score = new PlayerScore("somePlayer", fakeStorage);
-            score.LoadRecordData();
-
-            // Assert that LoadEntry method was called
-            fakeStorage.Received().LoadEntry(Arg.Any<string>());
+            Assert.Throws<ArgumentException>(() => new PlayerScore("somePlayer", -5, 5));        
         }
 
         [Test]
-        public void ShouldLazyLoadRecordPoints()
+        public void RejectsInvalidMistakesCount()
         {
             var fakeStorage = CreateFakeStorageProvider();
 
-            PlayerScore score = new PlayerScore("somePlayer", fakeStorage);
-            int recordPoints = score.RecordPoints;
-
-            // Assert that LoadEntry method was called
-            fakeStorage.Received().LoadEntry(Arg.Any<string>());
+            Assert.Throws<ArgumentException>(() => new PlayerScore("somePlayer", 50, -2));
         }
 
         [Test]
-        public void ShouldLazyLoadRecordMistakes()
+        public void RejectsInvalidName()
         {
             var fakeStorage = CreateFakeStorageProvider();
 
-            PlayerScore score = new PlayerScore("somePlayer", fakeStorage);
-            int recordMistakes = score.RecordMistakes;
-
-            // Assert that LoadEntry method was called
-            fakeStorage.Received().LoadEntry(Arg.Any<string>());
+            Assert.Throws<ArgumentNullException>(() => new PlayerScore(null, 50, 10));
         }
 
-        [Test]
-        public void CanAddRecordFile()
-        {
-            var fakeStorage = CreateFakeStorageProvider();
-            fakeStorage.ContainsKey(Arg.Any<string>()).Returns(false);
-
-            PlayerScore score = new PlayerScore("somePlayer", fakeStorage);
-            score.SaveRecordData();
-
-            // Assert that AddEntry method was called
-            fakeStorage.Received().AddEntry(Arg.Any<string>(), Arg.Any<string>());
-        }
-
-        [Test]
-        public void CanUpdateRecordFile()
-        {
-            string fakeName = "somePlayer";
-            var fakeStorage = CreateFakeStorageProvider();
-            fakeStorage.ContainsKey(fakeName).Returns(true);
-
-            PlayerScore score = new PlayerScore("somePlayer", fakeStorage);
-            score.SaveRecordData();
-
-            // Assert that UpdateEntry method was called, because the key already exists
-            fakeStorage.Received().UpdateEntry(Arg.Any<string>(), Arg.Any<string>());
-        }
-
-        [Test]
-        public void CanUpdateCurrentStats()
-        {
-            var fakeStorage = CreateFakeStorageProvider();
-
-            PlayerScore score = new PlayerScore("somePlayer", fakeStorage);
-            score.UpdateCurrentStats(8);
-
-            // Assert that LoadEntry method was called
-            Assert.AreEqual(8, score.NumberOfMistakes);
-        }
 
         [Test]
         public void CanBeCompared()
         {
             var fakeStorage = CreateFakeStorageProvider();
 
-            PlayerScore lesserScore = new PlayerScore("somePlayer", fakeStorage);
-            PlayerScore largerScore = new PlayerScore("somePlayer", fakeStorage);
-            lesserScore.UpdateCurrentStats(8);
-            largerScore.UpdateCurrentStats(5);
+            PlayerScore lesserScore = new PlayerScore("somePlayer", 50, 5);
+            PlayerScore largerScore = new PlayerScore("somePlayer", 100, 2);
 
-            // Assert that LoadEntry method was called
-            Assert.True(lesserScore.CompareTo(largerScore) > 0);
+            Assert.Greater(largerScore, lesserScore);
         }
 
 

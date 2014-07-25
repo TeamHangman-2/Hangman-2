@@ -11,14 +11,14 @@
     public class PlayerScore : IComparable
     {
         private string playerName;
-        private int numberOfMiskates;
+        private int numberOfMistakes;
         private int points;
 
         public PlayerScore(string playerName, int points, int numberOfMistakes)
         {
             this.PlayerName = playerName;
-            this.NumberOfMistakes = numberOfMiskates;
-            this.points = points;
+            this.NumberOfMistakes = numberOfMistakes;
+            this.Points = points;
         }
 
         public int Points
@@ -43,7 +43,7 @@
         {
             get
             {
-                return this.numberOfMiskates;
+                return this.numberOfMistakes;
             }
 
             set
@@ -53,7 +53,7 @@
                     throw new ArgumentException("Number of mistakes cannot be negative number!");
                 }
 
-                this.numberOfMiskates = value;
+                this.numberOfMistakes = value;
             }
         }
 
@@ -79,7 +79,6 @@
                 this.playerName = value;
             }
         }
-
      
         public int CompareTo(object otherPlayer)
         {
@@ -91,18 +90,7 @@
                     "Passed parameter is not a PlayerScore instance.");
             }
 
-            int result = 0;
-
-            if (this.Points < playerToCompareWith.Points)
-            {
-                result = -1;
-            }
-            else
-            {
-                result = 1;
-            }
-
-            return result;
+            return this.Points.CompareTo(playerToCompareWith.Points);
         }
 
         public static bool operator >=(PlayerScore first, PlayerScore second)

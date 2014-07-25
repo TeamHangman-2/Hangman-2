@@ -224,7 +224,9 @@
 
             this.ioManager.Print(GameStrings.YouScoredPtsMsg, this.playerScore);
 
-            this.scoreManager.SavePlayerScore(this.playerName, this.playerScore, this.wrongGuessesCount);
+            var score = new PlayerScore(this.playerName, this.playerScore, this.wrongGuessesCount);
+
+            this.scoreManager.SavePlayerScore(score);
         }
 
         private void RestartGame()
@@ -244,13 +246,11 @@
 
             foreach (var item in leaderBoard)
             {
-                var currentPlayerScore = item.Value;
-
                 ioManager.Print(
                     "{0}\t{1}\t{2}",
-                    currentPlayerScore.PlayerName,
-                    currentPlayerScore.NumberOfMistakes,
-                    currentPlayerScore.Points);
+                    item.PlayerName,
+                    item.NumberOfMistakes,
+                    item.Points);
             }
         }
 

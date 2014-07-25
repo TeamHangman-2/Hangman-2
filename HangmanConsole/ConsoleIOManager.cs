@@ -25,5 +25,13 @@
         {
             Console.Clear();
         }
+
+
+#warning: TODO: remove this main method when the HangmanLauncher class is added to git repository
+        static void Main()
+        {
+
+        }
+
     }
 }

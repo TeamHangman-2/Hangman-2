@@ -11,15 +11,15 @@
         private readonly string baseFolder = Directory.GetCurrentDirectory() +
             @"\" + @"\resources";
 
-        private readonly Uri leaderBoard = new Uri(@"\resources\FakeLeaderboard.txt", UriKind.Relative);
+        private readonly string existingPlayerFile = "ExistingFakePlayer";
 
         [Test]
         public void CanAddEntry()
         {
-            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
-            storage.AddEntry("AddedPlayer.csv", "10, 20");
+            HangmanStorage storage = new HangmanStorage(this.baseFolder, ".txt");
+            storage.AddEntry("AddedPlayer", "some score");
 
-            string outputFile = Directory.GetCurrentDirectory() + @"\resources\AddedPlayer.csv";
+            string outputFile = Directory.GetCurrentDirectory() + @"\resources\AddedPlayer.txt";
             Assert.True(File.Exists(outputFile));
             Assert.False(string.IsNullOrEmpty(File.ReadAllText(outputFile)));
 
@@ -30,49 +30,55 @@
         [Test]
         public void CantAddDuplicates()
         {
-            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
+            HangmanStorage storage = new HangmanStorage(this.baseFolder);
 
-            Assert.Throws<InvalidOperationException>(() => storage.AddEntry("FakePlayer2.txt", "10, 20"));
+            storage.AddEntry("FakePlayer", "some score");
+
+            Assert.Throws<InvalidOperationException>(() => storage.AddEntry("FakePlayer", "10, 20"));
+
+            // Clean Up:
+            string outputFile = Directory.GetCurrentDirectory() + @"\resources\FakePlayer.csv";
+            File.Delete(outputFile);
         }
 
         [Test]
         public void CanRemoveEntry()
         {
-            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
-            storage.RemoveEntry("FakePlayer1.txt");
+            HangmanStorage storage = new HangmanStorage(this.baseFolder);
+            storage.RemoveEntry(existingPlayerFile);
 
-            string outputFile = Directory.GetCurrentDirectory() + @"\resources\FakePlayer1.txt";
+            string outputFile = Directory.GetCurrentDirectory() + @"\resources\ExistingFakePlayer.csv";
             Assert.False(File.Exists(outputFile));
         }
-
 
         [Test]
         public void CantRemoveNonExistingEntry()
         {
-            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
+            HangmanStorage storage = new HangmanStorage(this.baseFolder);
 
-
-            Assert.Throws<InvalidOperationException>(() => storage.RemoveEntry("NonExistingFile.file"));
+            Assert.Throws<InvalidOperationException>(() => storage.RemoveEntry("NonExistingFile"));
         }
 
         [Test]
         public void CanUpdateEntry()
         {
-            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
-            storage.UpdateEntry("FakePlayer1.txt", "UpdatedValue1, UpdatedValue2");
+            string updatedValue = "some new score that was added";
 
-            string editedFile = Directory.GetCurrentDirectory() + @"\resources\FakePlayer1.txt";
+            HangmanStorage storage = new HangmanStorage(this.baseFolder);
+
+            storage.UpdateEntry(existingPlayerFile, updatedValue);
+
+            string editedFile = Directory.GetCurrentDirectory() + @"\resources\ExistingFakePlayer.csv";
             string newText = File.ReadAllText(editedFile);
 
-            Assert.True(newText.Contains("UpdatedValue1"));
-            Assert.True(newText.Contains("UpdatedValue2"));
+            Assert.True(newText.Contains(updatedValue));
         }
 
         [Test]
         public void CanLoadEntry()
         {
-            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
-            string value = storage.LoadEntry("FakePlayer1.txt");
+            HangmanStorage storage = new HangmanStorage(this.baseFolder);
+            string value = storage.LoadEntry(existingPlayerFile);
 
             Assert.False(string.IsNullOrEmpty(value));
         }
@@ -80,21 +86,12 @@
         [Test]
         public void CanCheckIfKeyExists()
         {
-            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
-            bool realFileExists = storage.ContainsKey("FakePlayer1.txt");
-            bool fakeFileExists = storage.ContainsKey("randomFile.txt");
+            HangmanStorage storage = new HangmanStorage(this.baseFolder);
+            bool realFileExists = storage.ContainsKey(existingPlayerFile);
+            bool fakeFileExists = storage.ContainsKey("someNotExistingPlayer");
 
             Assert.True(realFileExists);
             Assert.False(fakeFileExists);
-        }
-
-        [Test]
-        public void CanLoadTop5()
-        {
-            HangmanStorage storage = new HangmanStorage(this.leaderBoard, this.baseFolder);
-            var top5 = storage.GetTop(5);
-
-            Assert.IsNotEmpty(top5);
         }
     }
 }
