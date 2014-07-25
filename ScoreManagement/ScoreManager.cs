@@ -72,22 +72,20 @@ namespace Hangman.ScoreManagement
         {
             SortedList<int, PlayerScore> result = new SortedList<int, PlayerScore>();
 
-            if (this.leaderboard != null)
-            {
-                foreach (var playerScore in this.leaderboard)
-                {
-                    result.Add(playerScore.Key, playerScore.Value);
-                }
-            }
-            else
+            if (this.leaderboard.Count == 0)
             {
                 var rawData = this.storage.GetTop(ScoreManager.LeaderBoardLength);
 
                 foreach (var playerName in rawData)
                 {
                     var currentPlayerScore = this.LoadPlayerRecord(playerName);
-                    result.Add(currentPlayerScore.Points, currentPlayerScore);
+                    this.leaderboard.Add(currentPlayerScore.Points, currentPlayerScore);
                 }
+            }
+
+            foreach (var playerScore in this.leaderboard)
+            {
+                result.Add(playerScore.Key, playerScore.Value);
             }
 
             return result;
