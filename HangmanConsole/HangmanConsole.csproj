@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleIOManager.cs" />
-    <None Include="HangmanLauncher.cs" />
+    <Compile Include="HangmanLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
