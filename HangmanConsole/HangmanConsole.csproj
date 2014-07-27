@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EngineBuilding\ConsoleEngineBuilderDirector.cs" />
+    <Compile Include="EngineBuilding\ConsoleHangmanEngineBuilder.cs" />
     <Compile Include="ConsoleIOManager.cs" />
     <Compile Include="HangmanLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

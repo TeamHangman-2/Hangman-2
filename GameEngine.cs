@@ -276,7 +276,6 @@
             }
             else
             {
-                // TODO: maybe add more effects
                 this.wrongGuessesCount++;
             }
 
