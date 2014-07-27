@@ -25,6 +25,5 @@
         {
             Console.Clear();
         }
-
     }
 }

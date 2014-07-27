@@ -1,12 +1,13 @@
-﻿using Hangman;
-using Hangman.WordGeneration;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace HangmanTests
+﻿namespace HangmanTests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Hangman;
+    using Hangman.WordGeneration;
+    using NUnit.Framework;
+
     public class RandomWordGeneratorTests
     {
         [Test]
@@ -48,6 +49,5 @@ namespace HangmanTests
             // by checking that at least two have different lengths
             Assert.True(thousandWords.Any(x => x.Length != thousandWords.First().Length));
         }
-
     }
 }

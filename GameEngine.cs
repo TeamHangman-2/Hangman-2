@@ -2,14 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
 
     using Extensions;
     using Hangman.IO;
-    using Resources;
     using Hangman.ScoreManagement;
     using Hangman.WordGeneration;
+    using Resources;
 
     /// <summary>
     /// Responsible for Running the game cycle, processing commands
@@ -61,7 +59,7 @@
 
         public void Start()
         {
-#warning TODO: reset variables here instead of in the constructor to assure that game restart works fine
+//// #warning TODO: reset variables here instead of in the constructor to assure that game restart works fine
             this.InitializeGame();
             this.RunGame();
         }
@@ -98,7 +96,7 @@
 
         private void InitializeGame()
         {
-            this.wordToGuess = wordGenerator.GetWord();
+            this.wordToGuess = this.wordGenerator.GetWord();
             this.gameIsRunning = true;
             this.ioManager.Print(GameStrings.EnterName);
             this.playerName = this.ioManager.ReadInput();
@@ -238,14 +236,14 @@
 
         private void DisplayLeaderBoard()
         {
-            ioManager.Print(GameStrings.LeaderboardTitle);
-            ioManager.Print(GameStrings.LeaderboardTableTitle);
+            this.ioManager.Print(GameStrings.LeaderboardTitle);
+            this.ioManager.Print(GameStrings.LeaderboardTableTitle);
 
             var leaderBoard = this.scoreManager.GetLeaderBoard();
 
             foreach (var item in leaderBoard)
             {
-                ioManager.Print(
+                this.ioManager.Print(
                     GameStrings.LeaderboardTableBodyFormatter,
                     item.PlayerName,
                     item.NumberOfMistakes,

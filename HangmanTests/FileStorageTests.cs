@@ -45,7 +45,7 @@
         public void CanRemoveEntry()
         {
             HangmanStorage storage = new HangmanStorage(this.baseFolder);
-            storage.RemoveEntry(existingPlayerFile);
+            storage.RemoveEntry(this.existingPlayerFile);
 
             string outputFile = Directory.GetCurrentDirectory() + @"\resources\ExistingFakePlayer.csv";
             Assert.False(File.Exists(outputFile));
@@ -66,7 +66,7 @@
 
             HangmanStorage storage = new HangmanStorage(this.baseFolder);
 
-            storage.UpdateEntry(existingPlayerFile, updatedValue);
+            storage.UpdateEntry(this.existingPlayerFile, updatedValue);
 
             string editedFile = Directory.GetCurrentDirectory() + @"\resources\ExistingFakePlayer.csv";
             string newText = File.ReadAllText(editedFile);
@@ -78,7 +78,7 @@
         public void CanLoadEntry()
         {
             HangmanStorage storage = new HangmanStorage(this.baseFolder);
-            string value = storage.LoadEntry(existingPlayerFile);
+            string value = storage.LoadEntry(this.existingPlayerFile);
 
             Assert.False(string.IsNullOrEmpty(value));
         }
@@ -87,7 +87,7 @@
         public void CanCheckIfKeyExists()
         {
             HangmanStorage storage = new HangmanStorage(this.baseFolder);
-            bool realFileExists = storage.ContainsKey(existingPlayerFile);
+            bool realFileExists = storage.ContainsKey(this.existingPlayerFile);
             bool fakeFileExists = storage.ContainsKey("someNotExistingPlayer");
 
             Assert.True(realFileExists);

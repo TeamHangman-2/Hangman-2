@@ -1,58 +1,59 @@
-﻿using Hangman.IO;
-using Hangman.ScoreManagement;
-using NSubstitute;
-using NUnit.Framework;
-using System;
-using System.Linq;
-
-namespace HangmanTests
+﻿namespace HangmanTests
 {
+    using System;
+    using System.Linq;
+
+    using Hangman.IO;
+    using Hangman.ScoreManagement;
+    using NSubstitute;
+    using NUnit.Framework;
+
     public class ScoreManagerTests
     {
         [Test]
         public void ShouldCheckIfBoardExistsOnGet()
         {
-            // arrange
+            //// arrange
             var fakeStorage = CreateFakeStorageProvider();
             var scoreManager = new ScoreManager(fakeStorage);
 
-            //act
+            //// act
             scoreManager.GetLeaderBoard();
 
-            // assert
+            //// assert
             fakeStorage.Received().ContainsKey(Arg.Any<string>());
         }
 
         [Test]
         public void ShouldLazyLoadLeaderBoard()
         {
-            // arrange
+            //// arrange
             var fakeStorage = CreateFakeStorageProvider();
             var scoreManager = new ScoreManager(fakeStorage);
 
-            //act
+            //// act
             scoreManager.GetLeaderBoard();
 
-            // assert
+            //// assert
             fakeStorage.Received().LoadEntry(Arg.Any<string>());
         }
 
         [Test]
         public void CanSavePlayerScoreIfNoLeaderBoard()
         {
-            // arrange
+            //// arrange
             var fakeStorage = CreateFakeStorageProvider();
             var fakeScore = new PlayerScore("somePlayer", 5, 10);
             var scoreManager = new ScoreManager(fakeStorage);
 
-            // The fake storage contains no leaderBoard value stored
+            //// The fake storage contains no leaderBoard value stored
             fakeStorage.ContainsKey(ScoreManager.LeaderBoardKey).Returns(false);
 
-            //act
+            //// act
             scoreManager.SavePlayerScore(fakeScore);
             var leaderBoard = scoreManager.GetLeaderBoard();
 
-            // assert
+            //// assert
             Assert.IsNotEmpty(leaderBoard);
             Assert.Contains(fakeScore, leaderBoard.ToList());
         }
@@ -60,16 +61,16 @@ namespace HangmanTests
         [Test]
         public void CanSavePlayerScoreOnFullLeaderBoard()
         {
-            // arrange
+            //// arrange
             var fakeStorage = CreateFakeStorageProvider();
             var fakeScore = new PlayerScore("somePlayer", 50, 2);
             var scoreManager = new ScoreManager(fakeStorage);
 
-            //act
+            //// act
             scoreManager.SavePlayerScore(fakeScore);
             var leaderBoard = scoreManager.GetLeaderBoard();
 
-            // assert
+            //// assert
             Assert.IsNotEmpty(leaderBoard);
             Assert.Contains(fakeScore, leaderBoard.ToList());
         }
@@ -77,16 +78,16 @@ namespace HangmanTests
         [Test]
         public void CannotSavePlayerWithLowScore()
         {
-            // arrange
+            //// arrange
             var fakeStorage = CreateFakeStorageProvider();
             var fakeScore = new PlayerScore("somePlayer", 5, 20);
             var scoreManager = new ScoreManager(fakeStorage);
 
-            //act
+            //// act
             scoreManager.SavePlayerScore(fakeScore);
             var leaderBoard = scoreManager.GetLeaderBoard();
 
-            // assert
+            //// assert
             Assert.IsNotEmpty(leaderBoard);
             Assert.False(leaderBoard.Contains(fakeScore));
         }
@@ -94,64 +95,64 @@ namespace HangmanTests
         [Test]
         public void CannotSavePlayerWithLeaderBoardKey()
         {
-            // arrange
+            //// arrange
             var fakeStorage = CreateFakeStorageProvider();
             var badPlayerName = new PlayerScore(ScoreManager.LeaderBoardKey, 5, 20);
             var scoreManager = new ScoreManager(fakeStorage);
 
-            // act & assert
+            //// act & assert
             Assert.Throws<ArgumentException>(() => scoreManager.SavePlayerScore(badPlayerName));
         }
 
         [Test]
         public void ShouldSaveExistingLeaderBoardAfterUpdate()
         {
-            // arrange
+            //// arrange
             var fakeStorage = CreateFakeStorageProvider();
             var fakeScore = new PlayerScore("somePlayer", 50, 2);
             var scoreManager = new ScoreManager(fakeStorage);
 
-            // assume that a leaderboard exists
+            //// assume that a leaderboard exists
             fakeStorage.ContainsKey(ScoreManager.LeaderBoardKey).Returns(true);
 
-            //act
+            //// act
             scoreManager.SavePlayerScore(fakeScore);
 
-            // assert that leader board was updated
+            //// assert that leader board was updated
             fakeStorage.Received().UpdateEntry(ScoreManager.LeaderBoardKey, Arg.Any<string>());
         }
 
         [Test]
         public void ShouldCreateNewLeaderBoardIfNeededAfterUpdate()
         {
-            // arrange
+            //// arrange
             var fakeStorage = CreateFakeStorageProvider();
             var fakeScore = new PlayerScore("somePlayer", 50, 2);
             var scoreManager = new ScoreManager(fakeStorage);
 
-            // assume that no leader board is stored till now
+            //// assume that no leader board is stored till now
             fakeStorage.ContainsKey(ScoreManager.LeaderBoardKey).Returns(false);
 
-            //act
+            //// act
             scoreManager.SavePlayerScore(fakeScore);
 
-            // assert that a leader board was created
+            //// assert that a leader board was created
             fakeStorage.Received().AddEntry(ScoreManager.LeaderBoardKey, Arg.Any<string>());
         }
 
         [Test]
         public void CanLoadPlayerRecord()
         {
-            // arrange
+            //// arrange
             var fakeStorage = CreateFakeStorageProvider();
             var scoreManager = new ScoreManager(fakeStorage);
 
             string somePlayerName = "playerName";
 
-            //act
+            //// act
             var record = scoreManager.LoadPlayerRecord(somePlayerName);
 
-            // assert that the score manager used the storage to load the data
+            //// assert that the score manager used the storage to load the data
             fakeStorage.Received().LoadEntry(somePlayerName);
             Assert.NotNull(record);
         }
@@ -159,14 +160,15 @@ namespace HangmanTests
         /// <summary>
         /// Create a substitute for IStorageProvider<string, string>
         /// </summary>
+        /// <returns></returns>
         private static IStorageProvider<string, string> CreateFakeStorageProvider()
         {
             var fakeStorage = Substitute.For<IStorageProvider<string, string>>();
 
             fakeStorage.ContainsKey(Arg.Any<string>()).Returns(true);
 
-            fakeStorage.LoadEntry(Arg.Any<string>()).
-                ReturnsForAnyArgs(x => "10,5");
+            fakeStorage.LoadEntry(Arg.Any<string>())
+                .ReturnsForAnyArgs(x => "10,5");
 
             fakeStorage.LoadEntry(ScoreManager.LeaderBoardKey).Returns(
 @"player1,10,5

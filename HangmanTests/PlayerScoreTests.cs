@@ -1,13 +1,13 @@
-﻿using Hangman;
-using Hangman.IO;
-using Hangman.ScoreManagement;
-using NSubstitute;
-using NUnit.Framework;
-using System;
-
-
-namespace HangmanTests
+﻿namespace HangmanTests
 {
+    using System;
+
+    using Hangman;
+    using Hangman.IO;
+    using Hangman.ScoreManagement;
+    using NSubstitute;
+    using NUnit.Framework;
+
     public class PlayerScoreTests
     {
         [Test]
@@ -15,7 +15,7 @@ namespace HangmanTests
         {
             var fakeStorage = CreateFakeStorageProvider();
 
-            Assert.Throws<ArgumentException>(() => new PlayerScore("somePlayer", -5, 5));        
+            Assert.Throws<ArgumentException>(() => new PlayerScore("somePlayer", -5, 5));
         }
 
         [Test]
@@ -34,7 +34,6 @@ namespace HangmanTests
             Assert.Throws<ArgumentNullException>(() => new PlayerScore(null, 50, 10));
         }
 
-
         [Test]
         public void CanBeCompared()
         {
@@ -46,7 +45,6 @@ namespace HangmanTests
             Assert.Greater(largerScore, lesserScore);
         }
 
-
         /// <summary>
         /// Create a substitute for IStorageProvider<string, string>
         /// </summary>
@@ -56,8 +54,8 @@ namespace HangmanTests
 
             fakeStorage.ContainsKey(Arg.Any<string>()).Returns(true);
 
-            fakeStorage.LoadEntry(Arg.Any<string>()).
-                ReturnsForAnyArgs(x => "10,20");
+            fakeStorage.LoadEntry(Arg.Any<string>())
+                .ReturnsForAnyArgs(x => "10,20");
 
             return fakeStorage;
         }

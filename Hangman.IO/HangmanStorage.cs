@@ -1,9 +1,7 @@
 ﻿namespace Hangman.IO
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
 
     /// <summary>
     /// Writes the entries into multiple files and the top few entries are stored in different file
@@ -25,14 +23,14 @@
 
         public string LoadEntry(string fileName)
         {
-            string filePath = GenerateFilePath(fileName);
+            string filePath = this.GenerateFilePath(fileName);
             var lines = File.ReadAllText(filePath);
             return lines;
         }
 
         public void UpdateEntry(string fileName, string newValue)
         {
-            string filePath = GenerateFilePath(fileName);
+            string filePath = this.GenerateFilePath(fileName);
             File.WriteAllText(filePath, newValue);
         }
 
@@ -40,11 +38,11 @@
         {
             if (!this.ContainsKey(fileName))
             {
-                throw new InvalidOperationException(String.Format(
+                throw new InvalidOperationException(string.Format(
                     "An entry with filename {0} does not exist", fileName));
             }
 
-            string filePath = GenerateFilePath(fileName);
+            string filePath = this.GenerateFilePath(fileName);
             File.Delete(filePath);
         }
 
@@ -52,17 +50,17 @@
         {
             if (this.ContainsKey(fileName))
             {
-                throw new InvalidOperationException(String.Format(
+                throw new InvalidOperationException(string.Format(
                     "An entry with filename {0} already exists", fileName));
             }
 
-            string filePath = GenerateFilePath(fileName);
+            string filePath = this.GenerateFilePath(fileName);
             File.WriteAllText(filePath, newValue);
         }
 
         public bool ContainsKey(string fileName)
         {
-            string filePath = GenerateFilePath(fileName);
+            string filePath = this.GenerateFilePath(fileName);
             return File.Exists(filePath);
         }
 

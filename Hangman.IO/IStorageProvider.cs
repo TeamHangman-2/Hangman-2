@@ -11,6 +11,5 @@
         bool ContainsKey(TKey key);
 
         void RemoveEntry(TKey key);
-
     }
 }

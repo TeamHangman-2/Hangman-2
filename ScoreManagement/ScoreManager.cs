@@ -1,40 +1,39 @@
-﻿using Hangman.IO;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Hangman.ScoreManagement
+﻿namespace Hangman.ScoreManagement
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using Hangman.IO;
+
     public class ScoreManager : IScoreManager
     {
-        private const char SeparatorCharacter = ',';
-
         public const int LeaderBoardLength = 5;
         public const string LeaderBoardKey = "_LeaderBoard";
-
+        private const char SeparatorCharacter = ',';
 
         private IStorageProvider<string, string> storage;
         private SortedList<int, PlayerScore> leaderboard;
+
+        public ScoreManager(IStorageProvider<string, string> storage)
+        {
+            this.storage = storage;
+        }
 
         private SortedList<int, PlayerScore> LeaderBoard
         {
             get
             {
-                if (leaderboard == null)
+                if (this.leaderboard == null)
                 {
                     this.leaderboard = new SortedList<int, PlayerScore>();
-                    LoadLeaderBoard();
+                    this.LoadLeaderBoard();
                 }
-                return leaderboard;
+
+                return this.leaderboard;
             }
-        }
-
-
-        public ScoreManager(IStorageProvider<string, string> storage)
-        {
-            this.storage = storage;
         }
 
         public IEnumerable<PlayerScore> GetLeaderBoard()
@@ -46,10 +45,12 @@ namespace Hangman.ScoreManagement
         public void SavePlayerScore(PlayerScore score)
         {
             // Check if the player should be added to leader board
-            VerifyAndAddToBoard(score);
+            this.VerifyAndAddToBoard(score);
 
-            var newPlayerData = string.Join(SeparatorCharacter.ToString(),
-                 score.Points, score.NumberOfMistakes);
+            var newPlayerData = string.Join(
+                SeparatorCharacter.ToString(), 
+                score.Points, 
+                score.NumberOfMistakes);
 
             if (this.storage.ContainsKey(score.PlayerName))
             {
@@ -97,21 +98,23 @@ namespace Hangman.ScoreManagement
             foreach (var score in this.LeaderBoard)
             {
                 var value = score.Value;
-                string scoreData = string.Join(SeparatorCharacter.ToString(), value.PlayerName,
-                    value.Points, value.NumberOfMistakes);
+                string scoreData = string.Join(
+                    SeparatorCharacter.ToString(), 
+                    value.PlayerName,
+                    value.Points, 
+                    value.NumberOfMistakes);
 
                 leaderBoardString.AppendLine(scoreData);
             }
 
-            if (storage.ContainsKey(LeaderBoardKey))
+            if (this.storage.ContainsKey(LeaderBoardKey))
             {
-                storage.UpdateEntry(LeaderBoardKey, leaderBoardString.ToString());
+                this.storage.UpdateEntry(LeaderBoardKey, leaderBoardString.ToString());
             }
             else
             {
-                storage.AddEntry(LeaderBoardKey, leaderBoardString.ToString());
+                this.storage.AddEntry(LeaderBoardKey, leaderBoardString.ToString());
             }
-
         }
 
         /// <summary>
@@ -121,26 +124,27 @@ namespace Hangman.ScoreManagement
         {
             if (score.PlayerName == LeaderBoardKey)
             {
-                throw new ArgumentException(string.Format("The player name may not be equal to {0}," +
-                    "because the leader board data is saved to that key", LeaderBoardKey));
+                throw new ArgumentException(string.Format(
+                    "The player name may not be equal to {0}," +
+                    "because the leader board data is saved to that key", 
+                    LeaderBoardKey));
             }
 
-            if (LeaderBoard.Count < LeaderBoardLength)
+            if (this.LeaderBoard.Count < LeaderBoardLength)
             {
-                LeaderBoard.Add(score.Points, score);
-                Task.Run((Action)SaveLeaderBoard);
+                this.LeaderBoard.Add(score.Points, score);
+                Task.Run((Action)this.SaveLeaderBoard);
             }
             else
             {
-                int lastInBoard = LeaderBoard.Keys.Min();
+                int lastInBoard = this.LeaderBoard.Keys.Min();
                 if (lastInBoard <= score.Points)
                 {
-                    LeaderBoard.Add(score.Points, score);
-                    LeaderBoard.Remove(lastInBoard);
-                    Task.Run((Action)SaveLeaderBoard);
+                    this.LeaderBoard.Add(score.Points, score);
+                    this.LeaderBoard.Remove(lastInBoard);
+                    Task.Run((Action)this.SaveLeaderBoard);
                 }
             }
-
         }
 
         /// <summary>
@@ -164,7 +168,7 @@ namespace Hangman.ScoreManagement
                     var scoreObject = new PlayerScore(playerName, points, mistakesCount);
 
                     this.leaderboard.Add(points, scoreObject);
-                } 
+                }
             }
         }
     }

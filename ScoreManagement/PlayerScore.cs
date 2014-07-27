@@ -79,6 +79,16 @@
                 this.playerName = value;
             }
         }
+
+        public static bool operator >=(PlayerScore first, PlayerScore second)
+        {
+            return first.CompareTo(second) >= 0;
+        }
+
+        public static bool operator <=(PlayerScore first, PlayerScore second)
+        {
+            return first.CompareTo(second) <= 0;
+        }
      
         public int CompareTo(object otherPlayer)
         {
@@ -91,16 +101,6 @@
             }
 
             return this.Points.CompareTo(playerToCompareWith.Points);
-        }
-
-        public static bool operator >=(PlayerScore first, PlayerScore second)
-        {
-            return first.CompareTo(second) >= 0;
-        }
-
-        public static bool operator <=(PlayerScore first, PlayerScore second)
-        {
-            return first.CompareTo(second) <= 0;
         }
     }
 }

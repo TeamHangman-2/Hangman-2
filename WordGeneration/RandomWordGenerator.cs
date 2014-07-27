@@ -5,19 +5,17 @@
 
     public class RandomWordGenerator : IWordGenerator
     {
-        private readonly IList<string> AllWords;
-
         private static Random random = new Random();
+        private readonly IList<string> allWords;
 
         public RandomWordGenerator()
         {
-            this.AllWords = new string[]
+            this.allWords = new string[]
             {
                 "computer", "programmer", "software", "debugger", "compiler",
                 "developer", "algorithm", "array", "method", "variable"
             };
         }
-
 
         public RandomWordGenerator(IList<string> availableWords)
         {
@@ -31,14 +29,13 @@
                 throw new ArgumentException("The available words collection cannot be empty");
             }
 
-            this.AllWords = availableWords;
+            this.allWords = availableWords;
         }
-
 
         public Word GetWord()
         {
-            var indexOfRndWord = random.Next(0, AllWords.Count);
-            var randomWord = new Word(AllWords[indexOfRndWord]);
+            var indexOfRndWord = random.Next(0, this.allWords.Count);
+            var randomWord = new Word(this.allWords[indexOfRndWord]);
 
             return randomWord;
         }

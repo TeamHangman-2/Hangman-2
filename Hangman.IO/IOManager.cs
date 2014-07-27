@@ -1,7 +1,5 @@
 ﻿namespace Hangman.IO
 {
-    using System;
-
     public interface IOManager
     {
         void Print(string message);

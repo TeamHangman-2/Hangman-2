@@ -4,7 +4,7 @@
 
     public class ConsoleEngineBuilderDirector
     {
-        protected ConsoleHangmanEngineBuilder builder;
+        private ConsoleHangmanEngineBuilder builder;
 
         public ConsoleEngineBuilderDirector(ConsoleHangmanEngineBuilder builder)
         {
