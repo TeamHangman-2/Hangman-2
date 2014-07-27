@@ -1,5 +1,3 @@
-C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanTests\bin\Debug\resources\FakeLeaderboard.txt
-C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanTests\bin\Debug\resources\FakePlayer1.txt
 C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanTests\bin\Debug\HangmanTests.dll
 C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanTests\bin\Debug\HangmanTests.pdb
 C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanTests\bin\Debug\Hangman.dll
@@ -11,3 +9,6 @@ C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\
 C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanTests\obj\Debug\Hangman.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanTests\obj\Debug\HangmanTests.dll
 C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanTests\obj\Debug\HangmanTests.pdb
+C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanTests\bin\Debug\resources\ExistingFakePlayer.csv
+C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanTests\bin\Debug\NSubstitute.dll
+C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanTests\bin\Debug\NSubstitute.xml

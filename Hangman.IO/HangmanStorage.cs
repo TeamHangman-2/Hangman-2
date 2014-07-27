@@ -71,6 +71,5 @@
             string filePath = string.Format(@"{0}\{1}{2}", this.BaseDirectory, fileName, this.FileExtension);
             return filePath;
         }
-
     }
 }

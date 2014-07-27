@@ -51,7 +51,8 @@
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("Wrong guesses cannot be negative number!");
+                    throw new ArgumentException(
+                        ExceptionMessages.NumOfWrongGuessesCannotBeNegative);
                 }
 
                 this.wrongGuessesCount = value;
@@ -69,12 +70,12 @@
         {
             if (input == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(ExceptionMessages.InputNull);
             }
 
             if (input == string.Empty)
             {
-                throw new ArgumentException("Command cannot be empty string!");
+                throw new ArgumentException(ExceptionMessages.InputFormatError);
             }
 
             input = input.ToLower();
@@ -122,7 +123,7 @@
                 }
                 catch (ArgumentException ex)
                 {
-                    this.ioManager.Print("An error occured while processing your input, Error: {0}", ex.Message);
+                    this.ioManager.Print(ExceptionMessages.InputProcessingError, ex.Message);
                 }
             }
         }
@@ -139,7 +140,7 @@
                 this.ioManager.Print(GameStrings.LetterAlreadyRevealedMessage, guessesList);
             }
 
-            this.ioManager.Print("The word to guess is:");
+            this.ioManager.Print(GameStrings.GuesswordIntroductionMsg);
             this.ioManager.Print(string.Join(" ", this.wordToGuess.WordOnScreen));
         }
 
@@ -147,7 +148,7 @@
         {
             if (wordGuess.Length != this.wordToGuess.Length)
             {
-                throw new ArgumentException("Guess and word are of different lengths.");
+                throw new ArgumentException(ExceptionMessages.GuessAndWordHaveDiffLengths);
             }
 
             var wordIsGuessed = this.wordToGuess.GuessWholeWord(wordGuess);
@@ -204,7 +205,7 @@
                     this.PrintCommandsList();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("Unrecognised command!");
+                    throw new ArgumentOutOfRangeException(ExceptionMessages.UnrecognisedCommand);
             }
         }
 
@@ -237,17 +238,15 @@
 
         private void DisplayLeaderBoard()
         {
-#warning TODO: add strings to the resx file
-
-            ioManager.Print("Leaderboard:");
-            ioManager.Print("Name\tMistakesCount\tPoints");
+            ioManager.Print(GameStrings.LeaderboardTitle);
+            ioManager.Print(GameStrings.LeaderboardTableTitle);
 
             var leaderBoard = this.scoreManager.GetLeaderBoard();
 
             foreach (var item in leaderBoard)
             {
                 ioManager.Print(
-                    "{0}\t{1}\t{2}",
+                    GameStrings.LeaderboardTableBodyFormatter,
                     item.PlayerName,
                     item.NumberOfMistakes,
                     item.Points);

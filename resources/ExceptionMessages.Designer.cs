@@ -59,5 +59,59 @@ namespace Hangman.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guess and word are of different lengths..
+        /// </summary>
+        internal static string GuessAndWordHaveDiffLengths {
+            get {
+                return ResourceManager.GetString("GuessAndWordHaveDiffLengths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input cannot be empty string!.
+        /// </summary>
+        internal static string InputFormatError {
+            get {
+                return ResourceManager.GetString("InputFormatError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input cannot be null!.
+        /// </summary>
+        internal static string InputNull {
+            get {
+                return ResourceManager.GetString("InputNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured while processing your input, Error: {0}.
+        /// </summary>
+        internal static string InputProcessingError {
+            get {
+                return ResourceManager.GetString("InputProcessingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of wrong guesses cannot be negative number!.
+        /// </summary>
+        internal static string NumOfWrongGuessesCannotBeNegative {
+            get {
+                return ResourceManager.GetString("NumOfWrongGuessesCannotBeNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognised command!.
+        /// </summary>
+        internal static string UnrecognisedCommand {
+            get {
+                return ResourceManager.GetString("UnrecognisedCommand", resourceCulture);
+            }
+        }
     }
 }

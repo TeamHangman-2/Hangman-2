@@ -129,11 +129,23 @@
   <data name="Exit" xml:space="preserve">
     <value>exit - quit the game</value>
   </data>
+  <data name="GuesswordIntroductionMsg" xml:space="preserve">
+    <value>The word to guess is:</value>
+  </data>
   <data name="Help" xml:space="preserve">
     <value>help - reveal first hidden letter</value>
   </data>
   <data name="IntroductingMessage" xml:space="preserve">
     <value>Welcome to “Hangman” game. Please try to guess my secret word.</value>
+  </data>
+  <data name="LeaderboardTableBodyFormatter" xml:space="preserve">
+    <value>{0}\t{1}\t{2}</value>
+  </data>
+  <data name="LeaderboardTableTitle" xml:space="preserve">
+    <value>Name\tMistakesCount\tPoints</value>
+  </data>
+  <data name="LeaderboardTitle" xml:space="preserve">
+    <value>Leaderboard:</value>
   </data>
   <data name="LetterAlreadyRevealedMessage" xml:space="preserve">
     <value>So far you have made the following guesses: {0}</value>

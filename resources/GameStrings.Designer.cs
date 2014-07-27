@@ -97,6 +97,15 @@ namespace Hangman.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The word to guess is:.
+        /// </summary>
+        internal static string GuesswordIntroductionMsg {
+            get {
+                return ResourceManager.GetString("GuesswordIntroductionMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to help - reveal first hidden letter.
         /// </summary>
         internal static string Help {
@@ -111,6 +120,33 @@ namespace Hangman.Resources {
         internal static string IntroductingMessage {
             get {
                 return ResourceManager.GetString("IntroductingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}\t{1}\t{2}.
+        /// </summary>
+        internal static string LeaderboardTableBodyFormatter {
+            get {
+                return ResourceManager.GetString("LeaderboardTableBodyFormatter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name\tMistakesCount\tPoints.
+        /// </summary>
+        internal static string LeaderboardTableTitle {
+            get {
+                return ResourceManager.GetString("LeaderboardTableTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leaderboard:.
+        /// </summary>
+        internal static string LeaderboardTitle {
+            get {
+                return ResourceManager.GetString("LeaderboardTitle", resourceCulture);
             }
         }
         
