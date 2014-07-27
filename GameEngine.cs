@@ -8,6 +8,7 @@
     using Hangman.ScoreManagement;
     using Hangman.WordGeneration;
     using Resources;
+    using System.Text;
 
     /// <summary>
     /// Responsible for Running the game cycle, processing commands
@@ -236,19 +237,23 @@
 
         private void DisplayLeaderBoard()
         {
+            this.ioManager.Print(string.Empty);
             this.ioManager.Print(GameStrings.LeaderboardTitle);
-            this.ioManager.Print(GameStrings.LeaderboardTableTitle);
+            this.ioManager.Print(GameStrings.LeaderboardTableTitle.Replace("\\t", "\t"));
 
             var leaderBoard = this.scoreManager.GetLeaderBoard();
+            var result = string.Empty;
 
             foreach (var item in leaderBoard)
             {
-                this.ioManager.Print(
-                    GameStrings.LeaderboardTableBodyFormatter,
+                result = string.Format(
+                    GameStrings.LeaderboardTableBodyFormatter.Replace("\\t", "\t"),
                     item.PlayerName,
-                    item.NumberOfMistakes,
-                    item.Points);
+                    item.Points,
+                    item.NumberOfMistakes) + Environment.NewLine + result;
             }
+
+            this.ioManager.Print(result);
         }
 
         private void ExitGame()

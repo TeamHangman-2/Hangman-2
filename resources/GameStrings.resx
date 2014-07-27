@@ -142,7 +142,7 @@
     <value>{0}\t{1}\t{2}</value>
   </data>
   <data name="LeaderboardTableTitle" xml:space="preserve">
-    <value>Name\tMistakesCount\tPoints</value>
+    <value>Name\tPoints\tMistakes</value>
   </data>
   <data name="LeaderboardTitle" xml:space="preserve">
     <value>Leaderboard:</value>

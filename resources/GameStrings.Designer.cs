@@ -133,7 +133,7 @@ namespace Hangman.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name\tMistakesCount\tPoints.
+        ///   Looks up a localized string similar to Name\tPoints\tMistakes.
         /// </summary>
         internal static string LeaderboardTableTitle {
             get {
