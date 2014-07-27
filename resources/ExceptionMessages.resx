@@ -135,4 +135,10 @@
   <data name="UnrecognisedCommand" xml:space="preserve">
     <value>Unrecognised command!</value>
   </data>
+  <data name="WordsCollectionIsEmpty" xml:space="preserve">
+    <value>The available words collection cannot be empty.</value>
+  </data>
+  <data name="WordsCollectionIsNull" xml:space="preserve">
+    <value>The available words collection cannot be null.</value>
+  </data>
 </root>

@@ -44,7 +44,6 @@
 
         public void SavePlayerScore(PlayerScore score)
         {
-            // Check if the player should be added to leader board
             this.VerifyAndAddToBoard(score);
 
             var newPlayerData = string.Join(

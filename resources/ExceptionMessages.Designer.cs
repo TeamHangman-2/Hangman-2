@@ -113,5 +113,23 @@ namespace Hangman.Resources {
                 return ResourceManager.GetString("UnrecognisedCommand", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The available words collection cannot be empty..
+        /// </summary>
+        internal static string WordsCollectionIsEmpty {
+            get {
+                return ResourceManager.GetString("WordsCollectionIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The available words collection cannot be null..
+        /// </summary>
+        internal static string WordsCollectionIsNull {
+            get {
+                return ResourceManager.GetString("WordsCollectionIsNull", resourceCulture);
+            }
+        }
     }
 }

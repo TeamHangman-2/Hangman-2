@@ -1,9 +1,6 @@
 ﻿namespace Hangman.ScoreManagement
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Hangman.IO;
 
     /// <summary>
     /// A class responsible for storing player statistics and saving them into file

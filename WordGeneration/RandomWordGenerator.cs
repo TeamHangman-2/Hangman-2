@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
 
+    using Hangman.Resources;
+
     public class RandomWordGenerator : IWordGenerator
     {
         private static Random random = new Random();
@@ -21,12 +23,12 @@
         {
             if (availableWords == null)
             {
-                throw new ArgumentNullException("The available words collection cannot be null");
+                throw new ArgumentNullException(ExceptionMessages.WordsCollectionIsNull);
             }
 
             if (availableWords.Count == 0)
             {
-                throw new ArgumentException("The available words collection cannot be empty");
+                throw new ArgumentException(ExceptionMessages.WordsCollectionIsEmpty);
             }
 
             this.allWords = availableWords;

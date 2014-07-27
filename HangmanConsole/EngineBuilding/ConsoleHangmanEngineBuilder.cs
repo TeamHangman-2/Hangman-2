@@ -28,7 +28,7 @@
             this.scoreManager = new ScoreManager(this.storageProvider);
         }
 
-        public void AddStorageProvider(string baseDirectory = "storage/", string fileExtension = ".csv")
+        public void AddStorageProvider(string baseDirectory = "", string fileExtension = ".csv")
         {
             this.storageProvider = new HangmanStorage(baseDirectory, fileExtension);
         }
