@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumExtensionsTests.cs" />
     <Compile Include="FileStorageTests.cs" />
     <None Include="LeaderBoardTests.cs" />
     <Compile Include="PlayerScoreTests.cs" />
