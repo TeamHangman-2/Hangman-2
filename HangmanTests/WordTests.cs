@@ -78,12 +78,38 @@
         }
 
         [Test]
+        [Test]
         public void CanGuessWholeWord()
         {
             string wordString = "something";
             var wordObject = new Word(wordString);
 
             Assert.True(wordObject.GuessWholeWord("something"));
+        }
+
+        [Test]
+        public void CanIndicateThatWordIsGuessed()
+        {
+            string wordString = "yes";
+            var wordObject = new Word(wordString);
+
+            wordObject.UpdateWordOnScreen('y');
+            wordObject.UpdateWordOnScreen('e');
+            wordObject.UpdateWordOnScreen('s');
+
+            Assert.True(wordObject.EntireWordIsRevealed);
+        }
+
+        [Test]
+        public void CanShowHiddenLettersCount()
+        {
+            string wordString = "word";
+            var wordObject = new Word(wordString);
+
+            wordObject.UpdateWordOnScreen('w');
+            wordObject.UpdateWordOnScreen('d');
+
+            Assert.AreEqual(2, wordObject.NumberOfHiddenLetters);
         }
 
         [Test]
