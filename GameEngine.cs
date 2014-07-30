@@ -39,6 +39,9 @@
             this.wordGenerator = wordGenerator;
         }
 
+        /// <summary>
+        /// Property that gets and sets number of wrong guesses
+        /// </summary>
         public int WrongGuessesCount
         {
             get
@@ -58,6 +61,9 @@
             }
         }
 
+        /// <summary>
+        /// Method that starts game
+        /// </summary>
         public void Start()
         {
 //// #warning TODO: reset variables here instead of in the constructor to assure that game restart works fine
@@ -65,6 +71,9 @@
             this.RunGame();
         }
 
+        /// <summary>
+        /// Mathod that handle input. Define input as command or guessed letter or attempt to guess whole word
+        /// </summary>
         public void ProcessInput(string input)
         {
             if (input == null)
@@ -95,6 +104,9 @@
             }
         }
 
+        /// <summary>
+        /// Initialize all nessesary fields to start game
+        /// </summary>
         private void InitializeGame()
         {
             this.wordToGuess = this.wordGenerator.GetWord();
@@ -103,6 +115,9 @@
             this.playerName = this.ioManager.ReadInput();
         }
 
+        /// <summary>
+        /// Method that manage game cycle 
+        /// </summary>
         private void RunGame()
         {
             this.ioManager.ClearOutputWindow();
@@ -127,6 +142,9 @@
             }
         }
 
+        /// <summary>
+        /// Mathod that update screen with number of wrong guesses, guesses letter and word on screen
+        /// </summary>
         private void UpdateScreen()
         {
             this.ioManager.Print(string.Empty);
@@ -142,6 +160,7 @@
             this.ioManager.Print(GameStrings.GuesswordIntroductionMsg);
             this.ioManager.Print(string.Join(" ", this.wordToGuess.WordOnScreen));
         }
+
 
         private void AttemptToGuessEntireWord(string wordGuess)
         {

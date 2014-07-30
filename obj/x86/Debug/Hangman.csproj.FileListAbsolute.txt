@@ -8,3 +8,13 @@ C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\
 C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\obj\x86\Debug\Hangman.csproj.GenerateResource.Cache
 C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\obj\x86\Debug\Hangman.dll
 C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\obj\x86\Debug\Hangman.pdb
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\bin\Debug\Hangman.dll
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\bin\Debug\Hangman.pdb
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\bin\Debug\Hangman.IO.dll
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\bin\Debug\Hangman.IO.pdb
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\obj\x86\Debug\Hangman.csprojResolveAssemblyReference.cache
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\obj\x86\Debug\Hangman.Resources.ExceptionMessages.resources
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\obj\x86\Debug\Hangman.Resources.GameStrings.resources
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\obj\x86\Debug\Hangman.csproj.GenerateResource.Cache
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\obj\x86\Debug\Hangman.dll
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\obj\x86\Debug\Hangman.pdb

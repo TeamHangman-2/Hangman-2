@@ -8,3 +8,13 @@ C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\
 C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanConsole\obj\Debug\HangmanConsole.csprojResolveAssemblyReference.cache
 C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanConsole\obj\Debug\HangmanConsole.exe
 C:\Users\Georgi\Documents\Visual Studio 2012\Projects\Telerik Academy\Hangman-2\HangmanConsole\obj\Debug\HangmanConsole.pdb
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\HangmanConsole\bin\Debug\HangmanConsole.exe.config
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\HangmanConsole\obj\Debug\HangmanConsole.exe
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\HangmanConsole\obj\Debug\HangmanConsole.pdb
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\HangmanConsole\bin\Debug\HangmanConsole.exe
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\HangmanConsole\bin\Debug\HangmanConsole.pdb
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\HangmanConsole\bin\Debug\Hangman.dll
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\HangmanConsole\bin\Debug\Hangman.IO.dll
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\HangmanConsole\bin\Debug\Hangman.pdb
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\HangmanConsole\bin\Debug\Hangman.IO.pdb
+C:\Users\Ani\Documents\Visual Studio 2013\Projects\Hangman-2\HangmanConsole\obj\Debug\HangmanConsole.csprojResolveAssemblyReference.cache

@@ -18,6 +18,9 @@
             this.Points = points;
         }
 
+        /// <summary>
+        /// Property for getting and setting player's points
+        /// </summary>
         public int Points
         {
             get
@@ -36,6 +39,9 @@
             }
         }
 
+        /// <summary>
+        /// Property for getting and setting number of mistakes made by player
+        /// </summary>
         public int NumberOfMistakes
         {
             get
@@ -54,6 +60,9 @@
             }
         }
 
+        /// <summary>
+        /// Property for getting and private setting player's name
+        /// </summary>
         public string PlayerName
         {
             get
@@ -87,6 +96,11 @@
             return first.CompareTo(second) <= 0;
         }
      
+        /// <summary>
+        /// Method for comparing two players by points
+        /// </summary>
+        /// <param name="otherPlayer"></param>
+        /// <returns></returns>
         public int CompareTo(object otherPlayer)
         {
             PlayerScore playerToCompareWith = otherPlayer as PlayerScore;
