@@ -21,6 +21,11 @@
 
         public string BaseDirectory { get; private set; }
 
+        /// <summary>
+        /// Method that loads entry by given file name
+        /// </summary>
+        /// <param name="fileName">Name of file from witch load</param>
+        /// <returns>All lines in file as string</returns>
         public string LoadEntry(string fileName)
         {
             string filePath = this.GenerateFilePath(fileName);
@@ -28,12 +33,21 @@
             return lines;
         }
 
+        /// <summary>
+        /// Method that update entry by file nama and new value
+        /// </summary>
+        /// <param name="fileName">Name of file to update</param>
+        /// <param name="newValue">New value of file</param>
         public void UpdateEntry(string fileName, string newValue)
         {
             string filePath = this.GenerateFilePath(fileName);
             File.WriteAllText(filePath, newValue);
         }
 
+        /// <summary>
+        /// Method that remove entry by given file name
+        /// </summary>
+        /// <param name="fileName">Name of file to delete</param>
         public void RemoveEntry(string fileName)
         {
             if (!this.ContainsKey(fileName))
@@ -46,6 +60,11 @@
             File.Delete(filePath);
         }
 
+        /// <summary>
+        /// Method that add entry by file name and value
+        /// </summary>
+        /// <param name="fileName">Name of file</param>
+        /// <param name="newValue">Value of file</param>
         public void AddEntry(string fileName, string newValue)
         {
             if (this.ContainsKey(fileName))
@@ -58,12 +77,22 @@
             File.WriteAllText(filePath, newValue);
         }
 
+        /// <summary>
+        /// Method that checks if file name exist
+        /// </summary>
+        /// <param name="fileName">Name of file</param>
+        /// <returns>True if file exist and false otherwise</returns>
         public bool ContainsKey(string fileName)
         {
             string filePath = this.GenerateFilePath(fileName);
             return File.Exists(filePath);
         }
 
+        /// <summary>
+        /// Method that generate file path by given file name
+        /// </summary>
+        /// <param name="fileName">Name of file</param>
+        /// <returns>Returns generated path as string</returns>
         private string GenerateFilePath(string fileName)
         {
             string filePath = string.Format(@"{0}\{1}{2}", this.BaseDirectory, fileName, this.FileExtension);

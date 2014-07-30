@@ -161,7 +161,12 @@
             this.ioManager.Print(string.Join(" ", this.wordToGuess.WordOnScreen));
         }
 
-
+        /// <summary>
+        /// Method that attempt to guess entire word by word as string.
+        /// If word is guessed player gets bonus points, otherwise
+        /// wrong guesses becomes maximal allowed.Then game ends. 
+        /// </summary>
+        /// <param name="wordGuess">Guessed word</param>
         private void AttemptToGuessEntireWord(string wordGuess)
         {
             if (wordGuess.Length != this.wordToGuess.Length)
@@ -189,6 +194,9 @@
             }
         }
 
+        /// <summary>
+        /// Method that prints all available commands in game
+        /// </summary>
         private void PrintCommandsList()
         {
             this.ioManager.Print(string.Empty);
@@ -201,6 +209,10 @@
             this.ioManager.Print(string.Empty);
         }
 
+        /// <summary>
+        /// Method that execute command by given string as command
+        /// </summary>
+        /// <param name="commandString">Command to execute</param>
         private void ExecuteCommand(string commandString)
         {
             var command = commandString.ToEnum<GameCommands>();
@@ -227,6 +239,9 @@
             }
         }
 
+        /// <summary>
+        /// Method that ends game 
+        /// </summary>
         private void EndGame()
         {
             this.gameIsRunning = false;
@@ -254,6 +269,9 @@
             this.Start();
         }
 
+        /// <summary>
+        /// Method that displays leader board 
+        /// </summary>
         private void DisplayLeaderBoard()
         {
             this.ioManager.Print(string.Empty);

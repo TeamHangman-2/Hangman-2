@@ -6,6 +6,9 @@
     using Hangman.ScoreManagement;
     using Hangman.WordGeneration;
 
+    /// <summary>
+    /// Class that define the steps of building game engine
+    /// </summary>
     public class ConsoleHangmanEngineBuilder : IHangmanEngineBuilder
     {
         private IStorageProvider<string, string> storageProvider;

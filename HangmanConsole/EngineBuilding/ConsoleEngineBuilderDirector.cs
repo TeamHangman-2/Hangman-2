@@ -2,6 +2,9 @@
 {
     using Hangman;
 
+    /// <summary>
+    /// Class that direct building of game engine
+    /// </summary>
     public class ConsoleEngineBuilderDirector
     {
         private ConsoleHangmanEngineBuilder builder;
@@ -11,6 +14,10 @@
             this.builder = builder;
         }
 
+        /// <summary>
+        /// Method that creates game engine
+        /// </summary>
+        /// <returns>Return created game engine</returns>
         public GameEngine GetGameEngine()
         {
             this.builder.AddIoManager();
