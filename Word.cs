@@ -3,6 +3,10 @@
     using System;
     using System.Linq;
 
+    /// <summary>
+    /// Represent word in game. Contains word as private string field and array of chars
+    /// represent guessed characters.
+    /// </summary>
     public class Word
     {
         private const int MaxLengthOfLetter = 1;
@@ -16,6 +20,9 @@
             this.WordOnScreen = SetDefaultWordOnScreen(this.WordToGuess.Length);
         }
 
+        /// <summary>
+        /// Property that get number of hidden letters in word to guess
+        /// </summary>
         public int NumberOfHiddenLetters
         {
             get
@@ -25,6 +32,9 @@
             }
         }
 
+        /// <summary>
+        /// Property that check if entire word is guessed
+        /// </summary>
         public bool EntireWordIsRevealed
         {
             get
@@ -34,6 +44,9 @@
             }
         }
 
+        /// <summary>
+        /// Property that get length of word to guess
+        /// </summary>
         public int Length
         {
             get { return this.WordToGuess.Length; }
@@ -45,6 +58,9 @@
         /// </summary>
         public char[] WordOnScreen { get; private set; }
 
+        /// <summary>
+        /// Property that get and set word to guess
+        /// </summary>
         private string WordToGuess
         {
             get
@@ -74,6 +90,11 @@
             }
         }
 
+        /// <summary>
+        /// Method that check if whole word is guessed for single attempt.
+        /// </summary>
+        /// <param name="wordToCompare">Guessed word</param>
+        /// <returns>Return true if word is guessed and false otherwise</returns>
         public bool GuessWholeWord(string wordToCompare)
         {
             var result = wordToCompare == this.WordToGuess;
@@ -101,6 +122,10 @@
             }
         }
 
+        /// <summary>
+        /// Method that reveal one letter in word on screen when help command
+        /// is write
+        /// </summary>
         public void RevealOneLetter()
         {
             for (int i = 0; i < this.WordOnScreen.Length; i++)
@@ -113,6 +138,11 @@
             }
         }
 
+        /// <summary>
+        /// Method that check if given letter is contained in word to guess.
+        /// </summary>
+        /// <param name="letter">Character to check</param>
+        /// <returns>True if word contains letter and false otherwise</returns>
         public bool Containsletter(char letter)
         {
             if (!char.IsLetter(letter))
@@ -125,6 +155,11 @@
             return result;
         }
 
+        /// <summary>
+        /// Set default word on sreen by length of word
+        /// </summary>
+        /// <param name="length">Length of default word</param>
+        /// <returns>Char array represents word on screen</returns>
         private static char[] SetDefaultWordOnScreen(int length)
         {
             return new string(HiddenWordSymbol, length).ToCharArray();

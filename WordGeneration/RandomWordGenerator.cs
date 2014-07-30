@@ -5,6 +5,10 @@
 
     using Hangman.Resources;
 
+    /// <summary>
+    /// Generate random word from array that contains all possible
+    /// words used in the game.
+    /// </summary>
     public class RandomWordGenerator : IWordGenerator
     {
         private static Random random = new Random();
@@ -34,6 +38,11 @@
             this.allWords = availableWords;
         }
 
+        /// <summary>
+        /// Get word from array of words. Generate random number as index
+        /// and return word on that index from the array of words
+        /// </summary>
+        /// <returns>New word</returns>
         public Word GetWord()
         {
             var indexOfRndWord = random.Next(0, this.allWords.Count);
