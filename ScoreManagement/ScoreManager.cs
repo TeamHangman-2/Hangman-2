@@ -8,6 +8,9 @@
 
     using Hangman.IO;
 
+    /// <summary>
+    /// Manage scores from player's and provide leader board
+    /// </summary>
     public class ScoreManager : IScoreManager
     {
         public const int LeaderBoardLength = 5;
@@ -35,13 +38,20 @@
                 return this.leaderboard;
             }
         }
-
+        
         public IEnumerable<PlayerScore> GetLeaderBoard()
         {
             // casting the collection to IEnumerable so that it cannot be changed
             return (IEnumerable<PlayerScore>)this.LeaderBoard.Values;
         }
 
+        /// <summary>
+        /// Mathod that saves player's score to storage by name as key and points
+        /// and number of mistakes as value.
+        /// If storage does not contain player's name, new entry is add, otherwise storage updates 
+        /// player's score.
+        /// </summary>
+        /// <param name="score">New player's score</param>
         public void SavePlayerScore(PlayerScore score)
         {
             this.VerifyAndAddToBoard(score);
@@ -66,6 +76,13 @@
             }
         }
 
+        /// <summary>
+        /// Method that loads player score from storage by pllayer name.
+        /// If storage does not contain player name, mathod return new player score with
+        /// default points and number of mistakes.
+        /// </summary>
+        /// <param name="playerName">Name of player</param>
+        /// <returns>New player's score</returns>
         public PlayerScore LoadPlayerRecord(string playerName)
         {
             if (this.storage.ContainsKey(playerName))
@@ -88,7 +105,7 @@
         }
 
         /// <summary>
-        /// Saves the leader board in the storage
+        /// Mathod that saves the leader board in the storage.
         /// </summary>
         private void SaveLeaderBoard()
         {
@@ -117,7 +134,7 @@
         }
 
         /// <summary>
-        /// adds the score to the leaderboard if the score is appropriate
+        /// Mathod that adds the score to the leaderboard if the score is appropriate
         /// </summary>
         private void VerifyAndAddToBoard(PlayerScore score)
         {
@@ -147,7 +164,7 @@
         }
 
         /// <summary>
-        /// Loads the leader board from the storage
+        /// Mathod that loads the leader board from the storage
         /// </summary>
         private void LoadLeaderBoard()
         {
