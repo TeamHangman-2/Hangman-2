@@ -4,7 +4,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Represent word in game. Contains word as private string field and array of chars
+    /// Class that represents word in game. Contains word as private string field and array of chars
     /// represent guessed characters.
     /// </summary>
     public class Word
@@ -21,7 +21,7 @@
         }
 
         /// <summary>
-        /// Property that get number of hidden letters in word to guess
+        /// Property that gets number of hidden letters in word to guess
         /// </summary>
         public int NumberOfHiddenLetters
         {
@@ -33,7 +33,7 @@
         }
 
         /// <summary>
-        /// Property that check if entire word is guessed
+        /// Property that checks if entire word is guessed
         /// </summary>
         public bool EntireWordIsRevealed
         {
@@ -45,7 +45,7 @@
         }
 
         /// <summary>
-        /// Property that get length of word to guess
+        /// Property that gets length of word to guess
         /// </summary>
         public int Length
         {
@@ -59,7 +59,7 @@
         public char[] WordOnScreen { get; private set; }
 
         /// <summary>
-        /// Property that get and set word to guess
+        /// Property that gets and set word to guess
         /// </summary>
         private string WordToGuess
         {
@@ -91,7 +91,7 @@
         }
 
         /// <summary>
-        /// Method that check if whole word is guessed for single attempt.
+        /// Method that checks if whole word is guessed for single attempt.
         /// </summary>
         /// <param name="wordToCompare">Guessed word</param>
         /// <returns>Return true if word is guessed and false otherwise</returns>
@@ -123,7 +123,7 @@
         }
 
         /// <summary>
-        /// Method that reveal one letter in word on screen when help command
+        /// Method that reveals one letter in word on screen when help command
         /// is write
         /// </summary>
         public void RevealOneLetter()
@@ -139,7 +139,7 @@
         }
 
         /// <summary>
-        /// Method that check if given letter is contained in word to guess.
+        /// Method that checks if given letter is contained in word to guess.
         /// </summary>
         /// <param name="letter">Character to check</param>
         /// <returns>True if word contains letter and false otherwise</returns>

@@ -11,7 +11,8 @@
     using System.Text;
 
     /// <summary>
-    /// Responsible for Running the game cycle, processing commands
+    /// Class that manages the game cycle:initialize game, start game,
+    /// restart game, end game and processes input
     /// </summary>
     public class GameEngine
     {
@@ -105,7 +106,7 @@
         }
 
         /// <summary>
-        /// Initialize all nessesary fields to start game
+        ///Method that initializes all nessesary fields to start game
         /// </summary>
         private void InitializeGame()
         {
@@ -116,7 +117,7 @@
         }
 
         /// <summary>
-        /// Method that manage game cycle 
+        /// Method that manages game cycle 
         /// </summary>
         private void RunGame()
         {
@@ -143,7 +144,7 @@
         }
 
         /// <summary>
-        /// Mathod that update screen with number of wrong guesses, guesses letter and word on screen
+        /// Mathod that updates screen with number of wrong guesses, guesses letter and word on screen
         /// </summary>
         private void UpdateScreen()
         {
@@ -162,7 +163,7 @@
         }
 
         /// <summary>
-        /// Method that attempt to guess entire word by word as string.
+        /// Method that attempts to guess entire word by word as string.
         /// If word is guessed player gets bonus points, otherwise
         /// wrong guesses becomes maximal allowed.Then game ends. 
         /// </summary>
@@ -210,7 +211,7 @@
         }
 
         /// <summary>
-        /// Method that execute command by given string as command
+        /// Method that executes command by given string as command
         /// </summary>
         /// <param name="commandString">Command to execute</param>
         private void ExecuteCommand(string commandString)
