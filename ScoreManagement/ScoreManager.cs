@@ -9,7 +9,7 @@
     using Hangman.IO;
 
     /// <summary>
-    /// Manage scores from player's and provide leader board
+    /// Manage scores of players and provide leader board
     /// </summary>
     public class ScoreManager : IScoreManager
     {
